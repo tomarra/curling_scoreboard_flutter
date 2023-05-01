@@ -22,6 +22,5 @@ jobs:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CURLING_SCOREBOARD_DEV }}"
           projectId: curling-scoreboard-dev
-          target: app_dev
           expires: 30d
           channelId: live

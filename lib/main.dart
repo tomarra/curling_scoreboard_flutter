@@ -140,38 +140,42 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   void showSettingsDialog(BuildContext context) {
     showDialog(
         context: context,
-        builder: (BuildContext context) {
+        builder: (context) {
           int settingsTotalEnds = totalEnds;
 
-          return AlertDialog(
-            title: const Text('Settings'),
-            content: Column(mainAxisSize: MainAxisSize.min, children: [
-              DropdownButton<int>(
-                value: settingsTotalEnds,
-                onChanged: (int? newValue) {
-                  setState(() {
-                    settingsTotalEnds = newValue!;
-                  });
-                },
-                items: List.generate(10, (index) => index)
-                    .map<DropdownMenuItem<int>>((int value) {
-                  return DropdownMenuItem<int>(
-                    value: value + 1,
-                    child: Text((value + 1).toString()),
-                  );
-                }).toList(),
-              )
-            ]),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  updateTotalEnds(settingsTotalEnds);
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Confirm'),
-              )
-            ],
-          );
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              title: const Text("Settings"),
+              content: Form(
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                  DropdownButton<int>(
+                    value: settingsTotalEnds,
+                    onChanged: (int? newValue) {
+                      setState(() {
+                        settingsTotalEnds = newValue!;
+                      });
+                    },
+                    items: List.generate(10, (index) => index)
+                        .map<DropdownMenuItem<int>>((int value) {
+                      return DropdownMenuItem<int>(
+                        value: value + 1,
+                        child: Text((value + 1).toString()),
+                      );
+                    }).toList(),
+                  )
+                ]),
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    updateTotalEnds(settingsTotalEnds);
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Confirm'),
+                )
+              ],
+            );
+          });
         });
   }
 

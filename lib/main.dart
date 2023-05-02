@@ -288,7 +288,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: const Text('Edit Score'),
+              title: Text('Edit Score - End $end'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -477,7 +477,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                               context,
                               (end).toString(),
                               'Red',
-                              6,
+                              0,
                             );
                           }
                         },

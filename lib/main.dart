@@ -100,6 +100,25 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     });
   }
 
+  void editScore(int end, int score, String team) {
+    final originalEndScore = scores.elementAt(end - 1);
+
+    setState(() {
+      if (team == 'Red') {
+        redScores[end - 1] = score;
+        yellowScores[end - 1] = 0;
+      } else {
+        yellowScores[end - 1] = score;
+        redScores[end - 1] = 0;
+      }
+
+      originalEndScore.team = team;
+      originalEndScore.scores[end - 1] = score;
+
+      scores[end - 1] = originalEndScore;
+    });
+  }
+
   void resetGame() {
     setState(() {
       redScores.clear();
@@ -152,20 +171,25 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    DropdownButton<int>(
-                      value: settingsTotalEnds,
-                      onChanged: (int? newValue) {
-                        setState(() {
-                          settingsTotalEnds = newValue!;
-                        });
-                      },
-                      items: List.generate(10, (index) => index)
-                          .map<DropdownMenuItem<int>>((int value) {
-                        return DropdownMenuItem<int>(
-                          value: value + 1,
-                          child: Text((value + 1).toString()),
-                        );
-                      }).toList(),
+                    Row(
+                      children: [
+                        const Text('Number of Ends: '),
+                        DropdownButton<int>(
+                          value: settingsTotalEnds,
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              settingsTotalEnds = newValue!;
+                            });
+                          },
+                          items: List.generate(10, (index) => index)
+                              .map<DropdownMenuItem<int>>((int value) {
+                            return DropdownMenuItem<int>(
+                              value: value + 1,
+                              child: Text((value + 1).toString()),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -237,6 +261,74 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                 ElevatedButton(
                   onPressed: () {
                     enterScore(selectedScore, selectedTeam);
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Enter'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void showEditScoreDialog(
+    BuildContext context,
+    String end,
+    String team,
+    int score,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        var selectedTeam = team;
+        var selectedScore = score;
+
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Edit Score - End $end'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DropdownButton<String>(
+                    value: selectedTeam,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedTeam = newValue!;
+                      });
+                    },
+                    items: <String>['Red', 'Yellow']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 16),
+                  DropdownButton<int>(
+                    value: selectedScore,
+                    onChanged: (int? newValue) {
+                      setState(() {
+                        selectedScore = newValue!;
+                      });
+                    },
+                    items: List.generate(9, (index) => index)
+                        .map<DropdownMenuItem<int>>((int value) {
+                      return DropdownMenuItem<int>(
+                        value: value,
+                        child: Text(value.toString()),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    editScore(int.parse(end), selectedScore, selectedTeam);
                     Navigator.of(context).pop();
                   },
                   child: const Text('Enter'),
@@ -351,10 +443,123 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          LandscapeScoreboard(
-            totalEnds: totalEnds,
-            redScores: redScores,
-            yellowScores: yellowScores,
+          Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                const SizedBox(width: 16),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 8),
+                    ...List.generate(totalEnds + 1, (index) => index + 1).map(
+                      (end) => InkWell(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            color: Colors.blue,
+                          ),
+                          child: Text(
+                            (end > totalEnds) ? 'E' : end.toString(),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          if (scores.length >= end) {
+                            showEditScoreDialog(
+                              context,
+                              (end).toString(),
+                              'Red',
+                              0,
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 16),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 8),
+                    ...List.generate(totalEnds + 1, (index) {
+                      if (index < redScores.length) {
+                        return Container(
+                          alignment: Alignment.center,
+                          width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                          ),
+                          child: Text(
+                            redScores[index].toString(),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          alignment: Alignment.center,
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.red[200],
+                          ),
+                        );
+                      }
+                    })
+                  ],
+                ),
+                const SizedBox(width: 16),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 8),
+                    ...List.generate(totalEnds + 1, (index) {
+                      if (index < yellowScores.length) {
+                        return Container(
+                          alignment: Alignment.center,
+                          width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            color: Colors.yellow,
+                          ),
+                          child: Text(
+                            yellowScores[index].toString(),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          alignment: Alignment.center,
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.yellow[200],
+                          ),
+                        );
+                      }
+                    })
+                  ],
+                ),
+                const SizedBox(width: 16),
+              ],
+            ),
           ),
         ],
       ),
@@ -362,8 +567,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 }
 
-class LandscapeScoreboard extends StatelessWidget {
-  const LandscapeScoreboard({
+class HorizontalScoreboard extends StatelessWidget {
+  const HorizontalScoreboard({
     required this.totalEnds,
     required this.redScores,
     required this.yellowScores,
@@ -387,21 +592,26 @@ class LandscapeScoreboard extends StatelessWidget {
             children: [
               const SizedBox(height: 8),
               ...List.generate(totalEnds + 1, (index) => index + 1).map(
-                (end) => Container(
-                  alignment: Alignment.center,
-                  width: 40,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                  child: Text(
-                    (end > totalEnds) ? 'E' : end.toString(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                (end) => InkWell(
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                    ),
+                    child: Text(
+                      (end > totalEnds) ? 'E' : end.toString(),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
+                  onTap: () {
+                    //showEditScoreDialog(context, (end).toString(), 'Red', 6);
+                  },
                 ),
               ),
             ],

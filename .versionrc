@@ -1,0 +1,11 @@
+{
+  "types": [
+    {"type":"feat","section":"Features"},
+    {"type":"fix","section":"Bug Fixes"},
+    {"type":"test","section":"Tests", "hidden": false},
+    {"type":"build","section":"Build System", "hidden": true},
+    {"type":"ci","hidden":true}
+  ],
+  "tag-prefix": "",
+  "header": "Changelog\n\n"
+}

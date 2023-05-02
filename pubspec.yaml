@@ -2,7 +2,7 @@ name: curling_scoreboard_flutter
 description: A new Flutter project.
 
 publish_to: "none"
-version: 1.0.0+1
+version: 0.0.1
 
 environment:
   sdk: ">=2.18.2 <3.0.0"
@@ -19,6 +19,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  build_runner: ^2.0.6
+  build_version: ^2.0.3
 
 flutter:
   generate: true

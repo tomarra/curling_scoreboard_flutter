@@ -1,7 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'dart:async';
 
 void main() {
   runApp(const CurlingScoreboardApp());
@@ -15,7 +15,7 @@ class CurlingScoreboardApp extends StatelessWidget {
     return MaterialApp(
       title: 'Curling Scoreboard',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales, // English,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -25,11 +25,10 @@ class CurlingScoreboardApp extends StatelessWidget {
 }
 
 class EndScore {
+  EndScore({required this.team, required this.scores, required this.gameTime});
   String team;
   List<int> scores;
   String gameTime;
-
-  EndScore({required this.team, required this.scores, required this.gameTime});
 }
 
 class CurlingScoreboardScreen extends StatefulWidget {
@@ -60,20 +59,18 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       totalTimerSeconds += 1;
-      setState(() {
-        updateGameTimeString();
-      });
+      setState(updateGameTimeString);
     });
   }
 
   void updateGameTimeString() {
-    Duration duration = Duration(seconds: totalTimerSeconds);
+    final duration = Duration(seconds: totalTimerSeconds);
 
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     gameTime =
-        "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+        '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
   }
 
   void updateTotalEnds(int newTotalEnds) {
@@ -95,7 +92,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       }
       currentEnd++;
 
-      for (int i = 0; i < redScores.length; i++) {
+      for (var i = 0; i < redScores.length; i++) {
         endScore.scores.add(redScores[i] + yellowScores[i]);
       }
 
@@ -116,58 +113,62 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   void showResetConfirmationDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Reset'),
-            content:
-                const Text('Are you sure you want to reset the scoreboard?'),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('No'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  resetGame();
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Yes'),
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Reset'),
+          content: const Text('Are you sure you want to reset the scoreboard?'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('No'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                resetGame();
+                Navigator.of(context).pop();
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void showSettingsDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (context) {
-          int settingsTotalEnds = totalEnds;
+      context: context,
+      builder: (context) {
+        var settingsTotalEnds = totalEnds;
 
-          return StatefulBuilder(builder: (context, setState) {
+        return StatefulBuilder(
+          builder: (context, setState) {
             return AlertDialog(
-              title: const Text("Settings"),
+              title: const Text('Settings'),
               content: Form(
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
-                  DropdownButton<int>(
-                    value: settingsTotalEnds,
-                    onChanged: (int? newValue) {
-                      setState(() {
-                        settingsTotalEnds = newValue!;
-                      });
-                    },
-                    items: List.generate(10, (index) => index)
-                        .map<DropdownMenuItem<int>>((int value) {
-                      return DropdownMenuItem<int>(
-                        value: value + 1,
-                        child: Text((value + 1).toString()),
-                      );
-                    }).toList(),
-                  )
-                ]),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DropdownButton<int>(
+                      value: settingsTotalEnds,
+                      onChanged: (int? newValue) {
+                        setState(() {
+                          settingsTotalEnds = newValue!;
+                        });
+                      },
+                      items: List.generate(10, (index) => index)
+                          .map<DropdownMenuItem<int>>((int value) {
+                        return DropdownMenuItem<int>(
+                          value: value + 1,
+                          child: Text((value + 1).toString()),
+                        );
+                      }).toList(),
+                    )
+                  ],
+                ),
               ),
               actions: [
                 ElevatedButton(
@@ -179,67 +180,71 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                 )
               ],
             );
-          });
-        });
+          },
+        );
+      },
+    );
   }
 
   void showAddScoreDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        String selectedTeam = 'Red';
-        int selectedScore = 0;
+        var selectedTeam = 'Red';
+        var selectedScore = 0;
 
-        return StatefulBuilder(builder: (context, setState) {
-          return AlertDialog(
-            title: const Text('Enter Score'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DropdownButton<String>(
-                  value: selectedTeam,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedTeam = newValue!;
-                    });
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Enter Score'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DropdownButton<String>(
+                    value: selectedTeam,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedTeam = newValue!;
+                      });
+                    },
+                    items: <String>['Red', 'Yellow']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 16),
+                  DropdownButton<int>(
+                    value: selectedScore,
+                    onChanged: (int? newValue) {
+                      setState(() {
+                        selectedScore = newValue!;
+                      });
+                    },
+                    items: List.generate(9, (index) => index)
+                        .map<DropdownMenuItem<int>>((int value) {
+                      return DropdownMenuItem<int>(
+                        value: value,
+                        child: Text(value.toString()),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    enterScore(selectedScore, selectedTeam);
+                    Navigator.of(context).pop();
                   },
-                  items: <String>['Red', 'Yellow']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 16),
-                DropdownButton<int>(
-                  value: selectedScore,
-                  onChanged: (int? newValue) {
-                    setState(() {
-                      selectedScore = newValue!;
-                    });
-                  },
-                  items: List.generate(9, (index) => index)
-                      .map<DropdownMenuItem<int>>((int value) {
-                    return DropdownMenuItem<int>(
-                      value: value,
-                      child: Text(value.toString()),
-                    );
-                  }).toList(),
+                  child: const Text('Enter'),
                 ),
               ],
-            ),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  enterScore(selectedScore, selectedTeam);
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Enter'),
-              ),
-            ],
-          );
-        });
+            );
+          },
+        );
       },
     );
   }
@@ -258,29 +263,32 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         title: Text(AppLocalizations.of(context)!.appBarTitle),
         actions: <Widget>[
           Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  showResetConfirmationDialog(context);
-                },
-                child: const Icon(Icons.replay_outlined),
-              )),
+            padding: const EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: () {
+                showResetConfirmationDialog(context);
+              },
+              child: const Icon(Icons.replay_outlined),
+            ),
+          ),
           Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  showAddScoreDialog(context);
-                },
-                child: const Icon(Icons.add),
-              )),
+            padding: const EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: () {
+                showAddScoreDialog(context);
+              },
+              child: const Icon(Icons.add),
+            ),
+          ),
           Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  showSettingsDialog(context);
-                },
-                child: const Icon(Icons.settings),
-              )),
+            padding: const EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              onTap: () {
+                showSettingsDialog(context);
+              },
+              child: const Icon(Icons.settings),
+            ),
+          ),
         ],
       ),
       body: Column(
@@ -344,9 +352,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           ),
           const SizedBox(height: 16),
           LandscapeScoreboard(
-              totalEnds: totalEnds,
-              redScores: redScores,
-              yellowScores: yellowScores),
+            totalEnds: totalEnds,
+            redScores: redScores,
+            yellowScores: yellowScores,
+          ),
         ],
       ),
     );
@@ -355,11 +364,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
 class LandscapeScoreboard extends StatelessWidget {
   const LandscapeScoreboard({
-    Key? key,
     required this.totalEnds,
     required this.redScores,
     required this.yellowScores,
-  }) : super(key: key);
+    super.key,
+  });
 
   final int totalEnds;
   final List<int> redScores;
@@ -377,25 +386,24 @@ class LandscapeScoreboard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 8),
-              ...List.generate(totalEnds + 1, (index) => index + 1)
-                  .map((end) => Container(
-                        alignment: Alignment.center,
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.blue,
-                        ),
-                        child: Text(
-                          (end > totalEnds) ? "E" : end.toString(),
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ))
-                  .toList(),
+              ...List.generate(totalEnds + 1, (index) => index + 1).map(
+                (end) => Container(
+                  alignment: Alignment.center,
+                  width: 40,
+                  height: 40,
+                  decoration: const BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Text(
+                    (end > totalEnds) ? 'E' : end.toString(),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           const SizedBox(width: 16),
@@ -410,7 +418,6 @@ class LandscapeScoreboard extends StatelessWidget {
                     width: 40,
                     height: 40,
                     decoration: const BoxDecoration(
-                      shape: BoxShape.rectangle,
                       color: Colors.red,
                     ),
                     child: Text(
@@ -428,12 +435,11 @@ class LandscapeScoreboard extends StatelessWidget {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
                       color: Colors.red[200],
                     ),
                   );
                 }
-              }).toList(),
+              })
             ],
           ),
           const SizedBox(width: 16),
@@ -448,7 +454,6 @@ class LandscapeScoreboard extends StatelessWidget {
                     width: 40,
                     height: 40,
                     decoration: const BoxDecoration(
-                      shape: BoxShape.rectangle,
                       color: Colors.yellow,
                     ),
                     child: Text(
@@ -466,149 +471,16 @@ class LandscapeScoreboard extends StatelessWidget {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
                       color: Colors.yellow[200],
                     ),
                   );
                 }
-              }).toList(),
+              })
             ],
           ),
           const SizedBox(width: 16),
         ],
       ),
-    );
-  }
-}
-
-class LandscapeScoreboard2 extends StatelessWidget {
-  const LandscapeScoreboard2({
-    Key? key,
-    required this.totalEnds,
-    required this.redScores,
-    required this.yellowScores,
-  }) : super(key: key);
-
-  final int totalEnds;
-  final List<int> redScores;
-  final List<int> yellowScores;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 8),
-                  ...List.generate(totalEnds + 1, (index) => index + 1)
-                      .map((end) => Container(
-                            alignment: Alignment.center,
-                            width: 40,
-                            height: 40,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Colors.blue,
-                            ),
-                            child: Text(
-                              (end > totalEnds) ? "E" : end.toString(),
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 8),
-                  ...List.generate(totalEnds + 1, (index) {
-                    if (index < redScores.length) {
-                      return Container(
-                        alignment: Alignment.center,
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.red,
-                        ),
-                        child: Text(
-                          redScores[index].toString(),
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        alignment: Alignment.center,
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.red[200],
-                        ),
-                      );
-                    }
-                  }).toList(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 8),
-                  ...List.generate(totalEnds + 1, (index) {
-                    if (index < yellowScores.length) {
-                      return Container(
-                        alignment: Alignment.center,
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.yellow,
-                        ),
-                        child: Text(
-                          yellowScores[index].toString(),
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        alignment: Alignment.center,
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.yellow[200],
-                        ),
-                      );
-                    }
-                  }).toList(),
-                ],
-              ),
-              const SizedBox(width: 16),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

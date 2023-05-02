@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 void main() {
   runApp(const CurlingScoreboardApp());
 }
@@ -12,6 +15,8 @@ class CurlingScoreboardApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Curling Scoreboard',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales, // English,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -249,7 +254,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 30,
-        title: const Text('Curling Scoreboard'),
+        title: Text(AppLocalizations.of(context)!.appBarTitle),
         actions: <Widget>[
           Padding(
               padding: const EdgeInsets.only(right: 20.0),

@@ -1,0 +1,6 @@
+{
+    "appBarTitle": "Curling Scoreboard",
+    "@appBarTitle": {
+      "description": "The title shown in the top app bar"
+    }
+}

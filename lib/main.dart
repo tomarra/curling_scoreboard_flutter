@@ -183,61 +183,63 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         });
   }
 
-  void showScoreDialog(BuildContext context) {
+  void showAddScoreDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         String selectedTeam = 'Red';
         int selectedScore = 0;
 
-        return AlertDialog(
-          title: const Text('Enter Score'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              DropdownButton<String>(
-                value: selectedTeam,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedTeam = newValue!;
-                  });
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            title: const Text('Enter Score'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  value: selectedTeam,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedTeam = newValue!;
+                    });
+                  },
+                  items: <String>['Red', 'Yellow']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 16),
+                DropdownButton<int>(
+                  value: selectedScore,
+                  onChanged: (int? newValue) {
+                    setState(() {
+                      selectedScore = newValue!;
+                    });
+                  },
+                  items: List.generate(9, (index) => index)
+                      .map<DropdownMenuItem<int>>((int value) {
+                    return DropdownMenuItem<int>(
+                      value: value,
+                      child: Text(value.toString()),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  enterScore(selectedScore, selectedTeam);
+                  Navigator.of(context).pop();
                 },
-                items: <String>['Red', 'Yellow']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 16),
-              DropdownButton<int>(
-                value: selectedScore,
-                onChanged: (int? newValue) {
-                  setState(() {
-                    selectedScore = newValue!;
-                  });
-                },
-                items: List.generate(9, (index) => index)
-                    .map<DropdownMenuItem<int>>((int value) {
-                  return DropdownMenuItem<int>(
-                    value: value,
-                    child: Text(value.toString()),
-                  );
-                }).toList(),
+                child: const Text('Enter'),
               ),
             ],
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                enterScore(selectedScore, selectedTeam);
-                Navigator.of(context).pop();
-              },
-              child: const Text('Enter'),
-            ),
-          ],
-        );
+          );
+        });
       },
     );
   }
@@ -267,7 +269,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               padding: const EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  showScoreDialog(context);
+                  showAddScoreDialog(context);
                 },
                 child: const Icon(Icons.add),
               )),

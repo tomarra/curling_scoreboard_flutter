@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'dart:async';
 
 void main() {
   runApp(const CurlingScoreboardApp());
@@ -37,7 +36,7 @@ class CurlingScoreboardScreen extends StatefulWidget {
   const CurlingScoreboardScreen({super.key});
 
   @override
-  _CurlingScoreboardScreenState createState() =>
+  State<CurlingScoreboardScreen> createState() =>
       _CurlingScoreboardScreenState();
 }
 
@@ -109,7 +108,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       redScores.clear();
       yellowScores.clear();
       currentEnd = 1;
-      gameTime = '00:00';
+      gameTime = '00:00:00';
       totalTimerSeconds = 0;
       scores.clear();
     });

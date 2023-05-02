@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('Curling Scoreboard App', () {
     testWidgets('Initial state', (WidgetTester tester) async {
-      await tester.pumpWidget(CurlingScoreboardApp());
+      await tester.pumpWidget(const CurlingScoreboardApp());
 
       // Verify that the app starts with the initial state
       expect(find.text('Red'), findsOneWidget);
@@ -16,7 +16,7 @@ void main() {
     });
 
     testWidgets('Enter Score', (WidgetTester tester) async {
-      await tester.pumpWidget(CurlingScoreboardApp());
+      await tester.pumpWidget(const CurlingScoreboardApp());
 
       // Open the score dialog
       await tester.tap(find.byIcon(Icons.add));
@@ -36,7 +36,7 @@ void main() {
     });
 
     testWidgets('Reset Game', (WidgetTester tester) async {
-      await tester.pumpWidget(CurlingScoreboardApp());
+      await tester.pumpWidget(const CurlingScoreboardApp());
 
       // Enter a score to make the game in progress
       await tester.tap(find.byIcon(Icons.add));

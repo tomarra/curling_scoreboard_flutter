@@ -43,3 +43,13 @@ jobs:
         run: dart format --set-exit-if-changed lib test
       - name: Analyze
         run: flutter analyze
+  validate_spelling:
+    name: Validate Spelling
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Spelling
+        uses: streetsidesoftware/cspell-action@v2
+        with:
+          files: "**/*.{*}"
+          config: .vscode/cspell.json
+          incremental_files_only: false

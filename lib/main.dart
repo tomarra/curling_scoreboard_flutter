@@ -101,7 +101,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void editScore(int end, int score, String team) {
-    var originalEndScore = scores.elementAt(end - 1);
+    final originalEndScore = scores.elementAt(end - 1);
 
     setState(() {
       if (team == 'Red') {
@@ -173,7 +173,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                   children: [
                     Row(
                       children: [
-                        Text("Number of Ends: "),
+                        const Text('Number of Ends: '),
                         DropdownButton<int>(
                           value: settingsTotalEnds,
                           onChanged: (int? newValue) {
@@ -274,7 +274,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void showEditScoreDialog(
-      BuildContext context, String end, String team, int score) {
+    BuildContext context,
+    String end,
+    String team,
+    int score,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -470,7 +474,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                         onTap: () {
                           if (scores.length >= end) {
                             showEditScoreDialog(
-                                context, (end).toString(), 'Red', 6);
+                              context,
+                              (end).toString(),
+                              'Red',
+                              6,
+                            );
                           }
                         },
                       ),

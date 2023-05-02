@@ -83,7 +83,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     final endScore = EndScore(team: team, scores: [], gameTime: gameTime);
 
     setState(() {
-      if (team == 'Red') {
+      if (team == AppLocalizations.of(context)!.teamNameRed) {
         redScores.add(score);
         yellowScores.add(0);
       } else {
@@ -104,7 +104,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     final originalEndScore = scores.elementAt(end - 1);
 
     setState(() {
-      if (team == 'Red') {
+      if (team == AppLocalizations.of(context)!.teamNameRed) {
         redScores[end - 1] = score;
         yellowScores[end - 1] = 0;
       } else {
@@ -214,7 +214,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        var selectedTeam = 'Red';
+        var selectedTeam = AppLocalizations.of(context)!.teamNameRed;
         var selectedScore = 0;
 
         return StatefulBuilder(
@@ -231,8 +231,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                         selectedTeam = newValue!;
                       });
                     },
-                    items: <String>['Red', 'Yellow']
-                        .map<DropdownMenuItem<String>>((String value) {
+                    items: <String>[
+                      AppLocalizations.of(context)!.teamNameRed,
+                      AppLocalizations.of(context)!.teamNameYellow
+                    ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -299,8 +301,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                         selectedTeam = newValue!;
                       });
                     },
-                    items: <String>['Red', 'Yellow']
-                        .map<DropdownMenuItem<String>>((String value) {
+                    items: <String>[
+                      AppLocalizations.of(context)!.teamNameRed,
+                      AppLocalizations.of(context)!.teamNameYellow
+                    ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -388,17 +392,17 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children: [
               Text(
-                'Red',
-                style: TextStyle(
+                AppLocalizations.of(context)!.teamNameRed,
+                style: const TextStyle(
                   fontSize: 24,
                   color: Colors.red,
                 ),
               ),
               Text(
-                'Yellow',
-                style: TextStyle(
+                AppLocalizations.of(context)!.teamNameYellow,
+                style: const TextStyle(
                   fontSize: 24,
                   color: Colors.yellow,
                 ),
@@ -476,7 +480,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                             showEditScoreDialog(
                               context,
                               (end).toString(),
-                              'Red',
+                              AppLocalizations.of(context)!.teamNameRed,
                               0,
                             );
                           }
@@ -561,134 +565,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               ],
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class HorizontalScoreboard extends StatelessWidget {
-  const HorizontalScoreboard({
-    required this.totalEnds,
-    required this.redScores,
-    required this.yellowScores,
-    super.key,
-  });
-
-  final int totalEnds;
-  final List<int> redScores;
-  final List<int> yellowScores;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      alignment: Alignment.center,
-      child: Column(
-        children: [
-          const SizedBox(width: 16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              ...List.generate(totalEnds + 1, (index) => index + 1).map(
-                (end) => InkWell(
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      color: Colors.blue,
-                    ),
-                    child: Text(
-                      (end > totalEnds) ? 'E' : end.toString(),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    //showEditScoreDialog(context, (end).toString(), 'Red', 6);
-                  },
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              ...List.generate(totalEnds + 1, (index) {
-                if (index < redScores.length) {
-                  return Container(
-                    alignment: Alignment.center,
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                    ),
-                    child: Text(
-                      redScores[index].toString(),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container(
-                    alignment: Alignment.center,
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.red[200],
-                    ),
-                  );
-                }
-              })
-            ],
-          ),
-          const SizedBox(width: 16),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              ...List.generate(totalEnds + 1, (index) {
-                if (index < yellowScores.length) {
-                  return Container(
-                    alignment: Alignment.center,
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      color: Colors.yellow,
-                    ),
-                    child: Text(
-                      yellowScores[index].toString(),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container(
-                    alignment: Alignment.center,
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.yellow[200],
-                    ),
-                  );
-                }
-              })
-            ],
-          ),
-          const SizedBox(width: 16),
         ],
       ),
     );

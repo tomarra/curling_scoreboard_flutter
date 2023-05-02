@@ -47,6 +47,8 @@ jobs:
     name: Validate Spelling
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
       - name: Check Spelling
         uses: streetsidesoftware/cspell-action@v2
         with:

@@ -1,0 +1,70 @@
+name: Version Increment
+
+on: workflow_dispatch
+
+jobs:
+  version_increment:
+    name: Version Increment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Action
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+
+      - name: Setup git
+        run: |
+          git config --global user.name 'Build Bot'
+          git config user.email bot@tomarra.com
+
+      - name: Install yq
+        run: |
+          sudo wget -O /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.9.8/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1.5.3
+        with:
+          flutter-version: "3.7.12"
+          channel: "stable"
+
+      - name: Install standard-version
+        run: |
+          sudo npm i -g standard-version standard-changelog
+
+      - name: Generate release notes only
+        run: |
+          rm RELEASE_NOTES.md && touch RELEASE_NOTES.md
+          standard-changelog -i RELEASE_NOTES.md -o RELEASE_NOTES.md -a false
+
+      - name: Run standard-version
+        run: standard-version
+
+      - name: Get/Set Tag
+        run: |
+          export TAG=$(git describe --tags)
+          echo "tag=$TAG" >> $GITHUB_ENV
+
+      - name: Update version
+        run: |
+          yq eval '.version = "${{ env.tag }}"' -i pubspec.yaml
+          flutter packages get && flutter pub run build_runner build --delete-conflicting-outputs
+          git add pubspec.yaml
+          git add RELEASE_NOTES.md
+          git add lib/src/version.dart
+          git commit --amend --no-edit
+          git tag -d "${{ env.tag }}"
+          git tag "${{ env.tag }}"
+
+      - name: Push changes
+        run: |
+          git push --follow-tags origin main
+          git push --tags
+
+      - name: Make GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          bodyFile: RELEASE_NOTES.md
+          tag: ${{ env.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}

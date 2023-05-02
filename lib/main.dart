@@ -566,6 +566,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     );
   }*/
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
@@ -710,21 +711,18 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   Widget buildEndsContainer() {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double endContainerWidth = (screenWidth) / (totalEnds + 1);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final endContainerWidth = screenWidth / (totalEnds + 1);
 
-    return Container(
-      //alignment: Alignment.center,
-      child: Column(
-        children: [
-          const SizedBox(width: 16),
-          buildEndsRow(endContainerWidth),
-          const SizedBox(width: 16),
-          buildRedScoresRow(endContainerWidth),
-          const SizedBox(width: 16),
-          buildYellowScoresRow(endContainerWidth),
-        ],
-      ),
+    return Column(
+      children: [
+        const SizedBox(width: 16),
+        buildEndsRow(endContainerWidth),
+        const SizedBox(width: 16),
+        buildRedScoresRow(endContainerWidth),
+        const SizedBox(width: 16),
+        buildYellowScoresRow(endContainerWidth),
+      ],
     );
   }
 
@@ -779,7 +777,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         ...List.generate(totalEnds + 1, (index) {
           if (index < redScores.length) {
             return buildScoreContainer(
-                redScores[index], Colors.red, endContainerWidth);
+              redScores[index],
+              Colors.red,
+              endContainerWidth,
+            );
           } else {
             return buildScoreContainer(-1, Colors.red[200]!, endContainerWidth);
           }
@@ -796,10 +797,16 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         ...List.generate(totalEnds + 1, (index) {
           if (index < yellowScores.length) {
             return buildScoreContainer(
-                yellowScores[index], Colors.yellow, endContainerWidth);
+              yellowScores[index],
+              Colors.yellow,
+              endContainerWidth,
+            );
           } else {
             return buildScoreContainer(
-                -1, Colors.yellow[200]!, endContainerWidth);
+              -1,
+              Colors.yellow[200]!,
+              endContainerWidth,
+            );
           }
         }),
       ],

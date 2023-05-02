@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -24,13 +25,6 @@ class CurlingScoreboardApp extends StatelessWidget {
   }
 }
 
-class EndScore {
-  EndScore({required this.team, required this.scores, required this.gameTime});
-  String team;
-  List<int> scores;
-  String gameTime;
-}
-
 class CurlingScoreboardScreen extends StatefulWidget {
   const CurlingScoreboardScreen({super.key});
 
@@ -45,7 +39,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   int currentEnd = 1;
   int totalEnds = 8;
   String gameTime = '00:00:00';
-  List<EndScore> scores = [];
+  List<CurlingEnd> ends = [];
 
   Timer? timer;
   int totalTimerSeconds = 0;
@@ -80,7 +74,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void enterScore(int score, String team) {
-    final endScore = EndScore(team: team, scores: [], gameTime: gameTime);
+    final newEnd = CurlingEnd(
+      endNumber: currentEnd,
+      team: team,
+      score: score,
+      gameTimeInSeconds: totalTimerSeconds,
+    );
 
     setState(() {
       if (team == AppLocalizations.of(context)!.teamNameRed) {
@@ -92,16 +91,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       }
       currentEnd++;
 
-      for (var i = 0; i < redScores.length; i++) {
-        endScore.scores.add(redScores[i] + yellowScores[i]);
-      }
-
-      scores.add(endScore);
+      ends.add(newEnd);
     });
   }
 
   void editScore(int end, int score, String team) {
-    final originalEndScore = scores.elementAt(end - 1);
+    final originalEndScore = ends.elementAt(end - 1);
 
     setState(() {
       if (team == AppLocalizations.of(context)!.teamNameRed) {
@@ -112,10 +107,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         redScores[end - 1] = 0;
       }
 
-      originalEndScore.team = team;
-      originalEndScore.scores[end - 1] = score;
+      originalEndScore
+        ..team = team
+        ..score = score;
 
-      scores[end - 1] = originalEndScore;
+      ends[end - 1] = originalEndScore;
     });
   }
 
@@ -126,7 +122,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       currentEnd = 1;
       gameTime = '00:00:00';
       totalTimerSeconds = 0;
-      scores.clear();
+      ends.clear();
     });
   }
 
@@ -351,7 +347,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     super.dispose();
   }
 
-  @override
+  /*@override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -476,7 +472,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                           ),
                         ),
                         onTap: () {
-                          if (scores.length >= end) {
+                          if (ends.length >= end) {
                             showEditScoreDialog(
                               context,
                               (end).toString(),
@@ -566,6 +562,265 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }*/
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: buildAppBar(context),
+      body: buildBody(),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      toolbarHeight: 30,
+      title: Text(AppLocalizations.of(context)!.appBarTitle),
+      actions: <Widget>[
+        buildResetButton(context),
+        buildAddScoreButton(context),
+        buildSettingsButton(context),
+      ],
+    );
+  }
+
+  Widget buildResetButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 20),
+      child: GestureDetector(
+        onTap: () {
+          showResetConfirmationDialog(context);
+        },
+        child: const Icon(Icons.replay_outlined),
+      ),
+    );
+  }
+
+  Widget buildAddScoreButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 20),
+      child: GestureDetector(
+        onTap: () {
+          showAddScoreDialog(context);
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget buildSettingsButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 20),
+      child: GestureDetector(
+        onTap: () {
+          showSettingsDialog(context);
+        },
+        child: const Icon(Icons.settings),
+      ),
+    );
+  }
+
+  Widget buildBody() {
+    return Column(
+      children: [
+        const SizedBox(height: 16),
+        buildTeamNamesRow(),
+        const SizedBox(height: 16),
+        buildScoresRow(),
+        const SizedBox(height: 32),
+        buildGameInfoRow(),
+        const SizedBox(height: 16),
+        Expanded(
+          child: buildEndsContainer(),
+        ),
+      ],
+    );
+  }
+
+  Widget buildTeamNamesRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(
+          AppLocalizations.of(context)!.teamNameRed,
+          style: const TextStyle(
+            fontSize: 24,
+            color: Colors.red,
+          ),
+        ),
+        Text(
+          AppLocalizations.of(context)!.teamNameYellow,
+          style: const TextStyle(
+            fontSize: 24,
+            color: Colors.yellow,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildScoresRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        buildRedScoreText(),
+        buildYellowScoreText(),
+      ],
+    );
+  }
+
+  Widget buildRedScoreText() {
+    return Text(
+      redScores.fold(0, (a, b) => a + b).toString(),
+      style: const TextStyle(
+        fontSize: 48,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget buildYellowScoreText() {
+    return Text(
+      yellowScores.fold(0, (a, b) => a + b).toString(),
+      style: const TextStyle(
+        fontSize: 48,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget buildGameInfoRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'End $currentEnd',
+          style: const TextStyle(fontSize: 24),
+        ),
+        const SizedBox(width: 16),
+        Text(
+          'Game Time: $gameTime',
+          style: const TextStyle(fontSize: 24),
+        ),
+      ],
+    );
+  }
+
+  Widget buildEndsContainer() {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double endContainerWidth = (screenWidth) / (totalEnds + 1);
+
+    return Container(
+      //alignment: Alignment.center,
+      child: Column(
+        children: [
+          const SizedBox(width: 16),
+          buildEndsRow(endContainerWidth),
+          const SizedBox(width: 16),
+          buildRedScoresRow(endContainerWidth),
+          const SizedBox(width: 16),
+          buildYellowScoresRow(endContainerWidth),
+        ],
+      ),
+    );
+  }
+
+  Widget buildEndsRow(double endContainerWidth) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        ...List.generate(totalEnds + 1, (index) => index + 1).map(
+          (end) => InkWell(
+            child: buildEndContainer(end, endContainerWidth),
+            onTap: () {
+              if (ends.length >= end) {
+                showEditScoreDialog(
+                  context,
+                  (end).toString(),
+                  AppLocalizations.of(context)!.teamNameRed,
+                  0,
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildEndContainer(int end, double width) {
+    return Container(
+      alignment: Alignment.center,
+      width: width,
+      height: 40,
+      decoration: const BoxDecoration(
+        color: Colors.blue,
+      ),
+      child: Text(
+        (end > totalEnds) ? 'E' : end.toString(),
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Widget buildRedScoresRow(double endContainerWidth) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        ...List.generate(totalEnds + 1, (index) {
+          if (index < redScores.length) {
+            return buildScoreContainer(
+                redScores[index], Colors.red, endContainerWidth);
+          } else {
+            return buildScoreContainer(-1, Colors.red[200]!, endContainerWidth);
+          }
+        }),
+      ],
+    );
+  }
+
+  Widget buildYellowScoresRow(double endContainerWidth) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        ...List.generate(totalEnds + 1, (index) {
+          if (index < yellowScores.length) {
+            return buildScoreContainer(
+                yellowScores[index], Colors.yellow, endContainerWidth);
+          } else {
+            return buildScoreContainer(
+                -1, Colors.yellow[200]!, endContainerWidth);
+          }
+        }),
+      ],
+    );
+  }
+
+  Widget buildScoreContainer(int score, Color color, double width) {
+    return Container(
+      alignment: Alignment.center,
+      width: width,
+      height: 40,
+      decoration: BoxDecoration(
+        color: color,
+      ),
+      child: Text(
+        (score == -1) ? '' : score.toString(),
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
       ),
     );
   }

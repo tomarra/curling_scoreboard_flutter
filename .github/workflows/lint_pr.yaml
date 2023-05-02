@@ -8,7 +8,7 @@ on:
       - synchronize
 
 jobs:
-  main:
+  valdiate_pr_title:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
@@ -26,3 +26,20 @@ jobs:
             chore
             revert
           requireScope: false
+  validate_code:
+    name: Validate Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1.5.3
+        with:
+          flutter-version: "3.7.12"
+          channel: "stable"
+      - name: Get Flutter Packages
+        run: flutter pub get
+      - name: Check Formatting
+        run: dart format --set-exit-if-changed lib test
+      - name: Analyze
+        run: flutter analyze

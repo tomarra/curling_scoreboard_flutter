@@ -47,9 +47,11 @@ jobs:
     name: Validate Spelling
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
       - name: Check Spelling
         uses: streetsidesoftware/cspell-action@v2
         with:
-          files: "**/*.{*}"
+          files: "**/*.{arb}"
           config: .vscode/cspell.json
           incremental_files_only: false

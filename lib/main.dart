@@ -131,21 +131,21 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Reset'),
-          content: const Text('Are you sure you want to reset the scoreboard?'),
+          title: Text(AppLocalizations.of(context)!.resetDialogTitle),
+          content: Text(AppLocalizations.of(context)!.resetDialogDescription),
           actions: [
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('No'),
+              child: Text(AppLocalizations.of(context)!.buttonLabelNo),
             ),
             ElevatedButton(
               onPressed: () {
                 resetGame();
                 Navigator.of(context).pop();
               },
-              child: const Text('Yes'),
+              child: Text(AppLocalizations.of(context)!.buttonLabelYes),
             ),
           ],
         );
@@ -162,14 +162,17 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: const Text('Settings'),
+              title: Text(AppLocalizations.of(context)!.settingsDialogTitle),
               content: Form(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       children: [
-                        const Text('Number of Ends: '),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .settingsLabelNumberOfEnds,
+                        ),
                         DropdownButton<int>(
                           value: settingsTotalEnds,
                           onChanged: (int? newValue) {
@@ -196,7 +199,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     updateTotalEnds(settingsTotalEnds);
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Confirm'),
+                  child: Text(AppLocalizations.of(context)!.buttonLabelSave),
                 )
               ],
             );
@@ -216,7 +219,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: const Text('Enter Score'),
+              title: Text(AppLocalizations.of(context)!.enterScoreDialogTitle),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -261,7 +264,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     enterScore(selectedScore, selectedTeam);
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Enter'),
+                  child: Text(
+                    AppLocalizations.of(context)!
+                        .enterScoreDialogSaveButtonLabel,
+                  ),
                 ),
               ],
             );
@@ -273,7 +279,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   void showEditScoreDialog(
     BuildContext context,
-    String end,
+    int end,
     String team,
     int score,
   ) {
@@ -282,11 +288,16 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       builder: (BuildContext context) {
         var selectedTeam = team;
         var selectedScore = score;
+        final endText = (end > totalEnds)
+            ? AppLocalizations.of(context)!.editScoreDialogExtraEndText
+            : end.toString();
 
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text('Edit Score - End $end'),
+              title: Text(
+                AppLocalizations.of(context)!.editScoreDialogTitle(endText),
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -328,10 +339,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               actions: [
                 ElevatedButton(
                   onPressed: () {
-                    editScore(int.parse(end), selectedScore, selectedTeam);
+                    editScore(end, selectedScore, selectedTeam);
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Enter'),
+                  child: Text(
+                    AppLocalizations.of(context)!
+                        .editScoreDialogSaveButtonLabel,
+                  ),
                 ),
               ],
             );
@@ -466,16 +480,20 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   Widget buildGameInfoRow() {
+    final endText = (currentEnd > totalEnds)
+        ? AppLocalizations.of(context)!.gameInfoExtraEndText
+        : currentEnd.toString();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'End $currentEnd',
+          AppLocalizations.of(context)!.gameInfoEndLabel(endText),
           style: const TextStyle(fontSize: 24),
         ),
         const SizedBox(width: 16),
         Text(
-          'Game Time: $gameTime',
+          AppLocalizations.of(context)!.gameInfoGameTimeLabel(gameTime),
           style: const TextStyle(fontSize: 24),
         ),
       ],
@@ -510,7 +528,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               if (ends.length >= end) {
                 showEditScoreDialog(
                   context,
-                  (end).toString(),
+                  end,
                   AppLocalizations.of(context)!.teamNameRed,
                   0,
                 );
@@ -531,7 +549,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         color: Colors.blue,
       ),
       child: Text(
-        (end > totalEnds) ? 'E' : end.toString(),
+        (end > totalEnds)
+            ? AppLocalizations.of(context)!.scoreboardExtraEndLabel
+            : end.toString(),
         style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,

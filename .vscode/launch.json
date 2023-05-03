@@ -10,6 +10,12 @@
       "type": "dart",
       "program": "lib/main.dart",
       "args": ["-d", "chrome"]
+    },
+    {
+      "name": "Launch App",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart"
     }
   ]
 }

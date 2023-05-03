@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
+import 'package:curling_scoreboard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -18,7 +20,7 @@ class CurlingScoreboardApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Constants.primaryThemeColor,
       ),
       home: const CurlingScoreboardScreen(),
     );
@@ -36,10 +38,11 @@ class CurlingScoreboardScreen extends StatefulWidget {
 class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   List<int> redScores = [];
   List<int> yellowScores = [];
-  int currentEnd = 1;
-  int totalEnds = 8;
-  String gameTime = '00:00:00';
   List<CurlingEnd> ends = [];
+
+  int currentEnd = Constants.defaultStartingEnd;
+  int totalEnds = Constants.defaultTotalEnds;
+  String gameTime = '00:00:00';
 
   Timer? timer;
   int totalTimerSeconds = 0;
@@ -223,38 +226,54 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  DropdownButton<String>(
-                    value: selectedTeam,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedTeam = newValue!;
-                      });
-                    },
-                    items: <String>[
-                      AppLocalizations.of(context)!.teamNameRed,
-                      AppLocalizations.of(context)!.teamNameYellow
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                  Row(
+                    children: [
+                      const Text('Team'),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<String>(
+                        value: selectedTeam,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedTeam = newValue!;
+                          });
+                        },
+                        items: <String>[
+                          AppLocalizations.of(context)!.teamNameRed,
+                          AppLocalizations.of(context)!.teamNameYellow
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
-                  DropdownButton<int>(
-                    value: selectedScore,
-                    onChanged: (int? newValue) {
-                      setState(() {
-                        selectedScore = newValue!;
-                      });
-                    },
-                    items: List.generate(9, (index) => index)
-                        .map<DropdownMenuItem<int>>((int value) {
-                      return DropdownMenuItem<int>(
-                        value: value,
-                        child: Text(value.toString()),
-                      );
-                    }).toList(),
+                  Row(
+                    children: [
+                      const Text('Score'),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<int>(
+                        value: selectedScore,
+                        onChanged: (int? newValue) {
+                          setState(() {
+                            selectedScore = newValue!;
+                          });
+                        },
+                        items: List.generate(9, (index) => index)
+                            .map<DropdownMenuItem<int>>((int value) {
+                          return DropdownMenuItem<int>(
+                            value: value,
+                            child: Text(value.toString()),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -420,11 +439,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   Widget buildBody() {
     return Column(
       children: [
-        const SizedBox(height: 16),
-        buildTeamNamesRow(),
-        const SizedBox(height: 16),
         buildScoresRow(),
-        const SizedBox(height: 32),
+        const SizedBox(height: 16),
         buildGameInfoRow(),
         const SizedBox(height: 16),
         Expanded(
@@ -434,48 +450,21 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     );
   }
 
-  Widget buildTeamNamesRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text(
-          AppLocalizations.of(context)!.teamNameRed,
-          style: const TextStyle(
-            fontSize: 24,
-            color: Colors.red,
-          ),
-        ),
-        Text(
-          AppLocalizations.of(context)!.teamNameYellow,
-          style: const TextStyle(
-            fontSize: 24,
-            color: Colors.yellow,
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget buildScoresRow() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        buildTeamTotalScoreText(redScores.fold(0, (a, b) => a + b).toString()),
-        buildTeamTotalScoreText(
-          yellowScores.fold(0, (a, b) => a + b).toString(),
+        TeamTotalScoreWidget(
+          score: redScores.fold(0, (a, b) => a + b).toString(),
+          backgroundColor: Colors.red,
+          teamName: AppLocalizations.of(context)!.teamNameRed,
+        ),
+        TeamTotalScoreWidget(
+          score: yellowScores.fold(0, (a, b) => a + b).toString(),
+          backgroundColor: Colors.yellow,
+          teamName: AppLocalizations.of(context)!.teamNameYellow,
         ),
       ],
-    );
-  }
-
-  Widget buildTeamTotalScoreText(String score) {
-    return Text(
-      score,
-      style: const TextStyle(
-        fontSize: 120,
-        color: Colors.black,
-        fontWeight: FontWeight.bold,
-      ),
     );
   }
 
@@ -484,20 +473,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         ? AppLocalizations.of(context)!.gameInfoExtraEndText
         : currentEnd.toString();
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          AppLocalizations.of(context)!.gameInfoEndLabel(endText),
-          style: const TextStyle(fontSize: 24),
-        ),
-        const SizedBox(width: 16),
-        Text(
-          AppLocalizations.of(context)!.gameInfoGameTimeLabel(gameTime),
-          style: const TextStyle(fontSize: 24),
-        ),
-      ],
-    );
+    return GameInfoRowWidget(end: endText, gameTime: gameTime);
   }
 
   Widget buildEndsContainer() {
@@ -596,7 +572,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           } else {
             return buildScoreContainer(
               -1,
-              Colors.yellow[200]!,
+              Constants.yellowTeamAccentColor,
               endContainerWidth,
             );
           }

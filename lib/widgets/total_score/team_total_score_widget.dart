@@ -22,6 +22,7 @@ class TeamTotalScoreWidget extends StatelessWidget {
       width: teamTotalScoreContainerWidth,
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             teamName,
@@ -33,7 +34,7 @@ class TeamTotalScoreWidget extends StatelessWidget {
             score,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 120,
+              fontSize: 150,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),

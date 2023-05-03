@@ -1,23 +1,101 @@
 {
-    "@@locale": "en",
-    "appBarTitle": "Curling Scoreboard",
-    "@appBarTitle": {
-      "description": "The title shown in the top app bar"
-    },
-    "teamNameRed": "Red",
-    "@teamNameRed": {
-      "description": "The text used for a team using Red rocks."
-    },
-    "teamNameYellow": "Yellow",
-    "@teamNameYellow": {
-      "description": "The text used for a team using Yellow rocks."
-    },
-    "buttonLabelYes": "Yes",
-    "@buttonLabelYes": {
-      "description": "Generic button text for a yes/confirm action."
-    },
-    "buttonLabelNo": "No",
-    "@buttonLabelNo": {
-      "description": "Generic button text for a no/disallow action."
+  "@@locale": "en",
+  "appBarTitle": "Curling Scoreboard",
+  "@appBarTitle": {
+    "description": "The title shown in the top app bar"
+  },
+  "teamNameRed": "Red",
+  "@teamNameRed": {
+    "description": "The text used for a team using Red rocks."
+  },
+  "teamNameYellow": "Yellow",
+  "@teamNameYellow": {
+    "description": "The text used for a team using Yellow rocks."
+  },
+  "buttonLabelYes": "Yes",
+  "@buttonLabelYes": {
+    "description": "Generic button text for a yes/affrim action."
+  },
+  "buttonLabelConfirm": "Confirm",
+  "@buttonLabelConfirm": {
+    "description": "Generic button text for a confirm action."
+  },
+  "buttonLabelSave": "Save",
+  "@buttonLabelSave": {
+    "description": "Generic button text for a save action."
+  },
+  "buttonLabelNo": "No",
+  "@buttonLabelNo": {
+    "description": "Generic button text for a no/disallow action."
+  },
+  "resetDialogTitle": "Reset",
+  "@resetDialogTitle": {
+    "description": "Title for the dialog that shows up when a user attempts to reset the scoreboard."
+  },
+  "resetDialogDescription": "Are you sure you want to reset the scoreboard?",
+  "@resetDialogDescription": {
+    "description": "Description for the dialog that shows up when a user attempts to reset the scoreboard."
+  },
+  "settingsDialogTitle": "Settings",
+  "@settingsDialogTitle": {
+    "description": "Title for the dialog that shows up when a user bring up the settings dialog."
+  },
+  "settingsLabelNumberOfEnds": "Number of Ends: ",
+  "@settingsLabelNumberOfEnds": {
+    "description": "Description text for the number of ends setting in the settings dialog."
+  },
+  "enterScoreDialogTitle": "Enter Score",
+  "@enterScoreDialogTitle": {
+    "description": "Title text for the enter score dialog."
+  },
+  "enterScoreDialogSaveButtonLabel": "Enter",
+  "@enterScoreDialogSaveButtonLabel": {
+    "description": "Button label for the enter score dialog to enter the score for the end."
+  },
+  "editScoreDialogTitle": "Edit Score - End {endNumberName}",
+  "@editScoreDialogTitle": {
+    "description": "Title text for the edit score dialog.",
+    "placeholders": {
+      "endNumberName": {
+        "type": "String",
+        "example": "1"
+      }
     }
+  },
+  "editScoreDialogSaveButtonLabel": "Update",
+  "@editScoreDialogSaveButtonLabel": {
+    "description": "Button label for the edit score dialog to update the score for the end."
+  },
+  "editScoreDialogExtraEndText": "Extra",
+  "@editScoreDialogExtraEndText": {
+    "description": "Label for the edit score dialog when the end being edited is the extra end instead of a numbered end."
+  },
+  "gameInfoEndLabel": "End - {endNumberName}",
+  "@gameInfoEndLabel": {
+    "description": "Text for the game info section to show the current end",
+    "placeholders": {
+      "endNumberName": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "gameInfoExtraEndText": "Extra",
+  "@gameInfoExtraEndText": {
+    "description": "Label for the game info section when the end being played is the extra end instead of a numbered end."
+  },
+  "gameInfoGameTimeLabel": "Game Time - {gameTimeString}",
+  "@gameInfoGameTimeLabel": {
+    "description": "Text for the game info section to show the current game time",
+    "placeholders": {
+      "gameTimeString": {
+        "type": "String",
+        "example": "00:00:00"
+      }
+    }
+  },
+  "scoreboardExtraEndLabel": "E",
+  "@scoreboardExtraEndLabel": {
+    "description": "Label for the scoreboard for the extra end"
+  }
 }

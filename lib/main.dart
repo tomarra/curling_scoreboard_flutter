@@ -347,225 +347,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     super.dispose();
   }
 
-  /*@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 30,
-        title: Text(AppLocalizations.of(context)!.appBarTitle),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              onTap: () {
-                showResetConfirmationDialog(context);
-              },
-              child: const Icon(Icons.replay_outlined),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              onTap: () {
-                showAddScoreDialog(context);
-              },
-              child: const Icon(Icons.add),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              onTap: () {
-                showSettingsDialog(context);
-              },
-              child: const Icon(Icons.settings),
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.teamNameRed,
-                style: const TextStyle(
-                  fontSize: 24,
-                  color: Colors.red,
-                ),
-              ),
-              Text(
-                AppLocalizations.of(context)!.teamNameYellow,
-                style: const TextStyle(
-                  fontSize: 24,
-                  color: Colors.yellow,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                redScores.fold(0, (a, b) => a + b).toString(),
-                style: const TextStyle(
-                  fontSize: 48,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                yellowScores.fold(0, (a, b) => a + b).toString(),
-                style: const TextStyle(
-                  fontSize: 48,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'End $currentEnd',
-                style: const TextStyle(fontSize: 24),
-              ),
-              const SizedBox(width: 16),
-              Text(
-                'Game Time: $gameTime',
-                style: const TextStyle(fontSize: 24),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            width: double.infinity,
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                const SizedBox(width: 16),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-                    ...List.generate(totalEnds + 1, (index) => index + 1).map(
-                      (end) => InkWell(
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            color: Colors.blue,
-                          ),
-                          child: Text(
-                            (end > totalEnds) ? 'E' : end.toString(),
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          if (ends.length >= end) {
-                            showEditScoreDialog(
-                              context,
-                              (end).toString(),
-                              AppLocalizations.of(context)!.teamNameRed,
-                              0,
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 16),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-                    ...List.generate(totalEnds + 1, (index) {
-                      if (index < redScores.length) {
-                        return Container(
-                          alignment: Alignment.center,
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                          ),
-                          child: Text(
-                            redScores[index].toString(),
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Container(
-                          alignment: Alignment.center,
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.red[200],
-                          ),
-                        );
-                      }
-                    })
-                  ],
-                ),
-                const SizedBox(width: 16),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 8),
-                    ...List.generate(totalEnds + 1, (index) {
-                      if (index < yellowScores.length) {
-                        return Container(
-                          alignment: Alignment.center,
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                            color: Colors.yellow,
-                          ),
-                          child: Text(
-                            yellowScores[index].toString(),
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Container(
-                          alignment: Alignment.center,
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.yellow[200],
-                          ),
-                        );
-                      }
-                    })
-                  ],
-                ),
-                const SizedBox(width: 16),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -665,28 +446,19 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        buildRedScoreText(),
-        buildYellowScoreText(),
+        buildTeamTotalScoreText(redScores.fold(0, (a, b) => a + b).toString()),
+        buildTeamTotalScoreText(
+          yellowScores.fold(0, (a, b) => a + b).toString(),
+        ),
       ],
     );
   }
 
-  Widget buildRedScoreText() {
+  Widget buildTeamTotalScoreText(String score) {
     return Text(
-      redScores.fold(0, (a, b) => a + b).toString(),
+      score,
       style: const TextStyle(
-        fontSize: 48,
-        color: Colors.black,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  Widget buildYellowScoreText() {
-    return Text(
-      yellowScores.fold(0, (a, b) => a + b).toString(),
-      style: const TextStyle(
-        fontSize: 48,
+        fontSize: 120,
         color: Colors.black,
         fontWeight: FontWeight.bold,
       ),
@@ -754,7 +526,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Container(
       alignment: Alignment.center,
       width: width,
-      height: 40,
+      height: 50,
       decoration: const BoxDecoration(
         color: Colors.blue,
       ),
@@ -817,7 +589,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Container(
       alignment: Alignment.center,
       width: width,
-      height: 40,
+      height: 80,
       decoration: BoxDecoration(
         color: color,
       ),

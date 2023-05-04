@@ -1,16 +1,19 @@
-# curling_scoreboard_flutter
+# Curling Scoreboard
 
-A new Flutter project.
+A simple Curling Scoreboard, written in Flutter, meant to be used in any curling club that has an electronic scoreboard.
 
-## Getting Started
+## Project Setup
 
-This project is a starting point for a Flutter application.
+This project is a basic [Flutter](http://www.flutter.dev) application so [environment setup](https://docs.flutter.dev/get-started/install) can be found and followed on the main Flutter developer site.
 
-A few resources to get you started if this is your first Flutter project:
+After cloning the repo and opening the project in [VSCode](https://code.visualstudio.com/) you should be able to run the `Launch Web` target to see everything up and working.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Making Releases
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Version Bump
+
+This is handled by the [version_increment](https://github.com/tomarra/curling_scoreboard_flutter/actions/workflows/version_increment.yaml) workflow. This will automatically read the commits, create the [changelog](https://github.com/tomarra/curling_scoreboard_flutter/blob/main/CHANGELOG.md) and [release notes](https://github.com/tomarra/curling_scoreboard_flutter/blob/main/RELEASE_NOTES.md) and commit it all back to the `main` branch.
+
+1. Remove the branch protection on `main` by changing the [branch protection rules](https://github.com/tomarra/curling_scoreboard_flutter/settings/branches). Just change the branch name pattern to something like `notmain`.
+2. Go to the [version_increment action](https://github.com/tomarra/curling_scoreboard_flutter/actions/workflows/version_increment.yaml) and click on "Run Workflow". Ensure it is on the `main` branch and click "Run Workflow" to start it.
+3. When the build completes, turn the branch protection back on by reverting the pattern to `main`

@@ -13,6 +13,8 @@ jobs:
     name: Deploy App - Web - Prod
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.version }}
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.7.12"

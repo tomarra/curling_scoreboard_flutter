@@ -212,7 +212,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     );
   }
 
-  void showAddScoreDialog(BuildContext context) {
+  void showEnterScoreDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -228,7 +228,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                 children: [
                   Row(
                     children: [
-                      const Text('Team'),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .enterScoreTeamDropdownLabel,
+                      ),
                       const SizedBox(
                         width: 20,
                       ),
@@ -254,7 +257,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      const Text('Score'),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .enterScoreTeamDropdownLabel,
+                      ),
                       const SizedBox(
                         width: 20,
                       ),
@@ -320,38 +326,60 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  DropdownButton<String>(
-                    value: selectedTeam,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedTeam = newValue!;
-                      });
-                    },
-                    items: <String>[
-                      AppLocalizations.of(context)!.teamNameRed,
-                      AppLocalizations.of(context)!.teamNameYellow
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                  Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!
+                            .editScoreTeamDropdownLabel,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<String>(
+                        value: selectedTeam,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedTeam = newValue!;
+                          });
+                        },
+                        items: <String>[
+                          AppLocalizations.of(context)!.teamNameRed,
+                          AppLocalizations.of(context)!.teamNameYellow
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
-                  DropdownButton<int>(
-                    value: selectedScore,
-                    onChanged: (int? newValue) {
-                      setState(() {
-                        selectedScore = newValue!;
-                      });
-                    },
-                    items: List.generate(9, (index) => index)
-                        .map<DropdownMenuItem<int>>((int value) {
-                      return DropdownMenuItem<int>(
-                        value: value,
-                        child: Text(value.toString()),
-                      );
-                    }).toList(),
+                  Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!
+                            .editScoreScoreDropdownLabel,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<int>(
+                        value: selectedScore,
+                        onChanged: (int? newValue) {
+                          setState(() {
+                            selectedScore = newValue!;
+                          });
+                        },
+                        items: List.generate(9, (index) => index)
+                            .map<DropdownMenuItem<int>>((int value) {
+                          return DropdownMenuItem<int>(
+                            value: value,
+                            child: Text(value.toString()),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -417,7 +445,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       padding: const EdgeInsets.only(right: 20),
       child: GestureDetector(
         onTap: () {
-          showAddScoreDialog(context);
+          showEnterScoreDialog(context);
         },
         child: const Icon(Icons.add),
       ),

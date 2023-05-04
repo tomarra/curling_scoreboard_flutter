@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
+import 'package:curling_scoreboard_flutter/src/version.dart';
 import 'package:curling_scoreboard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -190,6 +191,20 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                               child: Text((value + 1).toString()),
                             );
                           }).toList(),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!
+                              .settingsLabelVersion(packageVersion),
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 10,
+                          ),
                         ),
                       ],
                     )

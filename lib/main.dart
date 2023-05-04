@@ -259,7 +259,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     children: [
                       Text(
                         AppLocalizations.of(context)!
-                            .enterScoreTeamDropdownLabel,
+                            .enterScoreScoreDropdownLabel,
                       ),
                       const SizedBox(
                         width: 20,

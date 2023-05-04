@@ -44,6 +44,16 @@
   "@settingsLabelNumberOfEnds": {
     "description": "Description text for the number of ends setting in the settings dialog."
   },
+  "settingsLabelVersion": "Version {versionNumber} ",
+  "@settingsLabelVersion": {
+    "description": "Version label in the settings dialog.",
+    "placeholders": {
+      "versionNumber": {
+        "type": "String",
+        "example": "1.0.0"
+      }
+    }
+  },
   "enterScoreDialogTitle": "Enter Score",
   "@enterScoreDialogTitle": {
     "description": "Title text for the enter score dialog."

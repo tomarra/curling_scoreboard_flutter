@@ -48,6 +48,14 @@
   "@enterScoreDialogTitle": {
     "description": "Title text for the enter score dialog."
   },
+  "enterScoreTeamDropdownLabel": "Team",
+  "@enterScoreTeamDropdownLabel": {
+    "description": "Dropdown label for the enter score dialog to select the team that scored for the end."
+  },
+  "enterScoreScoreDropdownLabel": "Score",
+  "@enterScoreScoreDropdownLabel": {
+    "description": "Dropdown label for the enter score dialog to select the score for the end."
+  },
   "enterScoreDialogSaveButtonLabel": "Enter",
   "@enterScoreDialogSaveButtonLabel": {
     "description": "Button label for the enter score dialog to enter the score for the end."
@@ -61,6 +69,14 @@
         "example": "1"
       }
     }
+  },
+  "editScoreTeamDropdownLabel": "Team",
+  "@editScoreTeamDropdownLabel": {
+    "description": "Dropdown label for the edit score dialog to select the team that scored for the end."
+  },
+  "editScoreScoreDropdownLabel": "Score",
+  "@editScoreScoreDropdownLabel": {
+    "description": "Dropdown label for the edit score dialog to select the score for the end."
   },
   "editScoreDialogSaveButtonLabel": "Update",
   "@editScoreDialogSaveButtonLabel": {

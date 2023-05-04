@@ -302,12 +302,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     );
   }
 
-  void showEditScoreDialog(
-    BuildContext context,
-    int end,
-    String team,
-    int score,
-  ) {
+  void showEditScoreDialog({
+    required BuildContext context,
+    required int end,
+    required String team,
+    required int score,
+  }) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -534,10 +534,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             onTap: () {
               if (ends.length >= end) {
                 showEditScoreDialog(
-                  context,
-                  end,
-                  AppLocalizations.of(context)!.teamNameRed,
-                  0,
+                  context: context,
+                  end: end,
+                  team: ends[end - 1].team,
+                  score: ends[end - 1].score,
                 );
               }
             },

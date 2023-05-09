@@ -27,16 +27,19 @@ class TeamTotalScoreWidget extends StatelessWidget {
           Text(
             teamName,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 40,
             ),
           ),
-          Text(
-            score,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 150,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+          Expanded(
+            child: FittedBox(
+              child: Text(
+                score,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ],

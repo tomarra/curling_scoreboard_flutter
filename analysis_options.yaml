@@ -2,9 +2,9 @@ include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
   exclude: [build/**, lib/gen/]
-  strong-mode:
-    implicit-casts: true
-    implicit-dynamic: true
+  language:
+    strict-casts: true
+    strict-raw-types: true
   errors:
     argument_type_not_assignable: ignore
     inference_failure_on_function_invocation: ignore

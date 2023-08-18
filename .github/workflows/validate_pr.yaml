@@ -54,4 +54,5 @@ jobs:
         with:
           files: "**/*.{arb}"
           config: .vscode/cspell.json
-          incremental_files_only: false
+          incremental_files_only: true
+          verbose: false

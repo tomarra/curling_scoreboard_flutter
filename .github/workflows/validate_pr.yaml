@@ -52,7 +52,8 @@ jobs:
       - name: Check Spelling
         uses: streetsidesoftware/cspell-action@v2
         with:
-          files: "*.{arb}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: "**/*.{arb}"
           config: .vscode/cspell.json
-          incremental_files_only: true
+          incremental_files_only: false
           verbose: true

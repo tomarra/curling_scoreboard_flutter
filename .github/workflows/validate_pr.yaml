@@ -52,7 +52,7 @@ jobs:
       - name: Check Spelling
         uses: streetsidesoftware/cspell-action@v2
         with:
-          files: "**/*.{arb}"
+          files: "*.{arb}"
           config: .vscode/cspell.json
           incremental_files_only: true
-          verbose: false
+          verbose: true

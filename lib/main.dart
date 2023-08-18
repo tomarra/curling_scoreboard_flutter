@@ -207,7 +207,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -218,7 +218,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     Navigator.of(context).pop();
                   },
                   child: Text(AppLocalizations.of(context)!.buttonLabelSave),
-                )
+                ),
               ],
             );
           },
@@ -259,7 +259,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                         },
                         items: <String>[
                           AppLocalizations.of(context)!.teamNameRed,
-                          AppLocalizations.of(context)!.teamNameYellow
+                          AppLocalizations.of(context)!.teamNameYellow,
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -359,7 +359,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                         },
                         items: <String>[
                           AppLocalizations.of(context)!.teamNameRed,
-                          AppLocalizations.of(context)!.teamNameYellow
+                          AppLocalizations.of(context)!.teamNameYellow,
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,

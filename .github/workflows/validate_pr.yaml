@@ -35,7 +35,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v1.5.3
         with:
-          flutter-version: "3.10.6"
+          flutter-version: "3.13.0"
           channel: "stable"
       - name: Get Flutter Packages
         run: flutter pub get
@@ -52,6 +52,7 @@ jobs:
       - name: Check Spelling
         uses: streetsidesoftware/cspell-action@v2
         with:
-          files: "**/*.{arb}"
+          files: "*.{arb}"
           config: .vscode/cspell.json
-          incremental_files_only: false
+          incremental_files_only: true
+          verbose: true

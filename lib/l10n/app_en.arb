@@ -8,7 +8,7 @@
   "@teamNameRed": {
     "description": "The text used for a team using Red rocks."
   },
-  "teamNameYellow": "Yellow",
+  "teamNameYellow": "Yellow ",
   "@teamNameYellow": {
     "description": "The text used for a team using Yellow rocks."
   },

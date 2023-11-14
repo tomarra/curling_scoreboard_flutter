@@ -50,7 +50,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Check Spelling
-        uses: streetsidesoftware/cspell-action@v4
+        uses: streetsidesoftware/cspell-action@v5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: "**/*.{arb}"

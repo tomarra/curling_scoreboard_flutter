@@ -1,9 +1,9 @@
-#  (2023-08-18)
+#  (2024-02-17)
 
 
-### Features
+### Bug Fixes
 
-* update text scaling for main scores ([#19](https://github.com/tomarra/curling_scoreboard_flutter/issues/19)) ([dc910ef](https://github.com/tomarra/curling_scoreboard_flutter/commit/dc910efd0dbfff4ea6762c48785bce48fe3fd918))
+* update flutter to 3.16.0 ([#36](https://github.com/tomarra/curling_scoreboard_flutter/issues/36)) ([5217c89](https://github.com/tomarra/curling_scoreboard_flutter/commit/5217c89acc02b59f45fda416378eb000fb36b126))
 
 
 

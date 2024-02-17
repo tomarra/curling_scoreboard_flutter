@@ -50,10 +50,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Check Spelling
-        uses: streetsidesoftware/cspell-action@v5
+        uses: zwaldowski/cspell-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: "**"
-          config: .vscode/cspell.json
-          incremental_files_only: false
-          verbose: true
+          paths: "**/*.{md,dart}"
+          config: .github/cspell.json
+          exclude: ".gitignore **.gen.dart **.g.dart"

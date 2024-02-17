@@ -35,7 +35,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.12.0
         with:
-          flutter-version: "3.16.0"
+          flutter-version: "3.19.0"
           channel: "stable"
       - name: Get Flutter Packages
         run: flutter pub get
@@ -50,10 +50,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Check Spelling
-        uses: streetsidesoftware/cspell-action@v5
+        uses: zwaldowski/cspell-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: "**"
-          config: .vscode/cspell.json
-          incremental_files_only: false
-          verbose: true
+          paths: "**/*.{md,dart}"
+          config: .github/cspell.json
+          exclude: ".gitignore **.gen.dart **.g.dart"

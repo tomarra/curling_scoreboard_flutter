@@ -1,6 +1,8 @@
 Changelog
 
 
+### [0.0.6](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.5...0.0.6) (2024-08-14)
+
 ### [0.0.5](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.4...0.0.5) (2024-02-17)
 
 

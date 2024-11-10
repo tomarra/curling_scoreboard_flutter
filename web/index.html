@@ -36,8 +36,9 @@
     <link rel="manifest" href="manifest.json" />
   </head>
   <body>
+    <script src="flutter_bootstrap.js" async></script>
     <script>
-      {{flutter_bootstrap_js}}
+      document.querySelector("body").requestFullscreen();
     </script>
   </body>
 </html>

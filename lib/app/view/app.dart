@@ -9,14 +9,34 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Curling Scoreboard",
-      theme: ThemeData(
-        primarySwatch: Constants.primaryThemeColor,
-        useMaterial3: true,
-      ),
+      title: 'Curling Scoreboard',
+      theme: ScoreboardTheme.lightThemeData(context),
+      darkTheme: ScoreboardTheme.darkThemeData(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: const ScoreboardPage(),
+    );
+  }
+}
+
+class ScoreboardTheme {
+  static ThemeData lightThemeData(BuildContext context) {
+    return ThemeData(
+      colorSchemeSeed: Constants.primaryThemeColor,
+      useMaterial3: true,
+      appBarTheme: const AppBarTheme(
+        color: Colors.grey,
+        shadowColor: Colors.blueGrey,
+        elevation: 5,
+        foregroundColor: Colors.white,
+      ),
+    );
+  }
+
+  static ThemeData darkThemeData() {
+    return ThemeData(
+      primarySwatch: Constants.primaryThemeColor,
+      useMaterial3: true,
     );
   }
 }

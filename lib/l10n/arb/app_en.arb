@@ -4,6 +4,10 @@
   "@appBarTitle": {
     "description": "The title shown in the top app bar"
   },
+  "appTitle": "Curling Scoreboard",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
   "teamNameRed": "Red",
   "@teamNameRed": {
     "description": "The text used for a team using Red rocks."

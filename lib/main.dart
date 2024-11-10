@@ -433,7 +433,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      toolbarHeight: 30,
+      toolbarHeight: 50,
       title: Text(AppLocalizations.of(context)!.appBarTitle),
       actions: <Widget>[
         buildResetButton(context),
@@ -480,17 +480,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   Widget buildBody() {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final scoresContainerHeight = screenHeight * 0.50;
-    final gameInfoContainerHeight = screenHeight * 0.10;
-    final scoreboardContainerHeight = screenHeight * 0.30;
-
     return Column(
       children: [
-        SizedBox(height: scoresContainerHeight, child: buildScoresRow()),
-        SizedBox(height: gameInfoContainerHeight, child: buildGameInfoRow()),
-        SizedBox(
-          height: scoreboardContainerHeight,
+        Flexible(flex: 9, child: buildScoresRow()),
+        Flexible(flex: 1, fit: FlexFit.tight, child: buildGameInfoRow()),
+        Flexible(
+          flex: 3,
+          fit: FlexFit.tight,
           child: buildEndsContainer(),
         ),
       ],
@@ -566,7 +562,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Container(
       alignment: Alignment.center,
       width: width,
-      constraints: const BoxConstraints(minHeight: 30),
+      //constraints: const BoxConstraints(minHeight: 30),
       decoration: const BoxDecoration(
         color: Colors.blue,
       ),
@@ -587,7 +583,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 8),
+        //const SizedBox(height: 8),
         ...List.generate(totalEnds + 1, (index) {
           if (index < redScores.length) {
             return buildScoreContainer(
@@ -607,7 +603,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 8),
+        //const SizedBox(height: 8),
         ...List.generate(totalEnds + 1, (index) {
           if (index < yellowScores.length) {
             return buildScoreContainer(
@@ -628,21 +624,23 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   Widget buildScoreContainer(int score, Color color, double width) {
-    return Container(
+    return Expanded(
+        child: FittedBox(
+            child: Container(
       alignment: Alignment.center,
       width: width,
-      constraints: const BoxConstraints(minHeight: 50),
+      //constraints: const BoxConstraints(minHeight: 50),
       decoration: BoxDecoration(
         color: color,
       ),
       child: Text(
         (score == -1) ? '' : score.toString(),
         style: const TextStyle(
-          fontSize: 18,
+          fontSize: 40,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
       ),
-    );
+    )));
   }
 }

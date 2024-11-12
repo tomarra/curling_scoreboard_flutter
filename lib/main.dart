@@ -519,16 +519,14 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final endContainerWidth = screenWidth / (totalEnds + 1);
 
-    return Container(
-      color: Colors.pink,
-      child: Column(
-        children: [
-          Flexible(flex: 1, child: buildEndsRow(endContainerWidth)),
-          Flexible(flex: 3, child: buildRedScoresRow(endContainerWidth)),
-          Flexible(flex: 3, child: buildYellowScoresRow(endContainerWidth)),
-        ],
-      ),
+    return Column(
+      children: [
+        Flexible(flex: 1, child: buildEndsRow(endContainerWidth)),
+        Flexible(flex: 3, child: buildRedScoresRow(endContainerWidth)),
+        Flexible(flex: 3, child: buildYellowScoresRow(endContainerWidth)),
+      ],
     );
+    ;
   }
 
   Widget buildEndsRow(double endContainerWidth) {
@@ -555,22 +553,20 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   Widget buildEndContainer(int end, double width) {
-    return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        width: width,
-        decoration: const BoxDecoration(
-          color: Colors.blue,
-        ),
-        child: Text(
-          (end > totalEnds)
-              ? AppLocalizations.of(context)!.scoreboardExtraEndLabel
-              : end.toString(),
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+    return Container(
+      alignment: Alignment.center,
+      width: width,
+      decoration: const BoxDecoration(
+        color: Colors.blue,
+      ),
+      child: Text(
+        (end > totalEnds)
+            ? AppLocalizations.of(context)!.scoreboardExtraEndLabel
+            : end.toString(),
+        style: const TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
     );
@@ -637,22 +633,18 @@ class ScoreContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: FittedBox(
-        child: Container(
-          alignment: Alignment.center,
-          width: width,
-          decoration: BoxDecoration(
-            color: color,
-          ),
-          child: Text(
-            (score == -1) ? '' : score.toString(),
-            style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
+    return Container(
+      alignment: Alignment.center,
+      width: width,
+      decoration: BoxDecoration(
+        color: color,
+      ),
+      child: Text(
+        (score == -1) ? '' : score.toString(),
+        style: const TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
         ),
       ),
     );

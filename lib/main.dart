@@ -480,7 +480,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       children: [
         Flexible(flex: 9, child: buildScoresRow()),
         Flexible(
-          flex: 1,
           child: GameInfoRowWidget(
             end: (currentEnd > totalEnds)
                 ? AppLocalizations.of(context)!.gameInfoExtraEndText
@@ -521,12 +520,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
     return Column(
       children: [
-        Flexible(flex: 1, child: buildEndsRow(endContainerWidth)),
+        Flexible(child: buildEndsRow(endContainerWidth)),
         Flexible(flex: 3, child: buildRedScoresRow(endContainerWidth)),
         Flexible(flex: 3, child: buildYellowScoresRow(endContainerWidth)),
       ],
     );
-    ;
   }
 
   Widget buildEndsRow(double endContainerWidth) {

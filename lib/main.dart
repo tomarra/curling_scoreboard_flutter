@@ -426,20 +426,16 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: AppBar(
+        toolbarHeight: 50,
+        title: Text(AppLocalizations.of(context)!.appBarTitle),
+        actions: <Widget>[
+          buildResetButton(context),
+          buildAddScoreButton(context),
+          buildSettingsButton(context),
+        ],
+      ),
       body: buildBody(),
-    );
-  }
-
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-      toolbarHeight: 50,
-      title: Text(AppLocalizations.of(context)!.appBarTitle),
-      actions: <Widget>[
-        buildResetButton(context),
-        buildAddScoreButton(context),
-        buildSettingsButton(context),
-      ],
     );
   }
 
@@ -483,9 +479,17 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Column(
       children: [
         Flexible(flex: 9, child: buildScoresRow()),
-        Flexible(flex: 1, fit: FlexFit.tight, child: buildGameInfoRow()),
         Flexible(
-          flex: 3,
+          flex: 1,
+          child: GameInfoRowWidget(
+            end: (currentEnd > totalEnds)
+                ? AppLocalizations.of(context)!.gameInfoExtraEndText
+                : currentEnd.toString(),
+            gameTime: gameTime,
+          ),
+        ),
+        Flexible(
+          flex: 4,
           fit: FlexFit.tight,
           child: buildEndsContainer(),
         ),
@@ -511,27 +515,19 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     );
   }
 
-  Widget buildGameInfoRow() {
-    final endText = (currentEnd > totalEnds)
-        ? AppLocalizations.of(context)!.gameInfoExtraEndText
-        : currentEnd.toString();
-
-    return GameInfoRowWidget(end: endText, gameTime: gameTime);
-  }
-
   Widget buildEndsContainer() {
     final screenWidth = MediaQuery.of(context).size.width;
     final endContainerWidth = screenWidth / (totalEnds + 1);
 
-    return Column(
-      children: [
-        const SizedBox(width: 16),
-        buildEndsRow(endContainerWidth),
-        const SizedBox(width: 16),
-        buildRedScoresRow(endContainerWidth),
-        const SizedBox(width: 16),
-        buildYellowScoresRow(endContainerWidth),
-      ],
+    return Container(
+      color: Colors.pink,
+      child: Column(
+        children: [
+          Flexible(flex: 1, child: buildEndsRow(endContainerWidth)),
+          Flexible(flex: 3, child: buildRedScoresRow(endContainerWidth)),
+          Flexible(flex: 3, child: buildYellowScoresRow(endContainerWidth)),
+        ],
+      ),
     );
   }
 
@@ -559,21 +555,22 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   Widget buildEndContainer(int end, double width) {
-    return Container(
-      alignment: Alignment.center,
-      width: width,
-      //constraints: const BoxConstraints(minHeight: 30),
-      decoration: const BoxDecoration(
-        color: Colors.blue,
-      ),
-      child: Text(
-        (end > totalEnds)
-            ? AppLocalizations.of(context)!.scoreboardExtraEndLabel
-            : end.toString(),
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+    return Expanded(
+      child: Container(
+        alignment: Alignment.center,
+        width: width,
+        decoration: const BoxDecoration(
+          color: Colors.blue,
+        ),
+        child: Text(
+          (end > totalEnds)
+              ? AppLocalizations.of(context)!.scoreboardExtraEndLabel
+              : end.toString(),
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -583,16 +580,19 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //const SizedBox(height: 8),
         ...List.generate(totalEnds + 1, (index) {
           if (index < redScores.length) {
-            return buildScoreContainer(
-              redScores[index],
-              Colors.red,
-              endContainerWidth,
+            return ScoreContainer(
+              score: redScores[index],
+              color: Colors.red,
+              width: endContainerWidth,
             );
           } else {
-            return buildScoreContainer(-1, Colors.red[200]!, endContainerWidth);
+            return ScoreContainer(
+              score: -1,
+              color: Colors.red[200]!,
+              width: endContainerWidth,
+            );
           }
         }),
       ],
@@ -603,44 +603,58 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //const SizedBox(height: 8),
         ...List.generate(totalEnds + 1, (index) {
           if (index < yellowScores.length) {
-            return buildScoreContainer(
-              yellowScores[index],
-              Colors.yellow,
-              endContainerWidth,
+            return ScoreContainer(
+              score: yellowScores[index],
+              color: Colors.yellow,
+              width: endContainerWidth,
             );
           } else {
-            return buildScoreContainer(
-              -1,
-              Constants.yellowTeamAccentColor,
-              endContainerWidth,
+            return ScoreContainer(
+              score: -1,
+              color: Constants.yellowTeamAccentColor,
+              width: endContainerWidth,
             );
           }
         }),
       ],
     );
   }
+}
 
-  Widget buildScoreContainer(int score, Color color, double width) {
+class ScoreContainer extends StatelessWidget {
+  const ScoreContainer({
+    required this.score,
+    required this.color,
+    required this.width,
+    super.key,
+  });
+
+  final int score;
+  final Color color;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
-        child: FittedBox(
-            child: Container(
-      alignment: Alignment.center,
-      width: width,
-      //constraints: const BoxConstraints(minHeight: 50),
-      decoration: BoxDecoration(
-        color: color,
-      ),
-      child: Text(
-        (score == -1) ? '' : score.toString(),
-        style: const TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
+      child: FittedBox(
+        child: Container(
+          alignment: Alignment.center,
+          width: width,
+          decoration: BoxDecoration(
+            color: color,
+          ),
+          child: Text(
+            (score == -1) ? '' : score.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
         ),
       ),
-    )));
+    );
   }
 }

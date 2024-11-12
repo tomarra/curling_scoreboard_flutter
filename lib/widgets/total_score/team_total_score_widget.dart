@@ -24,12 +24,6 @@ class TeamTotalScoreWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            teamName,
-            style: const TextStyle(
-              fontSize: 40,
-            ),
-          ),
           Expanded(
             child: FittedBox(
               child: Text(

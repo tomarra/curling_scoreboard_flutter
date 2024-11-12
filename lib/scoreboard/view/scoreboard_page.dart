@@ -9,7 +9,7 @@ class ScoreboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ScoreboardCubit(),
+      create: (context) => ScoreboardBloc(ticker: const Ticker()),
       child: const ScoreboardView(),
     );
   }
@@ -43,6 +43,44 @@ class ScoreboardView extends StatelessWidget {
   }
 }
 
+class Actions extends StatelessWidget {
+  const Actions({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ScoreboardBloc, ScoreboardState>(
+      buildWhen: (prev, state) => prev.runtimeType != state.runtimeType,
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ...switch (state) {
+              ScoreboardInitial() => [
+                  FloatingActionButton(
+                    child: const Icon(Icons.play_arrow),
+                    onPressed: () => context
+                        .read<ScoreboardBloc>()
+                        .add(ScoreboardStarted(duration: state.duration)),
+                  ),
+                ],
+              ScoreboardInProgress() => [
+                  FloatingActionButton(
+                    child: const Icon(Icons.replay),
+                    onPressed: () {
+                      context
+                          .read<ScoreboardBloc>()
+                          .add(const ScoreboardReset());
+                    },
+                  ),
+                ],
+            },
+          ],
+        );
+      },
+    );
+  }
+}
+
 class ScoreboardAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ScoreboardAppBar({super.key});
 
@@ -56,7 +94,7 @@ class ScoreboardAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: 700,
       title: Text(l10n.appBarTitle),
       actions: <Widget>[
-        AddScoreAppBarButton(),
+        //AddScoreAppBarButton(),
         //buildResetButton(context),
         //buildAddScoreButton(context),
         //buildSettingsButton(context),
@@ -65,7 +103,7 @@ class ScoreboardAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class AddScoreAppBarButton extends StatelessWidget {
+/*class AddScoreAppBarButton extends StatelessWidget {
   const AddScoreAppBarButton({super.key});
 
   @override
@@ -75,9 +113,9 @@ class AddScoreAppBarButton extends StatelessWidget {
       onPressed: () => context.read<ScoreboardCubit>().showScoreEntry(),
     );
   }
-}
+}*/
 
-class ScoreboardText extends StatelessWidget {
+/*class ScoreboardText extends StatelessWidget {
   const ScoreboardText({super.key});
 
   @override
@@ -86,7 +124,7 @@ class ScoreboardText extends StatelessWidget {
     final count = context.select((ScoreboardCubit cubit) => cubit.state);
     return Text('$count', style: theme.textTheme.displayLarge);
   }
-}
+}*/
 
 class ScoreboardBody extends StatelessWidget {
   const ScoreboardBody({super.key});
@@ -98,6 +136,7 @@ class ScoreboardBody extends StatelessWidget {
         Flexible(flex: 7, child: TotalScoreWidget()),
         Flexible(flex: 1, child: GameInfoWidget(end: '1', gameTime: '10:00')),
         Flexible(flex: 2, child: ScoreboardWidget()),
+        Actions(),
         //const ScoreboardButtons(),
       ],
     );
@@ -195,12 +234,28 @@ class GameInfoWidget extends StatelessWidget {
           style: const TextStyle(fontSize: 24),
         ),
         const SizedBox(width: 16),
-        Text(
+        /*Text(
           AppLocalizations.of(context)!.gameInfoGameTimeLabel(gameTime),
           style: const TextStyle(fontSize: 24),
-        ),
+        ),*/
+        TimerText(),
       ],
     );
+  }
+}
+
+class TimerText extends StatelessWidget {
+  const TimerText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final duration =
+        context.select((ScoreboardBloc bloc) => bloc.state.duration);
+    final minutesStr =
+        ((duration / 60) % 60).floor().toString().padLeft(2, '0');
+    final secondsStr = (duration % 60).toString().padLeft(2, '0');
+    return Text('$minutesStr:$secondsStr',
+        style: const TextStyle(fontSize: 24));
   }
 }
 

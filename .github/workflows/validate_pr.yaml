@@ -1,11 +1,9 @@
 name: "Validate PR"
 
 on:
-  pull_request_target:
-    types:
-      - opened
-      - edited
-      - synchronize
+  pull_request:
+    branches:
+      - main
 
 jobs:
   valdiate_pr_title:
@@ -50,8 +48,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Check Spelling
-        uses: zwaldowski/cspell-action@v1
+        uses: streetsidesoftware/cspell-action@v6
         with:
-          paths: "**/*.{md,dart}"
+          files: "**/*.{md,dart}"
           config: .github/cspell.json
-          exclude: ".gitignore **.gen.dart **.g.dart"

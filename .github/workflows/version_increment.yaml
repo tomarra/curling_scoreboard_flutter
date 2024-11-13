@@ -62,11 +62,23 @@ jobs:
           git push --follow-tags origin main
           git push --tags
 
+      - name: Setup Flutter Dependencies
+        run: flutter pub get
+
       - name: Make Web Build Asset
         run: |
-          flutter pub get
           flutter build web --web-renderer canvaskit -t lib/main.dart
-          zip -r web.zip build/web
+          zip -r web_${{ env.tag }}.zip build/web
+
+      - name: Make Android APK Build Asset
+        run: |
+          flutter build apk --release
+          cp build/app/outputs/flutter-apk/app-release.apk app-release_${{ env.tag }}.apk
+
+      - name: Make Android App Bundle Build Asset
+        run: |
+          flutter build app bundle --release
+          cp build/app/outputs/bundle/release/app-release.aab app-release_${{ env.tag }}.aab
 
       - name: Make GitHub release
         uses: ncipollo/release-action@v1
@@ -74,4 +86,4 @@ jobs:
           bodyFile: RELEASE_NOTES.md
           tag: ${{ env.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "web.zip"
+          artifacts: "web_${{ env.tag }}.zip,app-release_${{ env.tag }}.apk,app-release_${{ env.tag }}.aab"

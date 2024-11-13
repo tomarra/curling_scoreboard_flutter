@@ -62,9 +62,16 @@ jobs:
           git push --follow-tags origin main
           git push --tags
 
+      - name: Make Web Build Asset
+        run: |
+          flutter pub get
+          flutter build web --web-renderer canvaskit -t lib/main.dart
+          zip -r web.zip build/web
+
       - name: Make GitHub release
         uses: ncipollo/release-action@v1
         with:
           bodyFile: RELEASE_NOTES.md
           tag: ${{ env.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "web.zip"

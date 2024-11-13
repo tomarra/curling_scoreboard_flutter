@@ -480,8 +480,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         toolbarHeight: 50,
         title: Text(AppLocalizations.of(context)!.appBarTitle),
         actions: <Widget>[
-          buildResetButton(context),
           buildAddScoreButton(context),
+          buildResetButton(context),
           buildSettingsButton(context),
         ],
       ),
@@ -491,24 +491,30 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   Widget buildResetButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 20),
+      padding: const EdgeInsets.only(right: 50),
       child: GestureDetector(
         onTap: () {
           showResetConfirmationDialog(context);
         },
-        child: const Icon(Icons.replay_outlined),
+        child: const Icon(
+          Icons.replay_outlined,
+          size: 50,
+        ),
       ),
     );
   }
 
   Widget buildAddScoreButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 20),
+      padding: const EdgeInsets.only(right: 50),
       child: GestureDetector(
         onTap: () {
           showEnterScoreDialog(context);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          size: 50,
+        ),
       ),
     );
   }
@@ -520,7 +526,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         onTap: () {
           showSettingsDialog(context);
         },
-        child: const Icon(Icons.settings),
+        child: const Icon(
+          Icons.settings,
+          size: 50,
+        ),
       ),
     );
   }

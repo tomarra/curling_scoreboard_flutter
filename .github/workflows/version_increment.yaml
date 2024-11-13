@@ -70,6 +70,12 @@ jobs:
           flutter build web --web-renderer canvaskit -t lib/main.dart
           zip -r web_${{ env.tag }}.zip build/web
 
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: "temurin"
+
       - name: Make Android APK Build Asset
         run: |
           flutter build apk --release

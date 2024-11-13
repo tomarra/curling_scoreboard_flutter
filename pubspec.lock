@@ -352,6 +352,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.1"
+  material_segmented_control:
+    dependency: "direct main"
+    description:
+      name: material_segmented_control
+      sha256: "7c5356db9f61c25df40ccfd7f1d020f2bb6dbf7817c890d12e995f585f50e96c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.1"
   meta:
     dependency: transitive
     description:

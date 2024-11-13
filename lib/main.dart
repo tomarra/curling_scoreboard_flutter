@@ -6,6 +6,7 @@ import 'package:curling_scoreboard_flutter/src/version.dart';
 import 'package:curling_scoreboard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:material_segmented_control/material_segmented_control.dart';
 
 void main() {
   runApp(const CurlingScoreboardApp());
@@ -232,7 +233,92 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       context: context,
       builder: (BuildContext context) {
         var selectedTeam = AppLocalizations.of(context)!.teamNameRed;
+        var currentTeamSelectedIndex = 0;
+        var currentScoreSelectedIndex = 0;
         var selectedScore = 0;
+
+        final teamNames = {
+          0: Padding(
+            padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+            child: Text(
+              AppLocalizations.of(context)!.teamNameRed,
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+          ),
+          1: Text(
+            AppLocalizations.of(context)!.teamNameYellow,
+            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+        };
+
+        final scoreItems = {
+          0: Padding(
+            padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+            child: Text(
+              0.toString(),
+              style: const TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          1: Text(
+            1.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          2: Text(
+            2.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          3: Text(
+            3.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          4: Text(
+            4.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          5: Text(
+            5.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          6: Text(
+            6.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          7: Text(
+            7.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          8: Text(
+            8.toString(),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        };
 
         return StatefulBuilder(
           builder: (context, setState) {
@@ -241,60 +327,51 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!
-                            .enterScoreTeamDropdownLabel,
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      DropdownButton<String>(
-                        value: selectedTeam,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedTeam = newValue!;
-                          });
-                        },
-                        items: <String>[
-                          AppLocalizations.of(context)!.teamNameRed,
-                          AppLocalizations.of(context)!.teamNameYellow,
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ],
+                  MaterialSegmentedControl(
+                    children: scoreItems,
+                    selectionIndex: currentScoreSelectedIndex,
+                    borderColor: Colors.grey,
+                    selectedColor: Colors.blueAccent,
+                    unselectedColor: Colors.white,
+                    selectedTextStyle: const TextStyle(color: Colors.white),
+                    unselectedTextStyle: const TextStyle(color: Colors.black),
+                    borderWidth: 1,
+                    borderRadius: 20,
+                    horizontalPadding: const EdgeInsets.all(10),
+                    verticalOffset: 25,
+                    onSegmentTapped: (index) {
+                      setState(() {
+                        currentScoreSelectedIndex = index;
+
+                        selectedScore = index;
+                      });
+                    },
                   ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!
-                            .enterScoreScoreDropdownLabel,
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      DropdownButton<int>(
-                        value: selectedScore,
-                        onChanged: (int? newValue) {
-                          setState(() {
-                            selectedScore = newValue!;
-                          });
-                        },
-                        items: List.generate(9, (index) => index)
-                            .map<DropdownMenuItem<int>>((int value) {
-                          return DropdownMenuItem<int>(
-                            value: value,
-                            child: Text(value.toString()),
-                          );
-                        }).toList(),
-                      ),
-                    ],
+                  MaterialSegmentedControl(
+                    children: teamNames,
+                    selectionIndex: currentTeamSelectedIndex,
+                    borderColor: Colors.grey,
+                    selectedColor: currentTeamSelectedIndex == 0
+                        ? Colors.red
+                        : Colors.yellow,
+                    unselectedColor: Colors.white,
+                    selectedTextStyle: const TextStyle(color: Colors.white),
+                    unselectedTextStyle: const TextStyle(color: Colors.black),
+                    borderWidth: 1,
+                    borderRadius: 20,
+                    horizontalPadding: const EdgeInsets.all(10),
+                    verticalOffset: 25,
+                    onSegmentTapped: (index) {
+                      setState(() {
+                        currentTeamSelectedIndex = index;
+
+                        index == 0
+                            ? selectedTeam =
+                                AppLocalizations.of(context)!.teamNameRed
+                            : selectedTeam =
+                                AppLocalizations.of(context)!.teamNameYellow;
+                      });
+                    },
                   ),
                 ],
               ),
@@ -307,6 +384,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                   child: Text(
                     AppLocalizations.of(context)!
                         .enterScoreDialogSaveButtonLabel,
+                    style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],

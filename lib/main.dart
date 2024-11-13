@@ -22,7 +22,8 @@ class CurlingScoreboardApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
-        primarySwatch: Constants.primaryThemeColor,
+        colorSchemeSeed: Constants.primaryThemeColor,
+        useMaterial3: true,
       ),
       home: const CurlingScoreboardScreen(),
     );
@@ -44,7 +45,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   int currentEnd = Constants.defaultStartingEnd;
   int totalEnds = Constants.defaultTotalEnds;
-  String gameTime = '00:00:00';
+  String gameTime = Constants.defaultGameTime;
 
   Timer? timer;
   int totalTimerSeconds = 0;
@@ -129,8 +130,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     setState(() {
       redScores.clear();
       yellowScores.clear();
-      currentEnd = 1;
-      gameTime = '00:00:00';
+      currentEnd = Constants.defaultStartingEnd;
+      gameTime = Constants.defaultGameTime;
       totalTimerSeconds = 0;
       ends.clear();
     });
@@ -301,8 +302,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     selectionIndex: currentTeamSelectedIndex,
                     borderColor: Colors.grey,
                     selectedColor: currentTeamSelectedIndex == 0
-                        ? Colors.red
-                        : Colors.yellow,
+                        ? Constants.redTeamColor
+                        : Constants.yellowTeamColor,
                     unselectedColor: Colors.white,
                     selectedTextStyle: const TextStyle(color: Colors.white),
                     unselectedTextStyle: const TextStyle(color: Colors.black),
@@ -421,8 +422,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     selectionIndex: currentTeamSelectedIndex,
                     borderColor: Colors.grey,
                     selectedColor: currentTeamSelectedIndex == 0
-                        ? Colors.red
-                        : Colors.yellow,
+                        ? Constants.redTeamColor
+                        : Constants.yellowTeamColor,
                     unselectedColor: Colors.white,
                     selectedTextStyle: const TextStyle(color: Colors.white),
                     unselectedTextStyle: const TextStyle(color: Colors.black),
@@ -452,7 +453,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                   },
                   child: Text(
                     AppLocalizations.of(context)!
-                        .enterScoreDialogSaveButtonLabel,
+                        .editScoreDialogSaveButtonLabel,
                     style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
@@ -552,12 +553,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       children: [
         TeamTotalScoreWidget(
           score: redScores.fold(0, (a, b) => a + b).toString(),
-          backgroundColor: Colors.red,
+          backgroundColor: Constants.redTeamColor,
           teamName: AppLocalizations.of(context)!.teamNameRed,
         ),
         TeamTotalScoreWidget(
           score: yellowScores.fold(0, (a, b) => a + b).toString(),
-          backgroundColor: Colors.yellow,
+          backgroundColor: Constants.yellowTeamColor,
           teamName: AppLocalizations.of(context)!.teamNameYellow,
         ),
       ],
@@ -605,7 +606,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       alignment: Alignment.center,
       width: width,
       decoration: const BoxDecoration(
-        color: Colors.blue,
+        color: Constants.primaryThemeColor,
       ),
       child: Text(
         (end > totalEnds)
@@ -628,13 +629,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           if (index < redScores.length) {
             return ScoreContainer(
               score: redScores[index],
-              color: Colors.red,
+              color: Constants.redTeamColor,
               width: endContainerWidth,
             );
           } else {
             return ScoreContainer(
               score: -1,
-              color: Colors.red[200]!,
+              color: Constants.redTeamAccentColor,
               width: endContainerWidth,
             );
           }
@@ -651,7 +652,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           if (index < yellowScores.length) {
             return ScoreContainer(
               score: yellowScores[index],
-              color: Colors.yellow,
+              color: Constants.yellowTeamColor,
               width: endContainerWidth,
             );
           } else {

@@ -28,6 +28,10 @@
   "@buttonLabelNo": {
     "description": "Generic button text for a no/disallow action."
   },
+  "buttonLabelAddScore": "Add Score",
+  "@buttonLabelAddScore": {
+    "description": "Button text for adding a score to the game."
+  },
   "buttonLabelFinishGame": "Finish Game",
   "@buttonLabelFinishGame": {
     "description": "Button text for ending the game."

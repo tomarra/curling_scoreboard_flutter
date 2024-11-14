@@ -185,6 +185,18 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void showSettingsDialog(BuildContext context) {
+    var currentNumberOfEndsSelectedIndex = totalEnds;
+    final numberOfEnds = {
+      2: const Padding(
+        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+        child: EnterEditScoreDialogScoreText(score: '2'),
+      ),
+      4: const EnterEditScoreDialogScoreText(score: '4'),
+      6: const EnterEditScoreDialogScoreText(score: '6'),
+      8: const EnterEditScoreDialogScoreText(score: '8'),
+      10: const EnterEditScoreDialogScoreText(score: '10'),
+    };
+
     showDialog(
       context: context,
       builder: (context) {
@@ -203,8 +215,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                         Text(
                           AppLocalizations.of(context)!
                               .settingsLabelNumberOfEnds,
+                          style: const TextStyle(fontSize: 40),
                         ),
-                        DropdownButton<int>(
+                        /*DropdownButton<int>(
                           value: settingsTotalEnds,
                           onChanged: (int? newValue) {
                             setState(() {
@@ -215,9 +228,31 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                               .map<DropdownMenuItem<int>>((int value) {
                             return DropdownMenuItem<int>(
                               value: value + 1,
-                              child: Text((value + 1).toString()),
+                              child: Text((value + 1).toString(),
+                                  style: const TextStyle(fontSize: 30)),
                             );
                           }).toList(),
+                        ),*/
+                        MaterialSegmentedControl(
+                          children: numberOfEnds,
+                          selectionIndex: currentNumberOfEndsSelectedIndex,
+                          borderColor: Colors.grey,
+                          selectedColor: Colors.blueAccent,
+                          unselectedColor: Colors.white,
+                          selectedTextStyle:
+                              const TextStyle(color: Colors.white),
+                          unselectedTextStyle:
+                              const TextStyle(color: Colors.black),
+                          borderWidth: 1,
+                          borderRadius: 20,
+                          horizontalPadding: const EdgeInsets.all(10),
+                          verticalOffset: 25,
+                          onSegmentTapped: (index) {
+                            setState(() {
+                              currentNumberOfEndsSelectedIndex = index;
+                              settingsTotalEnds = index;
+                            });
+                          },
                         ),
                       ],
                     ),

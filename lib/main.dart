@@ -244,11 +244,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     updateTotalEnds(settingsTotalEnds);
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations.of(context)!.buttonLabelSave,
-                      style: const TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  child: Text(
+                    AppLocalizations.of(context)!.buttonLabelSave,
+                    style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             );
@@ -516,29 +518,30 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   Widget buildFinishGameButton(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(right: 100),
-        child: ElevatedButton(
-          onPressed: () {
-            showFinishGameConfirmationDialog(context);
-          },
-          child: Row(
-            children: [
-              const Icon(
-                Icons.sports_score,
-              ),
-              const SizedBox(width: 10),
-              FittedBox(
-                child: Text(
-                  AppLocalizations.of(context)!.buttonLabelFinishGame,
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+      padding: const EdgeInsets.only(right: 100),
+      child: ElevatedButton(
+        onPressed: () {
+          showFinishGameConfirmationDialog(context);
+        },
+        child: Row(
+          children: [
+            const Icon(
+              Icons.sports_score,
+            ),
+            const SizedBox(width: 10),
+            FittedBox(
+              child: Text(
+                AppLocalizations.of(context)!.buttonLabelFinishGame,
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget buildAddScoreButton(BuildContext context) {

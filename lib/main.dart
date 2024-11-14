@@ -126,7 +126,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     });
   }
 
-  void resetGame() {
+  void finishGame() {
     setState(() {
       redScores.clear();
       yellowScores.clear();
@@ -137,26 +137,46 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     });
   }
 
-  void showResetConfirmationDialog(BuildContext context) {
+  void showFinishGameConfirmationDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(AppLocalizations.of(context)!.resetDialogTitle),
-          content: Text(AppLocalizations.of(context)!.resetDialogDescription),
+          content: Text(
+            AppLocalizations.of(context)!.finishGameDialogDescription,
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          contentPadding: const EdgeInsets.all(50),
+          actionsAlignment: MainAxisAlignment.center,
+          buttonPadding: const EdgeInsets.all(200),
           actions: [
             ElevatedButton(
               onPressed: () {
+                finishGame();
                 Navigator.of(context).pop();
               },
-              child: Text(AppLocalizations.of(context)!.buttonLabelNo),
+              child: Text(
+                AppLocalizations.of(context)!.buttonLabelYes,
+                style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
-                resetGame();
                 Navigator.of(context).pop();
               },
-              child: Text(AppLocalizations.of(context)!.buttonLabelYes),
+              child: Text(
+                AppLocalizations.of(context)!.buttonLabelNo,
+                style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         );
@@ -165,6 +185,18 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void showSettingsDialog(BuildContext context) {
+    var currentNumberOfEndsSelectedIndex = totalEnds;
+    final numberOfEnds = {
+      2: const Padding(
+        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+        child: EnterEditScoreDialogScoreText(score: '2'),
+      ),
+      4: const EnterEditScoreDialogScoreText(score: '4'),
+      6: const EnterEditScoreDialogScoreText(score: '6'),
+      8: const EnterEditScoreDialogScoreText(score: '8'),
+      10: const EnterEditScoreDialogScoreText(score: '10'),
+    };
+
     showDialog(
       context: context,
       builder: (context) {
@@ -183,8 +215,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                         Text(
                           AppLocalizations.of(context)!
                               .settingsLabelNumberOfEnds,
+                          style: const TextStyle(fontSize: 40),
                         ),
-                        DropdownButton<int>(
+                        /*DropdownButton<int>(
                           value: settingsTotalEnds,
                           onChanged: (int? newValue) {
                             setState(() {
@@ -195,9 +228,31 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                               .map<DropdownMenuItem<int>>((int value) {
                             return DropdownMenuItem<int>(
                               value: value + 1,
-                              child: Text((value + 1).toString()),
+                              child: Text((value + 1).toString(),
+                                  style: const TextStyle(fontSize: 30)),
                             );
                           }).toList(),
+                        ),*/
+                        MaterialSegmentedControl(
+                          children: numberOfEnds,
+                          selectionIndex: currentNumberOfEndsSelectedIndex,
+                          borderColor: Colors.grey,
+                          selectedColor: Colors.blueAccent,
+                          unselectedColor: Colors.white,
+                          selectedTextStyle:
+                              const TextStyle(color: Colors.white),
+                          unselectedTextStyle:
+                              const TextStyle(color: Colors.black),
+                          borderWidth: 1,
+                          borderRadius: 20,
+                          horizontalPadding: const EdgeInsets.all(10),
+                          verticalOffset: 25,
+                          onSegmentTapped: (index) {
+                            setState(() {
+                              currentNumberOfEndsSelectedIndex = index;
+                              settingsTotalEnds = index;
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -224,7 +279,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     updateTotalEnds(settingsTotalEnds);
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations.of(context)!.buttonLabelSave),
+                  child: Text(
+                    AppLocalizations.of(context)!.buttonLabelSave,
+                    style: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             );
@@ -393,7 +454,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text(AppLocalizations.of(context)!.enterScoreDialogTitle),
+              title: Text(
+                AppLocalizations.of(context)!.editScoreDialogTitle(
+                  end.toString(),
+                ),
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -482,7 +547,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         title: Text(AppLocalizations.of(context)!.appBarTitle),
         actions: <Widget>[
           buildAddScoreButton(context),
-          buildResetButton(context),
+          buildFinishGameButton(context),
           buildSettingsButton(context),
         ],
       ),
@@ -490,16 +555,29 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     );
   }
 
-  Widget buildResetButton(BuildContext context) {
+  Widget buildFinishGameButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 50),
-      child: GestureDetector(
-        onTap: () {
-          showResetConfirmationDialog(context);
+      padding: const EdgeInsets.only(right: 30),
+      child: ElevatedButton(
+        onPressed: () {
+          showFinishGameConfirmationDialog(context);
         },
-        child: const Icon(
-          Icons.replay_outlined,
-          size: 50,
+        child: Row(
+          children: [
+            const Icon(
+              Icons.sports_score,
+            ),
+            const SizedBox(width: 10),
+            FittedBox(
+              child: Text(
+                AppLocalizations.of(context)!.buttonLabelFinishGame,
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -507,14 +585,27 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   Widget buildAddScoreButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 50),
-      child: GestureDetector(
-        onTap: () {
+      padding: const EdgeInsets.only(right: 30),
+      child: ElevatedButton(
+        onPressed: () {
           showEnterScoreDialog(context);
         },
-        child: const Icon(
-          Icons.add,
-          size: 50,
+        child: Row(
+          children: [
+            const Icon(
+              Icons.add,
+            ),
+            const SizedBox(width: 10),
+            FittedBox(
+              child: Text(
+                AppLocalizations.of(context)!.buttonLabelAddScore,
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -522,14 +613,14 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   Widget buildSettingsButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 20),
-      child: GestureDetector(
-        onTap: () {
+      padding: const EdgeInsets.only(right: 10),
+      child: ElevatedButton(
+        onPressed: () {
           showSettingsDialog(context);
         },
         child: const Icon(
           Icons.settings,
-          size: 50,
+          size: 40,
         ),
       ),
     );

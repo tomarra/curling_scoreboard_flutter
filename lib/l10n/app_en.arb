@@ -28,13 +28,17 @@
   "@buttonLabelNo": {
     "description": "Generic button text for a no/disallow action."
   },
-  "resetDialogTitle": "Reset",
-  "@resetDialogTitle": {
-    "description": "Title for the dialog that shows up when a user attempts to reset the scoreboard."
+  "buttonLabelFinishGame": "Finish Game",
+  "@buttonLabelFinishGame": {
+    "description": "Button text for ending the game."
   },
-  "resetDialogDescription": "Are you sure you want to reset the scoreboard?",
-  "@resetDialogDescription": {
-    "description": "Description for the dialog that shows up when a user attempts to reset the scoreboard."
+  "finishGameDialogTitle": "Finish Game",
+  "@finishGameDialogTitle": {
+    "description": "Title for the dialog that shows up when a user attempts to finish the game."
+  },
+  "finishGameDialogDescription": "Are you sure you want to finish the game?",
+  "@finishGameDialogDescription": {
+    "description": "Description for the dialog that shows up when a user attempts to finish the game."
   },
   "settingsDialogTitle": "Settings",
   "@settingsDialogTitle": {

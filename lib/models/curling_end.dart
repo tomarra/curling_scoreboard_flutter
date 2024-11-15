@@ -3,7 +3,7 @@ class CurlingEnd {
     required this.endNumber,
     required this.team,
     required this.score,
-    required this.gameTimeInSeconds,
+    this.gameTimeInSeconds = 0,
   });
   int endNumber;
   String team;

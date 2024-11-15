@@ -20,7 +20,6 @@ class TeamTotalScoreWidget extends StatelessWidget {
     return Container(
       color: backgroundColor,
       width: teamTotalScoreContainerWidth,
-      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

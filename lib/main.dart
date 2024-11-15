@@ -44,8 +44,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   List<CurlingEnd> ends = [];
 
   int currentEnd = Constants.defaultStartingEnd;
-  int totalEnds = Constants.defaultTotalEnds;
   String gameTime = Constants.defaultGameTime;
+
+  ScoreboardSettings settings = ScoreboardSettings(
+    numberOfEnds: Constants.defaultTotalEnds,
+  );
 
   Timer? timer;
   int totalTimerSeconds = 0;
@@ -75,13 +78,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   void updateTotalEnds(int newTotalEnds) {
     setState(() {
-      totalEnds = newTotalEnds;
+      settings.numberOfEnds = newTotalEnds;
     });
   }
 
   void enterScore(int score, String team) {
     // Don't allow for entering scores if we have filled all the ends
-    if (currentEnd - 1 >= totalEnds + 1) {
+    if (currentEnd - 1 >= settings.numberOfEnds + 1) {
       return;
     }
 
@@ -149,212 +152,32 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void showSettingsDialog(BuildContext context) {
-    var currentNumberOfEndsSelectedIndex = totalEnds;
-    final numberOfEnds = {
-      2: const Padding(
-        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-        child: EnterEditScoreDialogScoreText(score: '2'),
-      ),
-      4: const EnterEditScoreDialogScoreText(score: '4'),
-      6: const EnterEditScoreDialogScoreText(score: '6'),
-      8: const EnterEditScoreDialogScoreText(score: '8'),
-      10: const EnterEditScoreDialogScoreText(score: '10'),
-    };
-
     showDialog(
       context: context,
-      builder: (context) {
-        var settingsTotalEnds = totalEnds;
-
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: Text(AppLocalizations.of(context)!.settingsDialogTitle),
-              content: Form(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!
-                              .settingsLabelNumberOfEnds,
-                          style: const TextStyle(fontSize: 40),
-                        ),
-                        MaterialSegmentedControl(
-                          children: numberOfEnds,
-                          selectionIndex: currentNumberOfEndsSelectedIndex,
-                          borderColor: Colors.grey,
-                          selectedColor: Colors.blueAccent,
-                          unselectedColor: Colors.white,
-                          selectedTextStyle:
-                              const TextStyle(color: Colors.white),
-                          unselectedTextStyle:
-                              const TextStyle(color: Colors.black),
-                          borderWidth: 1,
-                          borderRadius: 20,
-                          horizontalPadding: const EdgeInsets.all(10),
-                          verticalOffset: 25,
-                          onSegmentTapped: (index) {
-                            setState(() {
-                              currentNumberOfEndsSelectedIndex = index;
-                              settingsTotalEnds = index;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!
-                              .settingsLabelVersion(packageVersion),
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    updateTotalEnds(settingsTotalEnds);
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.buttonLabelSave,
-                    style: const TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+      builder: (BuildContext context) {
+        return SettingsDialog(
+          settings: settings,
         );
       },
-    );
+    ).then((value) {
+      settings = value as ScoreboardSettings;
+    });
   }
 
   void showEnterScoreDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        var selectedTeam = AppLocalizations.of(context)!.teamNameRed;
-        var currentTeamSelectedIndex = 0;
-        var currentScoreSelectedIndex = 0;
-        var selectedScore = 0;
-
-        final teamNames = {
-          0: Padding(
-            padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
-            child: EnterEditScoreDialogTeamText(
-              team: AppLocalizations.of(context)!.teamNameRed,
-            ),
-          ),
-          1: EnterEditScoreDialogTeamText(
-            team: AppLocalizations.of(context)!.teamNameYellow,
-          ),
-        };
-
-        final scoreItems = {
-          0: const Padding(
-            padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-            child: EnterEditScoreDialogScoreText(score: '0'),
-          ),
-          1: const EnterEditScoreDialogScoreText(score: '1'),
-          2: const EnterEditScoreDialogScoreText(score: '2'),
-          3: const EnterEditScoreDialogScoreText(score: '3'),
-          4: const EnterEditScoreDialogScoreText(score: '4'),
-          5: const EnterEditScoreDialogScoreText(score: '5'),
-          6: const EnterEditScoreDialogScoreText(score: '6'),
-          7: const EnterEditScoreDialogScoreText(score: '7'),
-          8: const EnterEditScoreDialogScoreText(score: '8'),
-        };
-
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: Text(AppLocalizations.of(context)!.enterScoreDialogTitle),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  MaterialSegmentedControl(
-                    children: scoreItems,
-                    selectionIndex: currentScoreSelectedIndex,
-                    borderColor: Colors.grey,
-                    selectedColor: Colors.blueAccent,
-                    unselectedColor: Colors.white,
-                    selectedTextStyle: const TextStyle(color: Colors.white),
-                    unselectedTextStyle: const TextStyle(color: Colors.black),
-                    borderWidth: 1,
-                    borderRadius: 20,
-                    horizontalPadding: const EdgeInsets.all(10),
-                    verticalOffset: 25,
-                    onSegmentTapped: (index) {
-                      setState(() {
-                        currentScoreSelectedIndex = index;
-
-                        selectedScore = index;
-                      });
-                    },
-                  ),
-                  MaterialSegmentedControl(
-                    children: teamNames,
-                    selectionIndex: currentTeamSelectedIndex,
-                    borderColor: Colors.grey,
-                    selectedColor: currentTeamSelectedIndex == 0
-                        ? Constants.redTeamColor
-                        : Constants.yellowTeamColor,
-                    unselectedColor: Colors.white,
-                    selectedTextStyle: const TextStyle(color: Colors.white),
-                    unselectedTextStyle: const TextStyle(color: Colors.black),
-                    borderWidth: 1,
-                    borderRadius: 20,
-                    horizontalPadding: const EdgeInsets.all(10),
-                    verticalOffset: 25,
-                    onSegmentTapped: (index) {
-                      setState(() {
-                        currentTeamSelectedIndex = index;
-
-                        index == 0
-                            ? selectedTeam =
-                                AppLocalizations.of(context)!.teamNameRed
-                            : selectedTeam =
-                                AppLocalizations.of(context)!.teamNameYellow;
-                      });
-                    },
-                  ),
-                ],
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    enterScore(selectedScore, selectedTeam);
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!
-                        .enterScoreDialogSaveButtonLabel,
-                    style: const TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+        return ScoreInputDialog(
+          defaultTeam: 'Red',
+          defaultScore: 0,
+          end: currentEnd,
         );
       },
-    );
+    ).then((value) {
+      final curlingEnd = value as CurlingEnd;
+      enterScore(curlingEnd.score, curlingEnd.team);
+    });
   }
 
   void showEditScoreDialog({
@@ -366,117 +189,16 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        var selectedTeam = team;
-        var currentTeamSelectedIndex =
-            team == AppLocalizations.of(context)!.teamNameRed ? 0 : 1;
-        var currentScoreSelectedIndex = score;
-        var selectedScore = score;
-
-        final teamNames = {
-          0: Padding(
-            padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
-            child: EnterEditScoreDialogTeamText(
-              team: AppLocalizations.of(context)!.teamNameRed,
-            ),
-          ),
-          1: EnterEditScoreDialogTeamText(
-            team: AppLocalizations.of(context)!.teamNameYellow,
-          ),
-        };
-
-        final scoreItems = {
-          0: const Padding(
-            padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-            child: EnterEditScoreDialogScoreText(score: '0'),
-          ),
-          1: const EnterEditScoreDialogScoreText(score: '1'),
-          2: const EnterEditScoreDialogScoreText(score: '2'),
-          3: const EnterEditScoreDialogScoreText(score: '3'),
-          4: const EnterEditScoreDialogScoreText(score: '4'),
-          5: const EnterEditScoreDialogScoreText(score: '5'),
-          6: const EnterEditScoreDialogScoreText(score: '6'),
-          7: const EnterEditScoreDialogScoreText(score: '7'),
-          8: const EnterEditScoreDialogScoreText(score: '8'),
-        };
-
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: Text(
-                AppLocalizations.of(context)!.editScoreDialogTitle(
-                  end.toString(),
-                ),
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  MaterialSegmentedControl(
-                    children: scoreItems,
-                    selectionIndex: currentScoreSelectedIndex,
-                    borderColor: Colors.grey,
-                    selectedColor: Colors.blueAccent,
-                    unselectedColor: Colors.white,
-                    selectedTextStyle: const TextStyle(color: Colors.white),
-                    unselectedTextStyle: const TextStyle(color: Colors.black),
-                    borderWidth: 1,
-                    borderRadius: 20,
-                    horizontalPadding: const EdgeInsets.all(10),
-                    verticalOffset: 25,
-                    onSegmentTapped: (index) {
-                      setState(() {
-                        currentScoreSelectedIndex = index;
-
-                        selectedScore = index;
-                      });
-                    },
-                  ),
-                  MaterialSegmentedControl(
-                    children: teamNames,
-                    selectionIndex: currentTeamSelectedIndex,
-                    borderColor: Colors.grey,
-                    selectedColor: currentTeamSelectedIndex == 0
-                        ? Constants.redTeamColor
-                        : Constants.yellowTeamColor,
-                    unselectedColor: Colors.white,
-                    selectedTextStyle: const TextStyle(color: Colors.white),
-                    unselectedTextStyle: const TextStyle(color: Colors.black),
-                    borderWidth: 1,
-                    borderRadius: 20,
-                    horizontalPadding: const EdgeInsets.all(10),
-                    verticalOffset: 25,
-                    onSegmentTapped: (index) {
-                      setState(() {
-                        currentTeamSelectedIndex = index;
-
-                        index == 0
-                            ? selectedTeam =
-                                AppLocalizations.of(context)!.teamNameRed
-                            : selectedTeam =
-                                AppLocalizations.of(context)!.teamNameYellow;
-                      });
-                    },
-                  ),
-                ],
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    editScore(end, selectedScore, selectedTeam);
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!
-                        .editScoreDialogSaveButtonLabel,
-                    style: const TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+        return ScoreInputDialog(
+          defaultTeam: team,
+          defaultScore: score,
+          end: end,
         );
+      },
+    ).then(
+      (value) {
+        final curlingEnd = value as CurlingEnd;
+        editScore(curlingEnd.endNumber, curlingEnd.score, curlingEnd.team);
       },
     );
   }
@@ -532,7 +254,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         ),
         Flexible(
           child: GameInfoRowWidget(
-            end: (currentEnd > totalEnds)
+            end: (currentEnd > settings.numberOfEnds)
                 ? AppLocalizations.of(context)!.gameInfoExtraEndText
                 : currentEnd.toString(),
             gameTime: gameTime,
@@ -549,7 +271,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   Widget buildEndsContainer() {
     final screenWidth = MediaQuery.of(context).size.width;
-    final endContainerWidth = screenWidth / (totalEnds + 1);
+    final endContainerWidth = screenWidth / (settings.numberOfEnds + 1);
 
     return Column(
       children: [
@@ -564,7 +286,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ...List.generate(totalEnds + 1, (index) => index + 1).map(
+        ...List.generate(settings.numberOfEnds + 1, (index) => index + 1).map(
           (end) => InkWell(
             child: buildEndContainer(end, endContainerWidth),
             onTap: () {
@@ -591,7 +313,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         color: Constants.primaryThemeColor,
       ),
       child: Text(
-        (end > totalEnds)
+        (end > settings.numberOfEnds)
             ? AppLocalizations.of(context)!.scoreboardExtraEndLabel
             : end.toString(),
         style: const TextStyle(
@@ -607,7 +329,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ...List.generate(totalEnds + 1, (index) {
+        ...List.generate(settings.numberOfEnds + 1, (index) {
           if (index < redScores.length) {
             return ScoreContainer(
               score: redScores[index],
@@ -630,7 +352,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ...List.generate(totalEnds + 1, (index) {
+        ...List.generate(settings.numberOfEnds + 1, (index) {
           if (index < yellowScores.length) {
             return ScoreContainer(
               score: yellowScores[index],
@@ -646,75 +368,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           }
         }),
       ],
-    );
-  }
-}
-
-class EnterEditScoreDialogTeamText extends StatelessWidget {
-  const EnterEditScoreDialogTeamText({
-    required this.team,
-    super.key,
-  });
-
-  final String team;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      team,
-      style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-    );
-  }
-}
-
-class EnterEditScoreDialogScoreText extends StatelessWidget {
-  const EnterEditScoreDialogScoreText({
-    required this.score,
-    super.key,
-  });
-
-  final String score;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      score,
-      style: const TextStyle(
-        fontSize: 40,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-}
-
-class ScoreContainer extends StatelessWidget {
-  const ScoreContainer({
-    required this.score,
-    required this.color,
-    required this.width,
-    super.key,
-  });
-
-  final int score;
-  final Color color;
-  final double width;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: width,
-      decoration: BoxDecoration(
-        color: color,
-      ),
-      child: Text(
-        (score == -1) ? '' : score.toString(),
-        style: const TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-      ),
     );
   }
 }

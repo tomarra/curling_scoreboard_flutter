@@ -523,7 +523,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   Widget buildBody() {
     return Column(
       children: [
-        Flexible(flex: 9, child: buildScoresRow()),
+        Flexible(
+          flex: 9,
+          child: TotalScoreRow(
+            redScore: redScores.fold(0, (a, b) => a + b),
+            yellowScore: yellowScores.fold(0, (a, b) => a + b),
+          ),
+        ),
         Flexible(
           child: GameInfoRowWidget(
             end: (currentEnd > totalEnds)
@@ -536,24 +542,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           flex: 4,
           fit: FlexFit.tight,
           child: buildEndsContainer(),
-        ),
-      ],
-    );
-  }
-
-  Widget buildScoresRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        TeamTotalScoreWidget(
-          score: redScores.fold(0, (a, b) => a + b).toString(),
-          backgroundColor: Constants.redTeamColor,
-          teamName: AppLocalizations.of(context)!.teamNameRed,
-        ),
-        TeamTotalScoreWidget(
-          score: yellowScores.fold(0, (a, b) => a + b).toString(),
-          backgroundColor: Constants.yellowTeamColor,
-          teamName: AppLocalizations.of(context)!.teamNameYellow,
         ),
       ],
     );
@@ -727,105 +715,6 @@ class ScoreContainer extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-    );
-  }
-}
-
-class AppBarActionButton extends StatelessWidget {
-  const AppBarActionButton({
-    required this.icon,
-    required this.onPressed,
-    this.label = '',
-    super.key,
-  });
-
-  final IconData icon;
-  final String label;
-  final void Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: label.isEmpty ? iconOnly() : iconAndText(),
-      ),
-    );
-  }
-
-  Widget iconAndText() {
-    return Row(
-      children: [
-        Icon(icon),
-        const SizedBox(width: 10),
-        FittedBox(
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget iconOnly() {
-    return Row(
-      children: [
-        Icon(icon, size: 40),
-      ],
-    );
-  }
-}
-
-class FinishGameDialog extends StatelessWidget {
-  const FinishGameDialog({required this.finishGameAction, super.key});
-
-  final void Function() finishGameAction;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      content: Text(
-        AppLocalizations.of(context)!.finishGameDialogDescription,
-        style: const TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      contentPadding: const EdgeInsets.all(50),
-      actionsAlignment: MainAxisAlignment.center,
-      buttonPadding: const EdgeInsets.all(200),
-      actions: [
-        ElevatedButton(
-          onPressed: () {
-            finishGameAction();
-            Navigator.of(context).pop();
-          },
-          child: Text(
-            AppLocalizations.of(context)!.buttonLabelYes,
-            style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(
-            AppLocalizations.of(context)!.buttonLabelNo,
-            style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

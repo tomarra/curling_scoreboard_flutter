@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
-import 'package:curling_scoreboard_flutter/src/version.dart';
 import 'package:curling_scoreboard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:material_segmented_control/material_segmented_control.dart';
 
 void main() {
   runApp(const CurlingScoreboardApp());
@@ -46,9 +44,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   int currentEnd = Constants.defaultStartingEnd;
   String gameTime = Constants.defaultGameTime;
 
-  ScoreboardSettings settings = ScoreboardSettings(
-    numberOfEnds: Constants.defaultTotalEnds,
-  );
+  ScoreboardSettings settings = ScoreboardSettings();
 
   Timer? timer;
   int totalTimerSeconds = 0;

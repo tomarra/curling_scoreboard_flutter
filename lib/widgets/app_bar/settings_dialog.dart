@@ -1,4 +1,3 @@
-import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:curling_scoreboard_flutter/src/version.dart';
 import 'package:flutter/material.dart';

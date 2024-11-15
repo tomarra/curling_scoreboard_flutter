@@ -141,44 +141,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text(
-            AppLocalizations.of(context)!.finishGameDialogDescription,
-            style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          contentPadding: const EdgeInsets.all(50),
-          actionsAlignment: MainAxisAlignment.center,
-          buttonPadding: const EdgeInsets.all(200),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                finishGame();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                AppLocalizations.of(context)!.buttonLabelYes,
-                style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                AppLocalizations.of(context)!.buttonLabelNo,
-                style: const TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
+        return FinishGameDialog(
+          finishGameAction: finishGame,
         );
       },
     );
@@ -217,22 +181,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                               .settingsLabelNumberOfEnds,
                           style: const TextStyle(fontSize: 40),
                         ),
-                        /*DropdownButton<int>(
-                          value: settingsTotalEnds,
-                          onChanged: (int? newValue) {
-                            setState(() {
-                              settingsTotalEnds = newValue!;
-                            });
-                          },
-                          items: List.generate(10, (index) => index)
-                              .map<DropdownMenuItem<int>>((int value) {
-                            return DropdownMenuItem<int>(
-                              value: value + 1,
-                              child: Text((value + 1).toString(),
-                                  style: const TextStyle(fontSize: 30)),
-                            );
-                          }).toList(),
-                        ),*/
                         MaterialSegmentedControl(
                           children: numberOfEnds,
                           selectionIndex: currentNumberOfEndsSelectedIndex,
@@ -546,83 +494,29 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         toolbarHeight: 50,
         title: Text(AppLocalizations.of(context)!.appBarTitle),
         actions: <Widget>[
-          buildAddScoreButton(context),
-          buildFinishGameButton(context),
-          buildSettingsButton(context),
+          AppBarActionButton(
+            icon: Icons.add,
+            label: AppLocalizations.of(context)!.buttonLabelAddScore,
+            onPressed: () {
+              showEnterScoreDialog(context);
+            },
+          ),
+          AppBarActionButton(
+            icon: Icons.sports_score,
+            label: AppLocalizations.of(context)!.buttonLabelFinishGame,
+            onPressed: () {
+              showFinishGameConfirmationDialog(context);
+            },
+          ),
+          AppBarActionButton(
+            icon: Icons.settings,
+            onPressed: () {
+              showSettingsDialog(context);
+            },
+          ),
         ],
       ),
       body: buildBody(),
-    );
-  }
-
-  Widget buildFinishGameButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 30),
-      child: ElevatedButton(
-        onPressed: () {
-          showFinishGameConfirmationDialog(context);
-        },
-        child: Row(
-          children: [
-            const Icon(
-              Icons.sports_score,
-            ),
-            const SizedBox(width: 10),
-            FittedBox(
-              child: Text(
-                AppLocalizations.of(context)!.buttonLabelFinishGame,
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildAddScoreButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 30),
-      child: ElevatedButton(
-        onPressed: () {
-          showEnterScoreDialog(context);
-        },
-        child: Row(
-          children: [
-            const Icon(
-              Icons.add,
-            ),
-            const SizedBox(width: 10),
-            FittedBox(
-              child: Text(
-                AppLocalizations.of(context)!.buttonLabelAddScore,
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildSettingsButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: ElevatedButton(
-        onPressed: () {
-          showSettingsDialog(context);
-        },
-        child: const Icon(
-          Icons.settings,
-          size: 40,
-        ),
-      ),
     );
   }
 
@@ -833,6 +727,105 @@ class ScoreContainer extends StatelessWidget {
           color: Colors.black,
         ),
       ),
+    );
+  }
+}
+
+class AppBarActionButton extends StatelessWidget {
+  const AppBarActionButton({
+    required this.icon,
+    required this.onPressed,
+    this.label = '',
+    super.key,
+  });
+
+  final IconData icon;
+  final String label;
+  final void Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: label.isEmpty ? iconOnly() : iconAndText(),
+      ),
+    );
+  }
+
+  Widget iconAndText() {
+    return Row(
+      children: [
+        Icon(icon),
+        const SizedBox(width: 10),
+        FittedBox(
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget iconOnly() {
+    return Row(
+      children: [
+        Icon(icon, size: 40),
+      ],
+    );
+  }
+}
+
+class FinishGameDialog extends StatelessWidget {
+  const FinishGameDialog({required this.finishGameAction, super.key});
+
+  final void Function() finishGameAction;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Text(
+        AppLocalizations.of(context)!.finishGameDialogDescription,
+        style: const TextStyle(
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      contentPadding: const EdgeInsets.all(50),
+      actionsAlignment: MainAxisAlignment.center,
+      buttonPadding: const EdgeInsets.all(200),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            finishGameAction();
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            AppLocalizations.of(context)!.buttonLabelYes,
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            AppLocalizations.of(context)!.buttonLabelNo,
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

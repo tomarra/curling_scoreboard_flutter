@@ -176,29 +176,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     });
   }
 
-  /*void showEditScoreDialog({
-    required BuildContext context,
-    required int end,
-    required String team,
-    required int score,
-  }) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return ScoreInputDialog(
-          defaultTeam: team,
-          defaultScore: score,
-          end: end,
-        );
-      },
-    ).then(
-      (value) {
-        final curlingEnd = value as CurlingEnd;
-        editScore(curlingEnd.endNumber, curlingEnd.score, curlingEnd.team);
-      },
-    );
-  }*/
-
   void showEditScoreDialog(int end) {
     if (end > currentEnd) {
       return;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class TeamTotalScoreWidget extends StatelessWidget {
   const TeamTotalScoreWidget({
-    required this.teamName,
     required this.score,
     required this.backgroundColor,
     super.key,
@@ -10,7 +9,6 @@ class TeamTotalScoreWidget extends StatelessWidget {
 
   final String score;
   final Color backgroundColor;
-  final String teamName;
 
   @override
   Widget build(BuildContext context) {

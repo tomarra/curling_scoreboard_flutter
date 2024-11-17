@@ -176,7 +176,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     });
   }
 
-  void showEditScoreDialog({
+  /*void showEditScoreDialog({
     required BuildContext context,
     required int end,
     required String team,
@@ -188,6 +188,28 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         return ScoreInputDialog(
           defaultTeam: team,
           defaultScore: score,
+          end: end,
+        );
+      },
+    ).then(
+      (value) {
+        final curlingEnd = value as CurlingEnd;
+        editScore(curlingEnd.endNumber, curlingEnd.score, curlingEnd.team);
+      },
+    );
+  }*/
+
+  void showEditScoreDialog(int end) {
+    if (end > currentEnd) {
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ScoreInputDialog(
+          defaultTeam: ends[end - 1].team,
+          defaultScore: ends[end - 1].score,
           end: end,
         );
       },
@@ -244,8 +266,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         Flexible(
           flex: 9,
           child: TotalScoreRow(
-            redScore: redScores.fold(0, (a, b) => a + b),
-            yellowScore: yellowScores.fold(0, (a, b) => a + b),
+            team1Score: redScores.fold(0, (a, b) => a + b),
+            team1Color: Constants.redTeamColor,
+            team2Score: yellowScores.fold(0, (a, b) => a + b),
+            team2Color: Constants.yellowTeamColor,
           ),
         ),
         Flexible(
@@ -259,110 +283,18 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         Flexible(
           flex: 4,
           fit: FlexFit.tight,
-          child: buildEndsContainer(),
-        ),
-      ],
-    );
-  }
-
-  Widget buildEndsContainer() {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final endContainerWidth = screenWidth / (settings.numberOfEnds + 1);
-
-    return Column(
-      children: [
-        Flexible(child: buildEndsRow(endContainerWidth)),
-        Flexible(flex: 3, child: buildRedScoresRow(endContainerWidth)),
-        Flexible(flex: 3, child: buildYellowScoresRow(endContainerWidth)),
-      ],
-    );
-  }
-
-  Widget buildEndsRow(double endContainerWidth) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...List.generate(settings.numberOfEnds + 1, (index) => index + 1).map(
-          (end) => InkWell(
-            child: buildEndContainer(end, endContainerWidth),
-            onTap: () {
-              if (ends.length >= end) {
-                showEditScoreDialog(
-                  context: context,
-                  end: end,
-                  team: ends[end - 1].team,
-                  score: ends[end - 1].score,
-                );
-              }
-            },
+          child: ScoreboardBaseballLayout(
+            numberOfEnds: settings.numberOfEnds,
+            endsContainerColor: Constants.primaryThemeColor,
+            team1Scores: redScores,
+            team2Scores: yellowScores,
+            team1EmptyColor: Constants.redTeamAccentColor,
+            team2EmptyColor: Constants.yellowTeamAccentColor,
+            team1FilledColor: Constants.redTeamColor,
+            team2FilledColor: Constants.yellowTeamColor,
+            onPressed: showEditScoreDialog,
           ),
         ),
-      ],
-    );
-  }
-
-  Widget buildEndContainer(int end, double width) {
-    return Container(
-      alignment: Alignment.center,
-      width: width,
-      decoration: const BoxDecoration(
-        color: Constants.primaryThemeColor,
-      ),
-      child: Text(
-        (end > settings.numberOfEnds)
-            ? AppLocalizations.of(context)!.scoreboardExtraEndLabel
-            : end.toString(),
-        style: const TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-
-  Widget buildRedScoresRow(double endContainerWidth) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...List.generate(settings.numberOfEnds + 1, (index) {
-          if (index < redScores.length) {
-            return ScoreContainer(
-              score: redScores[index],
-              color: Constants.redTeamColor,
-              width: endContainerWidth,
-            );
-          } else {
-            return ScoreContainer(
-              score: -1,
-              color: Constants.redTeamAccentColor,
-              width: endContainerWidth,
-            );
-          }
-        }),
-      ],
-    );
-  }
-
-  Widget buildYellowScoresRow(double endContainerWidth) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...List.generate(settings.numberOfEnds + 1, (index) {
-          if (index < yellowScores.length) {
-            return ScoreContainer(
-              score: yellowScores[index],
-              color: Constants.yellowTeamColor,
-              width: endContainerWidth,
-            );
-          } else {
-            return ScoreContainer(
-              score: -1,
-              color: Constants.yellowTeamAccentColor,
-              width: endContainerWidth,
-            );
-          }
-        }),
       ],
     );
   }

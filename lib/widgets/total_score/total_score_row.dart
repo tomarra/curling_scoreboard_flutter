@@ -1,17 +1,19 @@
-import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/widgets/total_score/total_score.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TotalScoreRow extends StatelessWidget {
   const TotalScoreRow({
-    required this.redScore,
-    required this.yellowScore,
+    required this.team1Score,
+    required this.team1Color,
+    required this.team2Score,
+    required this.team2Color,
     super.key,
   });
 
-  final int redScore;
-  final int yellowScore;
+  final int team1Score;
+  final Color team1Color;
+  final int team2Score;
+  final Color team2Color;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +21,12 @@ class TotalScoreRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         TeamTotalScoreWidget(
-          score: redScore.toString(),
-          backgroundColor: Constants.redTeamColor,
-          teamName: AppLocalizations.of(context)!.teamNameRed,
+          score: team1Score.toString(),
+          backgroundColor: team1Color,
         ),
         TeamTotalScoreWidget(
-          score: yellowScore.toString(),
-          backgroundColor: Constants.yellowTeamColor,
-          teamName: AppLocalizations.of(context)!.teamNameYellow,
+          score: team2Score.toString(),
+          backgroundColor: team2Color,
         ),
       ],
     );

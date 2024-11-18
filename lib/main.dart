@@ -49,53 +49,35 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   Timer? timer;
   int totalTimerSeconds = 0;
-  Duration fullGameDuration = const Duration(hours: 2);
+  int overUnderInSeconds = 0;
+  Duration fullGameDuration = Duration.zero;
   List<int> secondsPerEnd = [];
 
   @override
   void initState() {
     super.initState();
+
     startTimer();
   }
 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       totalTimerSeconds += 1;
-      setState(updateGameTimeString);
+      overUnderInSeconds =
+          Duration(seconds: totalTimerSeconds - secondsPerEnd[currentEnd - 1])
+              .inSeconds;
+      setState(() {});
     });
 
     calculateSecondsPerEnd();
   }
 
   void calculateSecondsPerEnd() {
+    fullGameDuration = Duration(minutes: settings.numberOfEnds * 15);
+
     final secondsPerEnd = fullGameDuration.inSeconds ~/ settings.numberOfEnds;
     this.secondsPerEnd = List.generate(settings.numberOfEnds, (index) {
       return secondsPerEnd * (index + 1);
-    });
-  }
-
-  void updateGameTimeString() {
-    final duration = Duration(seconds: totalTimerSeconds);
-
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    gameTime =
-        '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
-
-    final overUnderInSeconds =
-        Duration(seconds: totalTimerSeconds - secondsPerEnd[currentEnd - 1]);
-    final twoDigitOverUnderMinutes =
-        twoDigits(overUnderInSeconds.inMinutes.remainder(60));
-    final twoDigitOverUnderSeconds =
-        twoDigits(overUnderInSeconds.inSeconds.remainder(60));
-    gameTimeOverUnder =
-        '${twoDigits(overUnderInSeconds.inHours)}:$twoDigitOverUnderMinutes:$twoDigitOverUnderSeconds';
-  }
-
-  void updateTotalEnds(int newTotalEnds) {
-    setState(() {
-      settings.numberOfEnds = newTotalEnds;
     });
   }
 
@@ -178,6 +160,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       },
     ).then((value) {
       settings = value as ScoreboardSettings;
+      calculateSecondsPerEnd();
     });
   }
 
@@ -276,8 +259,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             end: (currentEnd > settings.numberOfEnds)
                 ? AppLocalizations.of(context)!.gameInfoExtraEndText
                 : currentEnd.toString(),
-            gameTime: gameTime,
-            gameTimeOverUnder: gameTimeOverUnder,
+            gameTime: Duration(seconds: totalTimerSeconds),
+            gameTimeOverUnder: Duration(seconds: overUnderInSeconds),
           ),
         ),
         Flexible(

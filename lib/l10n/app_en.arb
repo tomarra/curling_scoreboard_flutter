@@ -106,7 +106,7 @@
   "@gameInfoExtraEndText": {
     "description": "Label for the game info section when the end being played is the extra end instead of a numbered end."
   },
-  "gameInfoGameTimeLabel": "Game Time - {gameTimeString}",
+  "gameInfoGameTimeLabel": "Game Time {gameTimeString}",
   "@gameInfoGameTimeLabel": {
     "description": "Text for the game info section to show the current game time",
     "placeholders": {

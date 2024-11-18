@@ -5,11 +5,13 @@ class GameInfoRowWidget extends StatelessWidget {
   const GameInfoRowWidget({
     required this.end,
     required this.gameTime,
+    required this.gameTimeOverUnder,
     super.key,
   });
 
   final String end;
   final String gameTime;
+  final String gameTimeOverUnder;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,14 @@ class GameInfoRowWidget extends StatelessWidget {
           child: FittedBox(
             child: Text(
               AppLocalizations.of(context)!.gameInfoGameTimeLabel(gameTime),
+              style: const TextStyle(fontSize: 40),
+            ),
+          ),
+        ),
+        Expanded(
+          child: FittedBox(
+            child: Text(
+              gameTimeOverUnder,
               style: const TextStyle(fontSize: 40),
             ),
           ),

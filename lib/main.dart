@@ -41,13 +41,16 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   List<int> yellowScores = [];
   List<CurlingEnd> ends = [];
 
+  ScoreboardSettings settings = ScoreboardSettings();
+
   int currentEnd = Constants.defaultStartingEnd;
   String gameTime = Constants.defaultGameTime;
-
-  ScoreboardSettings settings = ScoreboardSettings();
+  String gameTimeOverUnder = '';
 
   Timer? timer;
   int totalTimerSeconds = 0;
+  Duration fullGameDuration = const Duration(hours: 2);
+  List<int> secondsPerEnd = [];
 
   @override
   void initState() {
@@ -60,6 +63,15 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       totalTimerSeconds += 1;
       setState(updateGameTimeString);
     });
+
+    calculateSecondsPerEnd();
+  }
+
+  void calculateSecondsPerEnd() {
+    final secondsPerEnd = fullGameDuration.inSeconds ~/ settings.numberOfEnds;
+    this.secondsPerEnd = List.generate(settings.numberOfEnds, (index) {
+      return secondsPerEnd * (index + 1);
+    });
   }
 
   void updateGameTimeString() {
@@ -70,6 +82,15 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     gameTime =
         '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
+
+    final overUnderInSeconds =
+        Duration(seconds: totalTimerSeconds - secondsPerEnd[currentEnd - 1]);
+    final twoDigitOverUnderMinutes =
+        twoDigits(overUnderInSeconds.inMinutes.remainder(60));
+    final twoDigitOverUnderSeconds =
+        twoDigits(overUnderInSeconds.inSeconds.remainder(60));
+    gameTimeOverUnder =
+        '${twoDigits(overUnderInSeconds.inHours)}:$twoDigitOverUnderMinutes:$twoDigitOverUnderSeconds';
   }
 
   void updateTotalEnds(int newTotalEnds) {
@@ -256,6 +277,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                 ? AppLocalizations.of(context)!.gameInfoExtraEndText
                 : currentEnd.toString(),
             gameTime: gameTime,
+            gameTimeOverUnder: gameTimeOverUnder,
           ),
         ),
         Flexible(

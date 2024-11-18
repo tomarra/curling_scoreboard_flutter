@@ -1,6 +1,13 @@
 Changelog
 
 
+### [0.0.15](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.14...0.0.15) (2024-11-18)
+
+
+### Features
+
+* update end number to be bigger ([#69](https://github.com/tomarra/curling_scoreboard_flutter/issues/69)) ([4152031](https://github.com/tomarra/curling_scoreboard_flutter/commit/4152031bfe2b6ceebf15984b7aaf831d2385d017))
+
 ### [0.0.14](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.13...0.0.14) (2024-11-14)
 
 

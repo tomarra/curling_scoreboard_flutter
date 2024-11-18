@@ -79,11 +79,14 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     this.secondsPerEnd = List.generate(settings.numberOfEnds, (index) {
       return secondsPerEnd * (index + 1);
     });
+
+    // Need to make sure we add in padding for the extra end
+    this.secondsPerEnd.add(secondsPerEnd * (settings.numberOfEnds + 1));
   }
 
   void enterScore(int score, String team) {
     // Don't allow for entering scores if we have filled all the ends
-    if (currentEnd - 1 >= settings.numberOfEnds + 1) {
+    if (currentEnd > settings.numberOfEnds + 1) {
       return;
     }
 
@@ -102,7 +105,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         yellowScores.add(score);
         redScores.add(0);
       }
-      currentEnd++;
+
+      if (currentEnd + 1 <= settings.numberOfEnds + 1) {
+        currentEnd++;
+      }
 
       ends.add(newEnd);
     });
@@ -219,7 +225,17 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             icon: Icons.add,
             label: AppLocalizations.of(context)!.buttonLabelAddScore,
             onPressed: () {
-              showEnterScoreDialog(context);
+              if (ends.length < settings.numberOfEnds + 1) {
+                showEnterScoreDialog(context);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(context)!.addScoreGameCompleteMessage,
+                    ),
+                  ),
+                );
+              }
             },
           ),
           AppBarActionButton(

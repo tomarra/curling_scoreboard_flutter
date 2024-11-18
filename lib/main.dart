@@ -41,40 +41,43 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   List<int> yellowScores = [];
   List<CurlingEnd> ends = [];
 
+  ScoreboardSettings settings = ScoreboardSettings();
+
   int currentEnd = Constants.defaultStartingEnd;
   String gameTime = Constants.defaultGameTime;
-
-  ScoreboardSettings settings = ScoreboardSettings();
+  String gameTimeOverUnder = '';
 
   Timer? timer;
   int totalTimerSeconds = 0;
+  int overUnderInSeconds = 0;
+  Duration fullGameDuration = Duration.zero;
+  List<int> secondsPerEnd = [];
 
   @override
   void initState() {
     super.initState();
+
     startTimer();
   }
 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       totalTimerSeconds += 1;
-      setState(updateGameTimeString);
+      overUnderInSeconds =
+          Duration(seconds: totalTimerSeconds - secondsPerEnd[currentEnd - 1])
+              .inSeconds;
+      setState(() {});
     });
+
+    calculateSecondsPerEnd();
   }
 
-  void updateGameTimeString() {
-    final duration = Duration(seconds: totalTimerSeconds);
+  void calculateSecondsPerEnd() {
+    fullGameDuration = Duration(minutes: settings.numberOfEnds * 15);
 
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    final twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    gameTime =
-        '${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds';
-  }
-
-  void updateTotalEnds(int newTotalEnds) {
-    setState(() {
-      settings.numberOfEnds = newTotalEnds;
+    final secondsPerEnd = fullGameDuration.inSeconds ~/ settings.numberOfEnds;
+    this.secondsPerEnd = List.generate(settings.numberOfEnds, (index) {
+      return secondsPerEnd * (index + 1);
     });
   }
 
@@ -157,6 +160,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       },
     ).then((value) {
       settings = value as ScoreboardSettings;
+      calculateSecondsPerEnd();
     });
   }
 
@@ -255,7 +259,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             end: (currentEnd > settings.numberOfEnds)
                 ? AppLocalizations.of(context)!.gameInfoExtraEndText
                 : currentEnd.toString(),
-            gameTime: gameTime,
+            gameTime: Duration(seconds: totalTimerSeconds),
+            gameTimeOverUnder: Duration(seconds: overUnderInSeconds),
           ),
         ),
         Flexible(

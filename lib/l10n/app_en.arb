@@ -76,6 +76,10 @@
   "@scoreInputEnterButtonLabel": {
     "description": "Button text for score input dialog to submit the score."
   },
+  "addScoreGameCompleteMessage": "Game is complete. Finish the game to reset.",
+  "@addScoreGameCompleteMessage": {
+    "description": "Message shown to the user when they try and enter a score for a game that has been completed."
+  },
   "editScoreTeamDropdownLabel": "Team",
   "@editScoreTeamDropdownLabel": {
     "description": "Dropdown label for the edit score dialog to select the team that scored for the end."

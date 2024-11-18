@@ -247,6 +247,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             team1Color: Constants.redTeamColor,
             team2Score: yellowScores.fold(0, (a, b) => a + b),
             team2Color: Constants.yellowTeamColor,
+            endNumber: currentEnd,
           ),
         ),
         Flexible(

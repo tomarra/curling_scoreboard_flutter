@@ -19,14 +19,6 @@ class GameInfoRowWidget extends StatelessWidget {
         Expanded(
           child: FittedBox(
             child: Text(
-              AppLocalizations.of(context)!.gameInfoEndLabel(end),
-              style: const TextStyle(fontSize: 40),
-            ),
-          ),
-        ),
-        Expanded(
-          child: FittedBox(
-            child: Text(
               AppLocalizations.of(context)!.gameInfoGameTimeLabel(gameTime),
               style: const TextStyle(fontSize: 40),
             ),

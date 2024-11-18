@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScoreboardStaticNumberRow extends StatelessWidget {
   const ScoreboardStaticNumberRow({
@@ -28,7 +29,7 @@ class ScoreboardStaticNumberRow extends StatelessWidget {
             child: StaticNumberContainer(
               number: (currentNumber != numberOfEntries)
                   ? currentNumber.toString()
-                  : 'E',
+                  : AppLocalizations.of(context)!.scoreboardExtraEndLabel,
               width: endContainerWidth,
               containerColor: containerColor,
             ),

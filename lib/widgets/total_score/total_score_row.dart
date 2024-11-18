@@ -37,7 +37,7 @@ class TotalScoreRow extends StatelessWidget {
         Align(
           child: FractionallySizedBox(
             widthFactor: 0.125,
-            heightFactor: 1.0,
+            heightFactor: 1,
             child: FittedBox(
               fit: BoxFit.fitHeight,
               child: ColoredBox(

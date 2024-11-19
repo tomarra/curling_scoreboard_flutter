@@ -42,10 +42,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   List<CurlingEnd> ends = [];
 
   ScoreboardSettings settings = ScoreboardSettings();
-
-  int currentEnd = Constants.defaultStartingEnd;
-  String gameTime = Constants.defaultGameTime;
-  String gameTimeOverUnder = '';
+  int currentEnd = 1;
 
   Timer? timer;
   int totalTimerSeconds = 0;
@@ -57,7 +54,24 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   void initState() {
     super.initState();
 
-    startTimer();
+    // Need a small delay to allow everything to be setup before showing
+    // the start dialog.
+    Timer.run(() {
+      showGameStartDialog();
+    });
+  }
+
+  void showGameStartDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const GameStartDialog();
+      },
+    ).then((value) {
+      settings = value as ScoreboardSettings;
+      startTimer();
+    });
   }
 
   void startTimer() {
@@ -134,14 +148,25 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     });
   }
 
-  void finishGame() {
-    setState(() {
-      redScores.clear();
-      yellowScores.clear();
-      currentEnd = Constants.defaultStartingEnd;
-      gameTime = Constants.defaultGameTime;
-      totalTimerSeconds = 0;
-      ends.clear();
+  void finishGame(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const GameEndDialog();
+      },
+    ).then((value) {
+      showGameStartDialog();
+      setState(() {
+        redScores.clear();
+        yellowScores.clear();
+        ends.clear();
+        currentEnd = 1;
+        totalTimerSeconds = 0;
+        overUnderInSeconds = 0;
+
+        timer!.cancel();
+      });
     });
   }
 

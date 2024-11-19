@@ -117,7 +117,7 @@ class ScoreInputDialog extends StatelessWidget {
                 //onSubmit(end, selectedTeam, selectedScore);
                 final newEnd = CurlingEnd(
                   endNumber: end,
-                  team: selectedTeam,
+                  scoringTeamName: selectedTeam,
                   score: selectedScore,
                 );
 

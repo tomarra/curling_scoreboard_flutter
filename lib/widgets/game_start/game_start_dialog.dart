@@ -9,6 +9,9 @@ class GameStartDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var settingsTotalEnds = 8;
+    var currentNumberOfEndsSelectedIndex = 8;
+
     final numberOfEnds = {
       2: const Padding(
         padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
@@ -20,19 +23,18 @@ class GameStartDialog extends StatelessWidget {
       10: const GameStartSegmentControlText(text: '10'),
     };
 
-    var settingsTotalEnds = 8;
-    var currentNumberOfEndsSelectedIndex = 8;
+    var settingsNumberOfPlayersPerTeam = 4;
+    var currentNumberOfPlayersPerTeamSelectedIndex = 4;
 
     final numberOfPlayersPerTeam = {
       2: const Padding(
         padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-        child: GameStartSegmentControlText(text: '2'),
+        child: GameStartSegmentControlText(
+            text: '2', subtext: '13 minutes per end'),
       ),
-      4: const GameStartSegmentControlText(text: '4'),
+      4: const GameStartSegmentControlText(
+          text: '4', subtext: '15 minutes per end'),
     };
-
-    var settingsNumberOfPlayersPerTeam = 4;
-    var currentNumberOfPlayersPerTeamSelectedIndex = 4;
 
     return StatefulBuilder(
       builder: (context, setState) {
@@ -103,12 +105,17 @@ class GameStartDialog extends StatelessWidget {
           actions: [
             ElevatedButton(
               onPressed: () {
-                final newSettings = ScoreboardSettings(
+                final team1 = CurlingTeam(name: 'Red', color: Colors.red);
+                final team2 = CurlingTeam(name: 'Yellow', color: Colors.yellow);
+
+                final newCurlingGame = CurlingGame(
+                  team1: team1,
+                  team2: team2,
                   numberOfEnds: settingsTotalEnds,
                   numberOfPlayersPerTeam: settingsNumberOfPlayersPerTeam,
                 );
 
-                Navigator.pop(context, newSettings);
+                Navigator.pop(context, newCurlingGame);
               },
               child: const Text(
                 'Start Game',
@@ -128,13 +135,34 @@ class GameStartDialog extends StatelessWidget {
 class GameStartSegmentControlText extends StatelessWidget {
   const GameStartSegmentControlText({
     required this.text,
+    this.subtext = '',
     super.key,
   });
 
   final String text;
+  final String subtext;
 
   @override
   Widget build(BuildContext context) {
+    if (subtext == '') {
+      return basicText(text);
+    } else {
+      return Column(
+        children: [
+          basicText(text),
+          Text(
+            subtext,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      );
+    }
+  }
+
+  Text basicText(String text) {
     return Text(
       text,
       style: const TextStyle(

@@ -41,7 +41,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   List<int> yellowScores = [];
   List<CurlingEnd> ends = [];
 
-  ScoreboardSettings settings = ScoreboardSettings();
+  late CurlingGame gameObject;
   int currentEnd = 1;
 
   Timer? timer;
@@ -54,6 +54,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   void initState() {
     super.initState();
 
+    gameObject = CurlingGame(
+      team1: CurlingTeam(name: 'Red', color: Colors.red),
+      team2: CurlingTeam(name: 'Yellow', color: Colors.yellow),
+      numberOfEnds: 8,
+      numberOfPlayersPerTeam: 4,
+    );
     // Need a small delay to allow everything to be setup before showing
     // the start dialog.
     Timer.run(showGameStartDialog);
@@ -67,7 +73,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         return const GameStartDialog();
       },
     ).then((value) {
-      settings = value as ScoreboardSettings;
+      gameObject = value as CurlingGame;
       startTimer();
     });
   }
@@ -86,44 +92,45 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   void calculateSecondsPerEnd() {
     fullGameDuration =
-        Duration(minutes: settings.numberOfEnds * settings.minutesPerEnd);
+        Duration(minutes: gameObject.numberOfEnds * gameObject.minutesPerEnd);
 
-    final secondsPerEnd = fullGameDuration.inSeconds ~/ settings.numberOfEnds;
-    this.secondsPerEnd = List.generate(settings.numberOfEnds, (index) {
+    final secondsPerEnd = fullGameDuration.inSeconds ~/ gameObject.numberOfEnds;
+    this.secondsPerEnd = List.generate(gameObject.numberOfEnds, (index) {
       return secondsPerEnd * (index + 1);
     });
 
     // Need to make sure we add in padding for the extra end
-    this.secondsPerEnd.add(secondsPerEnd * (settings.numberOfEnds + 1));
+    this.secondsPerEnd.add(secondsPerEnd * (gameObject.numberOfEnds + 1));
   }
 
-  void enterScore(int score, String team) {
+  void enterScore(CurlingEnd curlingEnd) {
     // Don't allow for entering scores if we have filled all the ends
-    if (currentEnd > settings.numberOfEnds + 1) {
+    if (currentEnd > gameObject.numberOfEnds + 1) {
       return;
     }
 
-    final newEnd = CurlingEnd(
+    /*final newEnd = CurlingEnd(
       endNumber: currentEnd,
       team: team,
       score: score,
       gameTimeInSeconds: totalTimerSeconds,
-    );
+    );*/
 
     setState(() {
-      if (team == AppLocalizations.of(context)!.teamNameRed) {
-        redScores.add(score);
+      if (curlingEnd.scoringTeamName ==
+          AppLocalizations.of(context)!.teamNameRed) {
+        redScores.add(curlingEnd.score);
         yellowScores.add(0);
       } else {
-        yellowScores.add(score);
+        yellowScores.add(curlingEnd.score);
         redScores.add(0);
       }
 
-      if (currentEnd + 1 <= settings.numberOfEnds + 1) {
+      if (currentEnd + 1 <= gameObject.numberOfEnds + 1) {
         currentEnd++;
       }
 
-      ends.add(newEnd);
+      ends.add(curlingEnd);
     });
   }
 
@@ -140,7 +147,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       }
 
       originalEndScore
-        ..team = team
+        ..scoringTeamName = team
         ..score = score;
 
       ends[end - 1] = originalEndScore;
@@ -152,7 +159,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return const GameEndDialog();
+        return GameEndDialog(
+          ends: ends,
+        );
       },
     ).then((value) {
       showGameStartDialog();
@@ -180,20 +189,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     );
   }
 
-  void showSettingsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return SettingsDialog(
-          settings: settings,
-        );
-      },
-    ).then((value) {
-      settings = value as ScoreboardSettings;
-      calculateSecondsPerEnd();
-    });
-  }
-
   void showEnterScoreDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -206,7 +201,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       },
     ).then((value) {
       final curlingEnd = value as CurlingEnd;
-      enterScore(curlingEnd.score, curlingEnd.team);
+      curlingEnd.gameTimeInSeconds = totalTimerSeconds;
+      enterScore(curlingEnd);
     });
   }
 
@@ -219,7 +215,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       context: context,
       builder: (BuildContext context) {
         return ScoreInputDialog(
-          defaultTeam: ends[end - 1].team,
+          defaultTeam: ends[end - 1].scoringTeamName,
           defaultScore: ends[end - 1].score,
           end: end,
         );
@@ -227,7 +223,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     ).then(
       (value) {
         final curlingEnd = value as CurlingEnd;
-        editScore(curlingEnd.endNumber, curlingEnd.score, curlingEnd.team);
+        editScore(
+            curlingEnd.endNumber, curlingEnd.score, curlingEnd.scoringTeamName);
       },
     );
   }
@@ -249,7 +246,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             icon: Icons.add,
             label: AppLocalizations.of(context)!.buttonLabelAddScore,
             onPressed: () {
-              if (ends.length < settings.numberOfEnds + 1) {
+              if (ends.length < gameObject.numberOfEnds + 1) {
                 showEnterScoreDialog(context);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -269,12 +266,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               showFinishGameConfirmationDialog(context);
             },
           ),
-          AppBarActionButton(
+          /*AppBarActionButton(
             icon: Icons.settings,
             onPressed: () {
               showSettingsDialog(context);
             },
-          ),
+          ),*/
         ],
       ),
       body: buildBody(),
@@ -296,7 +293,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         ),
         Flexible(
           child: GameInfoRowWidget(
-            end: (currentEnd > settings.numberOfEnds)
+            end: (currentEnd > gameObject.numberOfEnds)
                 ? AppLocalizations.of(context)!.gameInfoExtraEndText
                 : currentEnd.toString(),
             gameTime: Duration(seconds: totalTimerSeconds),
@@ -307,7 +304,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           flex: 4,
           fit: FlexFit.tight,
           child: ScoreboardBaseballLayout(
-            numberOfEnds: settings.numberOfEnds,
+            numberOfEnds: gameObject.numberOfEnds,
             endsContainerColor: Constants.primaryThemeColor,
             team1Scores: redScores,
             team2Scores: yellowScores,

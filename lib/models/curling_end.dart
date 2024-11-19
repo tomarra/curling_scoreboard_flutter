@@ -1,12 +1,14 @@
+import 'package:curling_scoreboard_flutter/models/models.dart';
+
 class CurlingEnd {
   CurlingEnd({
     required this.endNumber,
-    required this.team,
+    required this.scoringTeamName,
     required this.score,
-    this.gameTimeInSeconds = 0,
+    this.gameTimeInSeconds = -1,
   });
   int endNumber;
-  String team;
+  String scoringTeamName;
   int score;
   int gameTimeInSeconds;
 }

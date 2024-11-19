@@ -15,5 +15,5 @@ class Constants {
 
   // Basic Constants
   static const int minutesPerEndFourPlayers = 15;
-  static const int minutesPerEndTwoPlayers = 12;
+  static const int minutesPerEndTwoPlayers = 13;
 }

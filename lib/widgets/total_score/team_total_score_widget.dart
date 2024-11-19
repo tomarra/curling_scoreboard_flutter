@@ -17,7 +17,7 @@ class TeamTotalScoreWidget extends StatelessWidget {
 
     return Container(
       color: backgroundColor,
-      width: teamTotalScoreContainerWidth,
+      //width: teamTotalScoreContainerWidth,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -19,7 +19,7 @@ class TotalScoreRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    /*return Stack(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,6 +51,30 @@ class TotalScoreRow extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        ),
+      ],
+    );*/
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: TeamTotalScoreWidget(
+            score: team1Score.toString(),
+            backgroundColor: team1Color,
+          ),
+        ),
+        Expanded(
+          child: TeamTotalScoreWidget(
+            score: endNumber.toString(),
+            backgroundColor: Colors.white,
+          ),
+        ),
+        Expanded(
+          child: TeamTotalScoreWidget(
+            score: team2Score.toString(),
+            backgroundColor: team2Color,
           ),
         ),
       ],

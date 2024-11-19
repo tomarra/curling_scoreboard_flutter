@@ -1,7 +1,5 @@
-import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
 class GameStartDialog extends StatelessWidget {
@@ -39,16 +37,16 @@ class GameStartDialog extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return AlertDialog(
-          title: Text('Game Start'),
+          title: const Text('Game Start'),
           content: Form(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       'Number of Ends',
-                      style: const TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
                       children: numberOfEnds,
@@ -73,9 +71,9 @@ class GameStartDialog extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       'Players per Team',
-                      style: const TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
                       children: numberOfPlayersPerTeam,
@@ -112,9 +110,9 @@ class GameStartDialog extends StatelessWidget {
 
                 Navigator.pop(context, newSettings);
               },
-              child: Text(
+              child: const Text(
                 'Start Game',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),

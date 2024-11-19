@@ -56,9 +56,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
     // Need a small delay to allow everything to be setup before showing
     // the start dialog.
-    Timer.run(() {
-      showGameStartDialog();
-    });
+    Timer.run(showGameStartDialog);
   }
 
   void showGameStartDialog() {
@@ -87,7 +85,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void calculateSecondsPerEnd() {
-    fullGameDuration = Duration(minutes: settings.numberOfEnds * 15);
+    fullGameDuration =
+        Duration(minutes: settings.numberOfEnds * settings.minutesPerEnd);
 
     final secondsPerEnd = fullGameDuration.inSeconds ~/ settings.numberOfEnds;
     this.secondsPerEnd = List.generate(settings.numberOfEnds, (index) {

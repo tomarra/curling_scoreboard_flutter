@@ -30,38 +30,41 @@ class GameStartDialog extends StatelessWidget {
     var currentNumberOfPlayersPerTeamSelectedIndex =
         Constants.defaultNumberOfPlayersPerTeam;
 
-    final numberOfPlayersPerTeam = {
-      2: Padding(
-        padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
-        child: GameStartSegmentControlText(
-          text: '2',
-          subtext: AppLocalizations.of(context)!
-              .gameStartDialogTimePerEndByPlayersButtonLabel(
-            Constants.minutesPerEndTwoPlayers.toString(),
-            _printDuration(
-              Duration(
-                minutes: Constants.minutesPerEndTwoPlayers * settingsTotalEnds,
+    return StatefulBuilder(
+      builder: (context, setState) {
+        // In order to have the text update correctly need to have this inside
+        // the stateful builder context.
+        final numberOfPlayersPerTeam = {
+          2: Padding(
+            padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+            child: GameStartSegmentControlText(
+              text: '2',
+              subtext: AppLocalizations.of(context)!
+                  .gameStartDialogTimePerEndByPlayersButtonLabel(
+                Constants.minutesPerEndTwoPlayers.toString(),
+                _printDuration(
+                  Duration(
+                    minutes:
+                        Constants.minutesPerEndTwoPlayers * settingsTotalEnds,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-      4: GameStartSegmentControlText(
-        text: '4',
-        subtext: AppLocalizations.of(context)!
-            .gameStartDialogTimePerEndByPlayersButtonLabel(
-          Constants.minutesPerEndFourPlayers.toString(),
-          _printDuration(
-            Duration(
-              minutes: Constants.minutesPerEndFourPlayers * settingsTotalEnds,
+          4: GameStartSegmentControlText(
+            text: '4',
+            subtext: AppLocalizations.of(context)!
+                .gameStartDialogTimePerEndByPlayersButtonLabel(
+              Constants.minutesPerEndFourPlayers.toString(),
+              _printDuration(
+                Duration(
+                  minutes:
+                      Constants.minutesPerEndFourPlayers * settingsTotalEnds,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    };
-
-    return StatefulBuilder(
-      builder: (context, setState) {
+        };
         return AlertDialog(
           title: Text(AppLocalizations.of(context)!.gameStartDialogTitle),
           content: Form(

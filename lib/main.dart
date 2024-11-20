@@ -55,14 +55,26 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     super.initState();
 
     gameObject = CurlingGame(
-      team1: CurlingTeam(name: 'Red', color: Colors.red),
-      team2: CurlingTeam(name: 'Yellow', color: Colors.yellow),
+      team1: CurlingTeam(
+        name: 'Red',
+        color: Constants.redTeamColor,
+        accentColor: Constants.redTeamAccentColor,
+      ),
+      team2: CurlingTeam(
+        name: 'Yellow',
+        color: Constants.yellowTeamColor,
+        accentColor: Constants.yellowTeamAccentColor,
+      ),
       numberOfEnds: 8,
       numberOfPlayersPerTeam: 4,
     );
+
     // Need a small delay to allow everything to be setup before showing
     // the start dialog.
-    Timer.run(showGameStartDialog);
+    Timer.run(() {
+      showGameStartDialog();
+    });
+    // Setup a dummy game object to start with
   }
 
   void showGameStartDialog() {
@@ -108,13 +120,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     if (currentEnd > gameObject.numberOfEnds + 1) {
       return;
     }
-
-    /*final newEnd = CurlingEnd(
-      endNumber: currentEnd,
-      team: team,
-      score: score,
-      gameTimeInSeconds: totalTimerSeconds,
-    );*/
 
     setState(() {
       if (curlingEnd.scoringTeamName ==
@@ -200,8 +205,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         );
       },
     ).then((value) {
-      final curlingEnd = value as CurlingEnd;
-      curlingEnd.gameTimeInSeconds = totalTimerSeconds;
+      // Need to add in the current timer value to the end so we get it at the
+      // point of entry on the dialog, not when the dialog came up
+      final curlingEnd = value as CurlingEnd
+        ..gameTimeInSeconds = totalTimerSeconds;
+
       enterScore(curlingEnd);
     });
   }
@@ -224,7 +232,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       (value) {
         final curlingEnd = value as CurlingEnd;
         editScore(
-            curlingEnd.endNumber, curlingEnd.score, curlingEnd.scoringTeamName);
+          curlingEnd.endNumber,
+          curlingEnd.score,
+          curlingEnd.scoringTeamName,
+        );
       },
     );
   }
@@ -266,12 +277,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               showFinishGameConfirmationDialog(context);
             },
           ),
-          /*AppBarActionButton(
-            icon: Icons.settings,
-            onPressed: () {
-              showSettingsDialog(context);
-            },
-          ),*/
         ],
       ),
       body: buildBody(),
@@ -285,9 +290,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           flex: 9,
           child: TotalScoreRow(
             team1Score: redScores.fold(0, (a, b) => a + b),
-            team1Color: Constants.redTeamColor,
+            team1Color: gameObject.team1.color,
             team2Score: yellowScores.fold(0, (a, b) => a + b),
-            team2Color: Constants.yellowTeamColor,
+            team2Color: gameObject.team2.color,
             endNumber: currentEnd,
           ),
         ),
@@ -308,10 +313,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             endsContainerColor: Constants.primaryThemeColor,
             team1Scores: redScores,
             team2Scores: yellowScores,
-            team1EmptyColor: Constants.redTeamAccentColor,
-            team2EmptyColor: Constants.yellowTeamAccentColor,
-            team1FilledColor: Constants.redTeamColor,
-            team2FilledColor: Constants.yellowTeamColor,
+            team1EmptyColor: gameObject.team1.accentColor,
+            team2EmptyColor: gameObject.team2.accentColor,
+            team1FilledColor: gameObject.team1.color,
+            team2FilledColor: gameObject.team2.color,
             onPressed: showEditScoreDialog,
           ),
         ),

@@ -45,6 +45,7 @@ class ScoreboardBaseballLayout extends StatelessWidget {
             scores: team1Scores,
             emptyColor: team1EmptyColor,
             filledColor: team1FilledColor,
+            onPressed: onPressed,
           ),
         ),
         Flexible(
@@ -55,6 +56,7 @@ class ScoreboardBaseballLayout extends StatelessWidget {
             scores: team2Scores,
             emptyColor: team2EmptyColor,
             filledColor: team2FilledColor,
+            onPressed: onPressed,
           ),
         ),
       ],

@@ -1,5 +1,3 @@
-import 'package:curling_scoreboard_flutter/models/models.dart';
-
 class CurlingEnd {
   CurlingEnd({
     required this.endNumber,

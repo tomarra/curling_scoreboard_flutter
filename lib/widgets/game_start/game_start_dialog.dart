@@ -1,3 +1,4 @@
+import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
@@ -30,10 +31,14 @@ class GameStartDialog extends StatelessWidget {
       2: const Padding(
         padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
         child: GameStartSegmentControlText(
-            text: '2', subtext: '13 minutes per end'),
+          text: '2',
+          subtext: '13 minutes per end',
+        ),
       ),
       4: const GameStartSegmentControlText(
-          text: '4', subtext: '15 minutes per end'),
+        text: '4',
+        subtext: '15 minutes per end',
+      ),
     };
 
     return StatefulBuilder(
@@ -105,8 +110,16 @@ class GameStartDialog extends StatelessWidget {
           actions: [
             ElevatedButton(
               onPressed: () {
-                final team1 = CurlingTeam(name: 'Red', color: Colors.red);
-                final team2 = CurlingTeam(name: 'Yellow', color: Colors.yellow);
+                final team1 = CurlingTeam(
+                  name: 'Red',
+                  color: Constants.redTeamColor,
+                  accentColor: Constants.redTeamAccentColor,
+                );
+                final team2 = CurlingTeam(
+                  name: 'Yellow',
+                  color: Constants.yellowTeamColor,
+                  accentColor: Constants.yellowTeamAccentColor,
+                );
 
                 final newCurlingGame = CurlingGame(
                   team1: team1,

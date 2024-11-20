@@ -47,32 +47,33 @@ class GameSummaryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Table(
-        border: TableBorder.all(),
-        columnWidths: const <int, TableColumnWidth>{
-          0: IntrinsicColumnWidth(),
-          1: FlexColumnWidth(),
-          2: FlexColumnWidth(),
-          3: FlexColumnWidth(),
-        },
-        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-        children: <TableRow>[
+      border: TableBorder.all(),
+      columnWidths: const <int, TableColumnWidth>{
+        0: IntrinsicColumnWidth(),
+        1: FlexColumnWidth(),
+        2: FlexColumnWidth(),
+        3: FlexColumnWidth(),
+      },
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: <TableRow>[
+        const TableRow(
+          children: <Widget>[
+            Text('end'),
+            Text('scoring team'),
+            Text('score'),
+            Text('End Time'),
+          ],
+        ),
+        for (final end in ends)
           TableRow(
             children: <Widget>[
-              Text('end'),
-              Text('scoring team'),
-              Text('score'),
-              Text('End Time'),
+              Text(end.endNumber.toString()),
+              Text(end.scoringTeamName),
+              Text(end.score.toString()),
+              Text(end.gameTimeInSeconds.toString()),
             ],
           ),
-          for (var end in ends)
-            TableRow(
-              children: <Widget>[
-                Text(end.endNumber.toString()),
-                Text(end.scoringTeamName.toString()),
-                Text(end.score.toString()),
-                Text(end.gameTimeInSeconds.toString()),
-              ],
-            ),
-        ]);
+      ],
+    );
   }
 }

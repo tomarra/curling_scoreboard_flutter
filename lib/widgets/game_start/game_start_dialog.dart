@@ -31,16 +31,32 @@ class GameStartDialog extends StatelessWidget {
         Constants.defaultNumberOfPlayersPerTeam;
 
     final numberOfPlayersPerTeam = {
-      2: const Padding(
-        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+      2: Padding(
+        padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
         child: GameStartSegmentControlText(
           text: '2',
-          subtext: '13 minutes per end',
+          subtext: AppLocalizations.of(context)!
+              .gameStartDialogTimePerEndByPlayersButtonLabel(
+            Constants.minutesPerEndTwoPlayers.toString(),
+            _printDuration(
+              Duration(
+                minutes: Constants.minutesPerEndTwoPlayers * settingsTotalEnds,
+              ),
+            ),
+          ),
         ),
       ),
-      4: const GameStartSegmentControlText(
+      4: GameStartSegmentControlText(
         text: '4',
-        subtext: '15 minutes per end',
+        subtext: AppLocalizations.of(context)!
+            .gameStartDialogTimePerEndByPlayersButtonLabel(
+          Constants.minutesPerEndFourPlayers.toString(),
+          _printDuration(
+            Duration(
+              minutes: Constants.minutesPerEndFourPlayers * settingsTotalEnds,
+            ),
+          ),
+        ),
       ),
     };
 
@@ -135,9 +151,10 @@ class GameStartDialog extends StatelessWidget {
 
                 Navigator.pop(context, newCurlingGame);
               },
-              child: const Text(
-                'Start Game',
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context)!
+                    .gameStartDialogButtonLabelStartGame,
+                style: const TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
@@ -147,6 +164,13 @@ class GameStartDialog extends StatelessWidget {
         );
       },
     );
+  }
+
+  String _printDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60).abs());
+    twoDigits(duration.inSeconds.remainder(60).abs());
+    return '${twoDigits(duration.inHours)}:$twoDigitMinutes';
   }
 }
 

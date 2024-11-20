@@ -38,7 +38,6 @@ class CurlingScoreboardScreen extends StatefulWidget {
 
 class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   late CurlingGame gameObject;
-  int currentEnd = 1;
 
   Timer? timer;
   int totalTimerSeconds = 0;
@@ -88,9 +87,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       totalTimerSeconds += 1;
-      overUnderInSeconds =
-          Duration(seconds: totalTimerSeconds - secondsPerEnd[currentEnd - 1])
-              .inSeconds;
+      overUnderInSeconds = Duration(
+        seconds:
+            totalTimerSeconds - secondsPerEnd[gameObject.currentPlayingEnd - 1],
+      ).inSeconds;
       setState(() {});
     });
 
@@ -112,13 +112,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
   void enterScore(CurlingEnd curlingEnd) {
     // Don't allow for entering scores if we have filled all the ends
-    if (currentEnd > gameObject.numberOfEnds + 1) {
+    if (gameObject.currentPlayingEnd > gameObject.numberOfEnds + 1) {
       return;
     }
 
     setState(() {
-      if (currentEnd + 1 <= gameObject.numberOfEnds + 1) {
-        currentEnd++;
+      if (gameObject.currentPlayingEnd + 1 <= gameObject.numberOfEnds + 1) {
+        gameObject.currentPlayingEnd++;
       }
 
       final currentEndList = gameObject.ends.toList()..add(curlingEnd);
@@ -151,7 +151,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       showGameStartDialog();
       setState(() {
         gameObject.ends.clear();
-        currentEnd = 1;
         totalTimerSeconds = 0;
         overUnderInSeconds = 0;
 
@@ -178,7 +177,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         return ScoreInputDialog(
           defaultTeam: 'Red',
           defaultScore: 0,
-          end: currentEnd,
+          end: gameObject.currentPlayingEnd,
         );
       },
     ).then((value) {
@@ -192,7 +191,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void showEditScoreDialog(int end) {
-    if (end > currentEnd) {
+    if (end > gameObject.currentPlayingEnd) {
       return;
     }
 
@@ -266,11 +265,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         Flexible(
           flex: 9,
           child: TotalScoreRow(
-            team1Score: gameObject.team1ScoresByEnd.fold(0, (a, b) => a + b),
+            team1Score: gameObject.team1TotalScore,
             team1Color: gameObject.team1.color,
-            team2Score: gameObject.team2ScoresByEnd.fold(0, (a, b) => a + b),
+            team2Score: gameObject.team2TotalScore,
             team2Color: gameObject.team2.color,
-            endNumber: currentEnd,
+            endNumber: gameObject.currentPlayingEnd,
           ),
         ),
         Flexible(

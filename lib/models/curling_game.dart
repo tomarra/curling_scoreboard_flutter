@@ -15,6 +15,7 @@ class CurlingGame {
   int numberOfEnds;
   int numberOfPlayersPerTeam;
   List<CurlingEnd> ends;
+  int currentPlayingEnd = 1;
 
   int get minutesPerEnd {
     if (numberOfPlayersPerTeam == 4) {
@@ -22,6 +23,20 @@ class CurlingGame {
     } else {
       return Constants.minutesPerEndTwoPlayers;
     }
+  }
+
+  int get team1TotalScore {
+    return ends
+        .where((end) => end.scoringTeamName == team1.name)
+        .map((end) => end.score)
+        .fold(0, (a, b) => a + b);
+  }
+
+  int get team2TotalScore {
+    return ends
+        .where((end) => end.scoringTeamName == team2.name)
+        .map((end) => end.score)
+        .fold(0, (a, b) => a + b);
   }
 
   List<int> get team1ScoresByEnd {

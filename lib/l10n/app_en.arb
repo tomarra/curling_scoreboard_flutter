@@ -62,6 +62,14 @@
   "@finishGameDialogDescription": {
     "description": "Description for the dialog that shows up when a user attempts to finish the game."
   },
+  "gameEndDialogTitle": "Game Report",
+  "@gameEndDialogTitle": {
+    "description": "Title of the dialog shown at the end of a game."
+  },
+  "gameEndDialogButtonLabelDismiss": "Dismiss",
+  "@gameEndDialogButtonLabelDismiss": {
+    "description": "Button label to dismiss the end game dialog"
+  },
 
   "settingsLabelVersion": "Version {versionNumber} ",
   "@settingsLabelVersion": {

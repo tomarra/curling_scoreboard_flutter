@@ -144,7 +144,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return GameEndDialog(
-          ends: gameObject.ends,
+          gameObject: gameObject,
         );
       },
     ).then((value) {

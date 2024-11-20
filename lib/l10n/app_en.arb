@@ -16,42 +16,35 @@
   "@buttonLabelYes": {
     "description": "Generic button text for a yes/affrim action."
   },
-  "buttonLabelConfirm": "Confirm",
-  "@buttonLabelConfirm": {
-    "description": "Generic button text for a confirm action."
-  },
-  "buttonLabelSave": "Save",
-  "@buttonLabelSave": {
-    "description": "Generic button text for a save action."
-  },
   "buttonLabelNo": "No",
   "@buttonLabelNo": {
     "description": "Generic button text for a no/disallow action."
   },
-  "buttonLabelAddScore": "Add Score",
+  "appBarAddScoreButtonLabel": "Add Score",
   "@buttonLabelAddScore": {
     "description": "Button text for adding a score to the game."
   },
-  "buttonLabelFinishGame": "Finish Game",
+  "appBarFinishGameButtonLabel": "Finish Game",
   "@buttonLabelFinishGame": {
     "description": "Button text for ending the game."
   },
-  "finishGameDialogTitle": "Finish Game",
-  "@finishGameDialogTitle": {
-    "description": "Title for the dialog that shows up when a user attempts to finish the game."
+  "gameStartDialogTitle": "Game Setup",
+  "@gameStartDialogTitle": {
+    "description": "Title of the dialog shown to setup the game."
   },
-  "finishGameDialogDescription": "Are you sure you want to finish the game?",
+  "gameStartDialogFormLabelNumberOfEnds": "Number of Ends:",
+  "@gameStartDialogFormLabelNumberOfEnds": {
+    "description": "Description text for the number of ends setting in the game start dialog."
+  },
+  "gameStartDialogFormLabelPlayersPerTeam": "Players per Team:",
+  "@gameStartDialogFormLabelPlayersPerTeam": {
+    "description": "Description text for the number of players setting in the game start dialog."
+  },
+  "finishGameConfirmationDialogDescription": "Are you sure you want to finish the game?",
   "@finishGameDialogDescription": {
     "description": "Description for the dialog that shows up when a user attempts to finish the game."
   },
-  "settingsDialogTitle": "Settings",
-  "@settingsDialogTitle": {
-    "description": "Title for the dialog that shows up when a user bring up the settings dialog."
-  },
-  "settingsLabelNumberOfEnds": "Number of Ends: ",
-  "@settingsLabelNumberOfEnds": {
-    "description": "Description text for the number of ends setting in the settings dialog."
-  },
+
   "settingsLabelVersion": "Version {versionNumber} ",
   "@settingsLabelVersion": {
     "description": "Version label in the settings dialog.",
@@ -79,36 +72,6 @@
   "addScoreGameCompleteMessage": "Game is complete. Finish the game to reset.",
   "@addScoreGameCompleteMessage": {
     "description": "Message shown to the user when they try and enter a score for a game that has been completed."
-  },
-  "editScoreTeamDropdownLabel": "Team",
-  "@editScoreTeamDropdownLabel": {
-    "description": "Dropdown label for the edit score dialog to select the team that scored for the end."
-  },
-  "editScoreScoreDropdownLabel": "Score",
-  "@editScoreScoreDropdownLabel": {
-    "description": "Dropdown label for the edit score dialog to select the score for the end."
-  },
-  "editScoreDialogSaveButtonLabel": "Update",
-  "@editScoreDialogSaveButtonLabel": {
-    "description": "Button label for the edit score dialog to update the score for the end."
-  },
-  "editScoreDialogExtraEndText": "Extra",
-  "@editScoreDialogExtraEndText": {
-    "description": "Label for the edit score dialog when the end being edited is the extra end instead of a numbered end."
-  },
-  "gameInfoEndLabel": "End - {endNumberName}",
-  "@gameInfoEndLabel": {
-    "description": "Text for the game info section to show the current end",
-    "placeholders": {
-      "endNumberName": {
-        "type": "String",
-        "example": "1"
-      }
-    }
-  },
-  "gameInfoExtraEndText": "Extra",
-  "@gameInfoExtraEndText": {
-    "description": "Label for the game info section when the end being played is the extra end instead of a numbered end."
   },
   "gameInfoGameTimeLabel": "Game Time {gameTimeString}",
   "@gameInfoGameTimeLabel": {

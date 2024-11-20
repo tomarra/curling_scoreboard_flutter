@@ -1,6 +1,7 @@
 import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
 class GameStartDialog extends StatelessWidget {
@@ -10,8 +11,8 @@ class GameStartDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var settingsTotalEnds = 8;
-    var currentNumberOfEndsSelectedIndex = 8;
+    var settingsTotalEnds = Constants.defaultTotalEnds;
+    var currentNumberOfEndsSelectedIndex = Constants.defaultTotalEnds;
 
     final numberOfEnds = {
       2: const Padding(
@@ -24,8 +25,10 @@ class GameStartDialog extends StatelessWidget {
       10: const GameStartSegmentControlText(text: '10'),
     };
 
-    var settingsNumberOfPlayersPerTeam = 4;
-    var currentNumberOfPlayersPerTeamSelectedIndex = 4;
+    var settingsNumberOfPlayersPerTeam =
+        Constants.defaultNumberOfPlayersPerTeam;
+    var currentNumberOfPlayersPerTeamSelectedIndex =
+        Constants.defaultNumberOfPlayersPerTeam;
 
     final numberOfPlayersPerTeam = {
       2: const Padding(
@@ -44,16 +47,17 @@ class GameStartDialog extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return AlertDialog(
-          title: const Text('Game Start'),
+          title: Text(AppLocalizations.of(context)!.gameStartDialogTitle),
           content: Form(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   children: [
-                    const Text(
-                      'Number of Ends',
-                      style: TextStyle(fontSize: 40),
+                    Text(
+                      AppLocalizations.of(context)!
+                          .gameStartDialogFormLabelNumberOfEnds,
+                      style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
                       children: numberOfEnds,
@@ -78,9 +82,10 @@ class GameStartDialog extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      'Players per Team',
-                      style: TextStyle(fontSize: 40),
+                    Text(
+                      AppLocalizations.of(context)!
+                          .gameStartDialogFormLabelPlayersPerTeam,
+                      style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
                       children: numberOfPlayersPerTeam,
@@ -111,12 +116,12 @@ class GameStartDialog extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 final team1 = CurlingTeam(
-                  name: 'Red',
+                  name: AppLocalizations.of(context)!.teamNameRed,
                   color: Constants.redTeamColor,
                   accentColor: Constants.redTeamAccentColor,
                 );
                 final team2 = CurlingTeam(
-                  name: 'Yellow',
+                  name: AppLocalizations.of(context)!.teamNameYellow,
                   color: Constants.yellowTeamColor,
                   accentColor: Constants.yellowTeamAccentColor,
                 );

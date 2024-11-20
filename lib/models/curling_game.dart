@@ -23,4 +23,32 @@ class CurlingGame {
       return Constants.minutesPerEndTwoPlayers;
     }
   }
+
+  List<int> get team1ScoresByEnd {
+    final returnValue = <int>[];
+
+    for (final end in ends) {
+      if (end.scoringTeamName == team1.name) {
+        returnValue.add(end.score);
+      } else {
+        returnValue.add(0);
+      }
+    }
+
+    return returnValue;
+  }
+
+  List<int> get team2ScoresByEnd {
+    final returnValue = <int>[];
+
+    for (final end in ends) {
+      if (end.scoringTeamName == team2.name) {
+        returnValue.add(end.score);
+      } else {
+        returnValue.add(0);
+      }
+    }
+
+    return returnValue;
+  }
 }

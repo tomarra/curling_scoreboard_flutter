@@ -37,10 +37,6 @@ class CurlingScoreboardScreen extends StatefulWidget {
 }
 
 class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
-  List<int> redScores = [];
-  List<int> yellowScores = [];
-  List<CurlingEnd> ends = [];
-
   late CurlingGame gameObject;
   int currentEnd = 1;
 
@@ -54,6 +50,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   void initState() {
     super.initState();
 
+    // Setup a dummy game object to start with, none of this is actually used
+    // as we will be setting the game object in the game start dialog.
     gameObject = CurlingGame(
       team1: CurlingTeam(
         name: 'Red',
@@ -65,16 +63,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         color: Constants.yellowTeamColor,
         accentColor: Constants.yellowTeamAccentColor,
       ),
-      numberOfEnds: 8,
-      numberOfPlayersPerTeam: 4,
+      numberOfEnds: Constants.defaultTotalEnds,
+      numberOfPlayersPerTeam: Constants.defaultNumberOfPlayersPerTeam,
     );
 
     // Need a small delay to allow everything to be setup before showing
     // the start dialog.
-    Timer.run(() {
-      showGameStartDialog();
-    });
-    // Setup a dummy game object to start with
+    Timer.run(showGameStartDialog);
   }
 
   void showGameStartDialog() {
@@ -122,40 +117,24 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     }
 
     setState(() {
-      if (curlingEnd.scoringTeamName ==
-          AppLocalizations.of(context)!.teamNameRed) {
-        redScores.add(curlingEnd.score);
-        yellowScores.add(0);
-      } else {
-        yellowScores.add(curlingEnd.score);
-        redScores.add(0);
-      }
-
       if (currentEnd + 1 <= gameObject.numberOfEnds + 1) {
         currentEnd++;
       }
 
-      ends.add(curlingEnd);
+      final currentEndList = gameObject.ends.toList()..add(curlingEnd);
+      gameObject.ends = currentEndList;
     });
   }
 
   void editScore(int end, int score, String team) {
-    final originalEndScore = ends.elementAt(end - 1);
+    final originalEndScore = gameObject.ends.elementAt(end - 1);
 
     setState(() {
-      if (team == AppLocalizations.of(context)!.teamNameRed) {
-        redScores[end - 1] = score;
-        yellowScores[end - 1] = 0;
-      } else {
-        yellowScores[end - 1] = score;
-        redScores[end - 1] = 0;
-      }
-
       originalEndScore
         ..scoringTeamName = team
         ..score = score;
 
-      ends[end - 1] = originalEndScore;
+      gameObject.ends[end - 1] = originalEndScore;
     });
   }
 
@@ -165,15 +144,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return GameEndDialog(
-          ends: ends,
+          ends: gameObject.ends,
         );
       },
     ).then((value) {
       showGameStartDialog();
       setState(() {
-        redScores.clear();
-        yellowScores.clear();
-        ends.clear();
+        gameObject.ends.clear();
         currentEnd = 1;
         totalTimerSeconds = 0;
         overUnderInSeconds = 0;
@@ -223,8 +200,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       context: context,
       builder: (BuildContext context) {
         return ScoreInputDialog(
-          defaultTeam: ends[end - 1].scoringTeamName,
-          defaultScore: ends[end - 1].score,
+          defaultTeam: gameObject.ends[end - 1].scoringTeamName,
+          defaultScore: gameObject.ends[end - 1].score,
           end: end,
         );
       },
@@ -255,9 +232,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         actions: <Widget>[
           AppBarActionButton(
             icon: Icons.add,
-            label: AppLocalizations.of(context)!.buttonLabelAddScore,
+            label: AppLocalizations.of(context)!.appBarAddScoreButtonLabel,
             onPressed: () {
-              if (ends.length < gameObject.numberOfEnds + 1) {
+              if (gameObject.ends.length < gameObject.numberOfEnds + 1) {
                 showEnterScoreDialog(context);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -272,7 +249,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           ),
           AppBarActionButton(
             icon: Icons.sports_score,
-            label: AppLocalizations.of(context)!.buttonLabelFinishGame,
+            label: AppLocalizations.of(context)!.appBarFinishGameButtonLabel,
             onPressed: () {
               showFinishGameConfirmationDialog(context);
             },
@@ -289,18 +266,15 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         Flexible(
           flex: 9,
           child: TotalScoreRow(
-            team1Score: redScores.fold(0, (a, b) => a + b),
+            team1Score: gameObject.team1ScoresByEnd.fold(0, (a, b) => a + b),
             team1Color: gameObject.team1.color,
-            team2Score: yellowScores.fold(0, (a, b) => a + b),
+            team2Score: gameObject.team2ScoresByEnd.fold(0, (a, b) => a + b),
             team2Color: gameObject.team2.color,
             endNumber: currentEnd,
           ),
         ),
         Flexible(
           child: GameInfoRowWidget(
-            end: (currentEnd > gameObject.numberOfEnds)
-                ? AppLocalizations.of(context)!.gameInfoExtraEndText
-                : currentEnd.toString(),
             gameTime: Duration(seconds: totalTimerSeconds),
             gameTimeOverUnder: Duration(seconds: overUnderInSeconds),
           ),
@@ -311,8 +285,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           child: ScoreboardBaseballLayout(
             numberOfEnds: gameObject.numberOfEnds,
             endsContainerColor: Constants.primaryThemeColor,
-            team1Scores: redScores,
-            team2Scores: yellowScores,
+            team1Scores: gameObject.team1ScoresByEnd,
+            team2Scores: gameObject.team2ScoresByEnd,
             team1EmptyColor: gameObject.team1.accentColor,
             team2EmptyColor: gameObject.team2.accentColor,
             team1FilledColor: gameObject.team1.color,

@@ -10,7 +10,7 @@ class FinishGameDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Text(
-        AppLocalizations.of(context)!.finishGameDialogDescription,
+        AppLocalizations.of(context)!.finishGameConfirmationDialogDescription,
         style: const TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,

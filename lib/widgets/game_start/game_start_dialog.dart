@@ -65,6 +65,7 @@ class GameStartDialog extends StatelessWidget {
             ),
           ),
         };
+
         return AlertDialog(
           title: Text(AppLocalizations.of(context)!.gameStartDialogTitle),
           content: Form(

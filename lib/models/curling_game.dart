@@ -17,6 +17,22 @@ class CurlingGame {
   List<CurlingEnd> ends;
   int currentPlayingEnd = 1;
 
+  String get currentPlayingEndForDisplay {
+    if (currentPlayingEnd <= numberOfEnds) {
+      return currentPlayingEnd.toString();
+    } else {
+      return 'E';
+    }
+  }
+
+  bool get isGameComplete {
+    if ((ends.length == numberOfEnds) && (team1TotalScore != team2TotalScore)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   int get minutesPerEnd {
     if (numberOfPlayersPerTeam == 4) {
       return Constants.minutesPerEndFourPlayers;

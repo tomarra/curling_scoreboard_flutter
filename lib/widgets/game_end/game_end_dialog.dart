@@ -68,36 +68,46 @@ class GameSummaryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Table(
-      border: TableBorder.all(),
+      border: const TableBorder(
+        horizontalInside: BorderSide(
+          width: 2,
+          color: Colors.blue,
+        ),
+      ),
       columnWidths: const <int, TableColumnWidth>{
         0: IntrinsicColumnWidth(),
-        1: FlexColumnWidth(),
-        2: FlexColumnWidth(),
-        3: FlexColumnWidth(),
+        1: IntrinsicColumnWidth(),
+        2: IntrinsicColumnWidth(),
+        3: IntrinsicColumnWidth(),
+        4: IntrinsicColumnWidth(),
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: <TableRow>[
         TableRow(
           children: <Widget>[
-            const Text('End'),
-            Text(team1Name),
-            Text(team2Name),
-            const Text('End Time'),
-            const Text('Game Time'),
+            const GameEndTableHeaderText(text: 'End'),
+            GameEndTableHeaderText(text: team1Name, color: team1Color),
+            GameEndTableHeaderText(text: team2Name, color: team2Color),
+            const GameEndTableHeaderText(text: 'End Time'),
+            const GameEndTableHeaderText(text: 'Game Time'),
           ],
         ),
         for (final end in ends)
           TableRow(
             children: <Widget>[
-              Text(end.endNumber.toString()),
-              Text(
-                (end.scoringTeamName == team1Name) ? end.score.toString() : '0',
+              GameEndTableCellText(text: end.endNumber.toString()),
+              GameEndTableCellText(
+                text: (end.scoringTeamName == team1Name)
+                    ? end.score.toString()
+                    : '0',
               ),
-              Text(
-                (end.scoringTeamName == team2Name) ? end.score.toString() : '0',
+              GameEndTableCellText(
+                text: (end.scoringTeamName == team2Name)
+                    ? end.score.toString()
+                    : '0',
               ),
-              Text(
-                (end.endNumber == 1)
+              GameEndTableCellText(
+                text: (end.endNumber == 1)
                     ? _printDurationInMinutes(
                         Duration(seconds: end.gameTimeInSeconds),
                       )
@@ -108,8 +118,8 @@ class GameSummaryWidget extends StatelessWidget {
                         ),
                       ),
               ),
-              Text(
-                _printDurationInHours(
+              GameEndTableCellText(
+                text: _printDurationInHours(
                   Duration(seconds: end.gameTimeInSeconds),
                 ),
               ),
@@ -117,11 +127,13 @@ class GameSummaryWidget extends StatelessWidget {
           ),
         TableRow(
           children: <Widget>[
-            const Text('Totals'),
-            Text(team1TotalScore.toString()),
-            Text(team2TotalScore.toString()),
-            const Text(''),
-            const Text(''),
+            const GameEndTableCellText(text: 'Totals'),
+            GameEndTableCellText(
+                text: team1TotalScore.toString(), color: team1Color),
+            GameEndTableCellText(
+                text: team2TotalScore.toString(), color: team2Color),
+            const GameEndTableCellText(text: ''),
+            const GameEndTableCellText(text: ''),
           ],
         ),
       ],
@@ -141,4 +153,49 @@ class GameSummaryWidget extends StatelessWidget {
   }
 
   String twoDigits(int n) => n.toString().padLeft(2, '0');
+}
+
+class GameEndTableHeaderText extends StatelessWidget {
+  const GameEndTableHeaderText({
+    required this.text,
+    this.color = Colors.black,
+    super.key,
+  });
+
+  final String text;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 40,
+          color: color,
+        ),
+      ),
+    );
+  }
+}
+
+class GameEndTableCellText extends StatelessWidget {
+  const GameEndTableCellText({
+    required this.text,
+    this.color = Colors.black,
+    super.key,
+  });
+
+  final String text;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: color),
+    );
+  }
 }

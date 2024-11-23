@@ -269,7 +269,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             team1Color: gameObject.team1.color,
             team2Score: gameObject.team2TotalScore,
             team2Color: gameObject.team2.color,
-            endNumber: gameObject.currentPlayingEnd,
+            endNumber: gameObject.currentPlayingEndForDisplay,
           ),
         ),
         Flexible(

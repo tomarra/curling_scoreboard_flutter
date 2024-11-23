@@ -17,15 +17,6 @@ class CurlingGame {
   List<CurlingEnd> ends;
   int currentPlayingEnd = 1;
 
-  CurlingGame get copy {
-    return CurlingGame(
-        team1: this.team1,
-        team2: this.team2,
-        numberOfEnds: this.numberOfEnds,
-        numberOfPlayersPerTeam: numberOfPlayersPerTeam,
-        ends: ends);
-  }
-
   String get currentPlayingEndForDisplay {
     if (currentPlayingEnd <= numberOfEnds) {
       return currentPlayingEnd.toString();

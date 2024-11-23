@@ -66,11 +66,26 @@
   "@gameEndDialogTitle": {
     "description": "Title of the dialog shown at the end of a game."
   },
+  "gameEndDialogEndTableHeader": "End",
+  "@gameEndDialogEndTableHeader": {
+    "description": "Text label for the game end report table column listing all ends."
+  },
+  "gameEndDialogEndTimeTableHeader": "End Time",
+  "@gameEndDialogEndTableHeader": {
+    "description": "Text label for the game end report table column listing the time taken for the end."
+  },
+  "gameEndDialogGameTimeTableHeader": "Game Time",
+  "@gameEndDialogEndTableHeader": {
+    "description": "Text label for the game end report table column listing the time taken for the end."
+  },
+  "gameEndDialogTotalsTableHeader": "Totals",
+  "@gameEndDialogEndTableHeader": {
+    "description": "Text label for the game end report table column listing the time taken for the end."
+  },
   "gameEndDialogButtonLabelDismiss": "Dismiss",
   "@gameEndDialogButtonLabelDismiss": {
     "description": "Button label to dismiss the end game dialog"
   },
-
   "settingsLabelVersion": "Version {versionNumber} ",
   "@settingsLabelVersion": {
     "description": "Version label in the settings dialog.",

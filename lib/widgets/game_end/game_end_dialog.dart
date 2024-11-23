@@ -85,11 +85,19 @@ class GameSummaryWidget extends StatelessWidget {
       children: <TableRow>[
         TableRow(
           children: <Widget>[
-            const GameEndTableHeaderText(text: 'End'),
+            GameEndTableHeaderText(
+              text: AppLocalizations.of(context)!.gameEndDialogEndTableHeader,
+            ),
             GameEndTableHeaderText(text: team1Name, color: team1Color),
             GameEndTableHeaderText(text: team2Name, color: team2Color),
-            const GameEndTableHeaderText(text: 'End Time'),
-            const GameEndTableHeaderText(text: 'Game Time'),
+            GameEndTableHeaderText(
+              text:
+                  AppLocalizations.of(context)!.gameEndDialogEndTimeTableHeader,
+            ),
+            GameEndTableHeaderText(
+              text:
+                  AppLocalizations.of(context)!.gameEndDialogEndTimeTableHeader,
+            ),
           ],
         ),
         for (final end in ends)
@@ -127,7 +135,10 @@ class GameSummaryWidget extends StatelessWidget {
           ),
         TableRow(
           children: <Widget>[
-            const GameEndTableCellText(text: 'Totals'),
+            GameEndTableCellText(
+              text:
+                  AppLocalizations.of(context)!.gameEndDialogTotalsTableHeader,
+            ),
             GameEndTableCellText(
               text: team1TotalScore.toString(),
               color: team1Color,

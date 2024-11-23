@@ -124,6 +124,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       final currentEndList = gameObject.ends.toList()..add(curlingEnd);
       gameObject.ends = currentEndList;
     });
+
+    if (gameObject.isGameComplete) {
+      finishGame(context);
+    }
   }
 
   void editScore(int end, int score, String team) {
@@ -139,6 +143,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void finishGame(BuildContext context) {
+    setState(() {
+      timer!.cancel();
+    });
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -148,14 +156,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         );
       },
     ).then((value) {
-      showGameStartDialog();
       setState(() {
         gameObject.ends.clear();
         totalTimerSeconds = 0;
         overUnderInSeconds = 0;
-
-        timer!.cancel();
       });
+      showGameStartDialog();
     });
   }
 

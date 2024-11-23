@@ -43,7 +43,7 @@ class TotalScoreRow extends StatelessWidget {
               child: ColoredBox(
                 color: Colors.white,
                 child: Text(
-                  endNumber.toString(),
+                  endNumber,
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

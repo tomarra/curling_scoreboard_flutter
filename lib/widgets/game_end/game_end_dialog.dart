@@ -129,9 +129,13 @@ class GameSummaryWidget extends StatelessWidget {
           children: <Widget>[
             const GameEndTableCellText(text: 'Totals'),
             GameEndTableCellText(
-                text: team1TotalScore.toString(), color: team1Color),
+              text: team1TotalScore.toString(),
+              color: team1Color,
+            ),
             GameEndTableCellText(
-                text: team2TotalScore.toString(), color: team2Color),
+              text: team2TotalScore.toString(),
+              color: team2Color,
+            ),
             const GameEndTableCellText(text: ''),
             const GameEndTableCellText(text: ''),
           ],

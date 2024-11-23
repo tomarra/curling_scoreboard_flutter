@@ -15,7 +15,7 @@ class TotalScoreRow extends StatelessWidget {
   final Color team1Color;
   final int team2Score;
   final Color team2Color;
-  final int endNumber;
+  final String endNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class TotalScoreRow extends StatelessWidget {
               child: ColoredBox(
                 color: Colors.white,
                 child: Text(
-                  endNumber.toString(),
+                  endNumber,
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

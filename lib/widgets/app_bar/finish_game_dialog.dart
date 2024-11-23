@@ -4,13 +4,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class FinishGameDialog extends StatelessWidget {
   const FinishGameDialog({required this.finishGameAction, super.key});
 
-  final void Function() finishGameAction;
+  final void Function(BuildContext) finishGameAction;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Text(
-        AppLocalizations.of(context)!.finishGameDialogDescription,
+        AppLocalizations.of(context)!.finishGameConfirmationDialogDescription,
         style: const TextStyle(
           fontSize: 40,
           fontWeight: FontWeight.bold,
@@ -22,8 +22,8 @@ class FinishGameDialog extends StatelessWidget {
       actions: [
         ElevatedButton(
           onPressed: () {
-            finishGameAction();
             Navigator.of(context).pop();
+            finishGameAction(context);
           },
           child: Text(
             AppLocalizations.of(context)!.buttonLabelYes,

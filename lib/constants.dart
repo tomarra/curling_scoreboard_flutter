@@ -10,7 +10,10 @@ class Constants {
   static Color actionGreyColor = Colors.grey[300]!;
 
   // Default Values
-  static const int defaultStartingEnd = 1;
   static const int defaultTotalEnds = 8;
-  static const String defaultGameTime = '00:00:00';
+  static const int defaultNumberOfPlayersPerTeam = 4;
+
+  // Basic Constants
+  static const int minutesPerEndFourPlayers = 15;
+  static const int minutesPerEndTwoPlayers = 12;
 }

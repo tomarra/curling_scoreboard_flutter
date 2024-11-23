@@ -7,7 +7,7 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
     required this.scores,
     required this.emptyColor,
     required this.filledColor,
-    //required this.onPressed,
+    required this.onPressed,
     super.key,
   });
 
@@ -16,7 +16,7 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
   final List<int> scores;
   final Color emptyColor;
   final Color filledColor;
-  //final void Function(int) onPressed;
+  final void Function(int) onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +30,19 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
         ...List.generate(numberOfEntries, (index) {
           if (index < scores.length) {
             return ScoreContainer(
+              endNumber: index + 1,
               score: scores[index],
               color: filledColor,
               width: endContainerWidth,
+              onPressed: onPressed,
             );
           } else {
             return ScoreContainer(
+              endNumber: -1,
               score: -1,
               color: emptyColor,
               width: endContainerWidth,
+              onPressed: onPressed,
             );
           }
         }),
@@ -49,32 +53,41 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
 
 class ScoreContainer extends StatelessWidget {
   const ScoreContainer({
+    required this.endNumber,
     required this.score,
     required this.color,
     required this.width,
+    required this.onPressed,
     super.key,
   });
 
+  final int endNumber;
   final int score;
   final Color color;
   final double width;
+  final void Function(int) onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: width,
-      decoration: BoxDecoration(
-        color: color,
-      ),
-      child: Text(
-        (score == -1) ? '' : score.toString(),
-        style: const TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
+    return InkWell(
+      child: Container(
+        alignment: Alignment.center,
+        width: width,
+        decoration: BoxDecoration(
+          color: color,
+        ),
+        child: Text(
+          (score == -1) ? '' : score.toString(),
+          style: const TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
       ),
+      onTap: () {
+        onPressed(endNumber);
+      },
     );
   }
 }

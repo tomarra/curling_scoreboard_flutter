@@ -3,13 +3,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GameInfoRowWidget extends StatelessWidget {
   const GameInfoRowWidget({
-    required this.end,
     required this.gameTime,
     required this.gameTimeOverUnder,
     super.key,
   });
 
-  final String end;
   final Duration gameTime;
   final Duration gameTimeOverUnder;
 

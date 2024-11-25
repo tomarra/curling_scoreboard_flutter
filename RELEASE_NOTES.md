@@ -1,9 +1,9 @@
-#  (2024-11-23)
+#  (2024-11-25)
 
 
-### Features
+### Bug Fixes
 
-* add start & end game flow ([#73](https://github.com/tomarra/curling_scoreboard_flutter/issues/73)) ([7cac76e](https://github.com/tomarra/curling_scoreboard_flutter/commit/7cac76e3fe82f15ed595ff0d482e25891827af6f))
+* allow for clean game reset with no scores ([3a21648](https://github.com/tomarra/curling_scoreboard_flutter/commit/3a21648290894f020eaa733a84fae01f7d4a8a41))
 
 
 

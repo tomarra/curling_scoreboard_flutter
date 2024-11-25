@@ -157,7 +157,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       },
     ).then((value) {
       setState(() {
-        gameObject.ends.clear();
+        if (gameObject.ends.isNotEmpty) {
+          gameObject.ends.clear();
+        }
+
         totalTimerSeconds = 0;
         overUnderInSeconds = 0;
       });

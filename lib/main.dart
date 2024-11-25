@@ -56,11 +56,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         name: 'Red',
         color: Constants.redTeamColor,
         accentColor: Constants.redTeamAccentColor,
+        hasHammer: false,
       ),
       team2: CurlingTeam(
         name: 'Yellow',
         color: Constants.yellowTeamColor,
         accentColor: Constants.yellowTeamAccentColor,
+        hasHammer: true,
       ),
       numberOfEnds: Constants.defaultTotalEnds,
       numberOfPlayersPerTeam: Constants.defaultNumberOfPlayersPerTeam,

@@ -12,6 +12,7 @@ class Constants {
   // Default Values
   static const int defaultTotalEnds = 8;
   static const int defaultNumberOfPlayersPerTeam = 4;
+  static const int defaultHammerTeam = 0;
 
   // Basic Constants
   static const int minutesPerEndFourPlayers = 15;

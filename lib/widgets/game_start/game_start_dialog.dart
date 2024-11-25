@@ -30,6 +30,21 @@ class GameStartDialog extends StatelessWidget {
     var currentNumberOfPlayersPerTeamSelectedIndex =
         Constants.defaultNumberOfPlayersPerTeam;
 
+    final hammerChoices = {
+      0: Padding(
+        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+        child: GameStartSegmentControlText(
+          text: AppLocalizations.of(context)!.teamNameRed,
+        ),
+      ),
+      1: GameStartSegmentControlText(
+        text: AppLocalizations.of(context)!.teamNameYellow,
+      ),
+    };
+
+    var settingsHammerTeam = Constants.defaultHammerTeam;
+    var currentHammerTeamSelectedIndex = Constants.defaultHammerTeam;
+
     return StatefulBuilder(
       builder: (context, setState) {
         // In order to have the text update correctly need to have this inside
@@ -129,6 +144,33 @@ class GameStartDialog extends StatelessWidget {
                     ),
                   ],
                 ),
+                Row(
+                  children: [
+                    const Text(
+                      'Hammer in 1st End',
+                      style: const TextStyle(fontSize: 40),
+                    ),
+                    MaterialSegmentedControl(
+                      children: hammerChoices,
+                      selectionIndex: currentHammerTeamSelectedIndex,
+                      borderColor: Colors.grey,
+                      selectedColor: Colors.blueAccent,
+                      unselectedColor: Colors.white,
+                      selectedTextStyle: const TextStyle(color: Colors.white),
+                      unselectedTextStyle: const TextStyle(color: Colors.black),
+                      borderWidth: 1,
+                      borderRadius: 20,
+                      horizontalPadding: const EdgeInsets.all(10),
+                      verticalOffset: 25,
+                      onSegmentTapped: (index) {
+                        setState(() {
+                          currentHammerTeamSelectedIndex = index;
+                          settingsHammerTeam = index;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -139,11 +181,13 @@ class GameStartDialog extends StatelessWidget {
                   name: AppLocalizations.of(context)!.teamNameRed,
                   color: Constants.redTeamColor,
                   accentColor: Constants.redTeamAccentColor,
+                  hasHammer: (settingsHammerTeam == 0) || false,
                 );
                 final team2 = CurlingTeam(
                   name: AppLocalizations.of(context)!.teamNameYellow,
                   color: Constants.yellowTeamColor,
                   accentColor: Constants.yellowTeamAccentColor,
+                  hasHammer: (settingsHammerTeam == 1) || false,
                 );
 
                 final newCurlingGame = CurlingGame(

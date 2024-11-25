@@ -124,7 +124,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       }
 
       final currentEndList = gameObject.ends.toList()..add(curlingEnd);
-      gameObject.ends = currentEndList;
+
+      gameObject
+        ..ends = currentEndList
+        ..evaluateHammer();
     });
 
     if (gameObject.isGameComplete) {
@@ -275,8 +278,10 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           child: TotalScoreRow(
             team1Score: gameObject.team1TotalScore,
             team1Color: gameObject.team1.color,
+            team1HasHammer: gameObject.team1.hasHammer,
             team2Score: gameObject.team2TotalScore,
             team2Color: gameObject.team2.color,
+            team2HasHammer: gameObject.team2.hasHammer,
             endNumber: gameObject.currentPlayingEndForDisplay,
           ),
         ),

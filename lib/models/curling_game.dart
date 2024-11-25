@@ -82,4 +82,16 @@ class CurlingGame {
 
     return returnValue;
   }
+
+  void evaluateHammer() {
+    final lastEnd = ends.last;
+
+    if (lastEnd.scoringTeamName == team1.name) {
+      team1.hasHammer = false;
+      team2.hasHammer = true;
+    } else {
+      team1.hasHammer = true;
+      team2.hasHammer = false;
+    }
+  }
 }

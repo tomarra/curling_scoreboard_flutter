@@ -4,11 +4,13 @@ class TeamTotalScoreWidget extends StatelessWidget {
   const TeamTotalScoreWidget({
     required this.score,
     required this.backgroundColor,
+    this.shouldShowHammerIcon = false,
     super.key,
   });
 
   final String score;
   final Color backgroundColor;
+  final bool shouldShowHammerIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,11 @@ class TeamTotalScoreWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          if (shouldShowHammerIcon)
+            const Icon(
+              Icons.hardware_sharp,
+              color: Colors.black,
+            ),
           Expanded(
             child: FittedBox(
               child: Text(

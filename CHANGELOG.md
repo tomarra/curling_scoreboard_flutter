@@ -1,5 +1,11 @@
 Changelog
 
+### [0.0.18](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.17...0.0.18) (2024-11-25)
+
+### Bug Fixes
+
+* allow for clean game reset with no scores ([3a21648](https://github.com/tomarra/curling_scoreboard_flutter/commit/3a21648290894f020eaa733a84fae01f7d4a8a41))
+
 ### [0.0.17](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.16...0.0.17) (2024-11-23)
 
 ### Features

@@ -1,5 +1,13 @@
 Changelog
 
+
+### [0.0.19](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.18...0.0.19) (2024-11-26)
+
+
+### Features
+
+* hammer detection & display ([#75](https://github.com/tomarra/curling_scoreboard_flutter/issues/75)) ([3f9505a](https://github.com/tomarra/curling_scoreboard_flutter/commit/3f9505a00871f95c38782c52a4147eca345aa6ae))
+
 ### [0.0.18](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.17...0.0.18) (2024-11-25)
 
 ### Bug Fixes

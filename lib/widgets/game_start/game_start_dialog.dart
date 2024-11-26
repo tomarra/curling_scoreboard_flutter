@@ -146,8 +146,9 @@ class GameStartDialog extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      'Hammer in 1st End',
+                    Text(
+                      AppLocalizations.of(context)!
+                          .gameStartDialogFormLabelFirstEndHammer,
                       style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(

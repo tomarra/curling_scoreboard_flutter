@@ -86,6 +86,20 @@ class CurlingGame {
   void evaluateHammer() {
     final lastEnd = ends.last;
 
+    //Check for Doubles game first and make sure a blank end switches hammer
+    if (numberOfPlayersPerTeam == 2 && lastEnd.score == 0) {
+      if (team1.hasHammer) {
+        team1.hasHammer = false;
+        team2.hasHammer = true;
+      } else {
+        team1.hasHammer = true;
+        team2.hasHammer = false;
+      }
+
+      return;
+    }
+
+    //Normal end hammer detection
     if (lastEnd.scoringTeamName == team1.name) {
       team1.hasHammer = false;
       team2.hasHammer = true;

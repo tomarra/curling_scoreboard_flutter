@@ -95,8 +95,8 @@ class GameSummaryWidget extends StatelessWidget {
                   AppLocalizations.of(context)!.gameEndDialogEndTimeTableHeader,
             ),
             GameEndTableHeaderText(
-              text:
-                  AppLocalizations.of(context)!.gameEndDialogEndTimeTableHeader,
+              text: AppLocalizations.of(context)!
+                  .gameEndDialogGameTimeTableHeader,
             ),
           ],
         ),

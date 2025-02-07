@@ -1,9 +1,9 @@
-#  (2024-11-26)
+#  (2025-02-07)
 
 
 ### Features
 
-* hammer detection & display ([#75](https://github.com/tomarra/curling_scoreboard_flutter/issues/75)) ([3f9505a](https://github.com/tomarra/curling_scoreboard_flutter/commit/3f9505a00871f95c38782c52a4147eca345aa6ae))
+* update flutter & visual updates ([#82](https://github.com/tomarra/curling_scoreboard_flutter/issues/82)) ([4fdcea3](https://github.com/tomarra/curling_scoreboard_flutter/commit/4fdcea3635447fc7ce68ce4fd0e647486307354c))
 
 
 

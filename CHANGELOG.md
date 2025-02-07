@@ -1,6 +1,13 @@
 Changelog
 
 
+### [0.0.20](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.19...0.0.20) (2025-02-07)
+
+
+### Features
+
+* update flutter & visual updates ([#82](https://github.com/tomarra/curling_scoreboard_flutter/issues/82)) ([4fdcea3](https://github.com/tomarra/curling_scoreboard_flutter/commit/4fdcea3635447fc7ce68ce4fd0e647486307354c))
+
 ### [0.0.19](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.18...0.0.19) (2024-11-26)
 
 

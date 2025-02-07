@@ -31,6 +31,7 @@ class TotalScoreRow extends StatelessWidget {
             TeamTotalScoreWidget(
               score: team1Score.toString(),
               backgroundColor: team1Color,
+              textColor: (team1Color == Colors.red) ? Colors.white : Colors.black,
               shouldShowHammerIcon: team1HasHammer,
               hammerIconPosition: HammerIconPosition.left,
             ),

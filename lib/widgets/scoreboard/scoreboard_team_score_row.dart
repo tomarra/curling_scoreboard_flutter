@@ -32,7 +32,7 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
             return ScoreContainer(
               endNumber: index + 1,
               score: scores[index],
-              color: filledColor,
+              color: (scores[index] == 0) ? emptyColor : filledColor,
               width: endContainerWidth,
               onPressed: onPressed,
             );
@@ -78,10 +78,10 @@ class ScoreContainer extends StatelessWidget {
         ),
         child: Text(
           (score == -1) ? '' : score.toString(),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: (color == Colors.red) ? Colors.white : Colors.black,
           ),
         ),
       ),

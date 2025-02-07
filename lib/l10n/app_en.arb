@@ -40,7 +40,7 @@
   "@gameStartDialogFormLabelPlayersPerTeam": {
     "description": "Description text for the number of players setting in the game start dialog."
   },
-  "gameStartDialogTimePerEndByPlayersButtonLabel": "{minutesPerEnd} minutes per end, {gameTotalTime} total",
+  "gameStartDialogTimePerEndByPlayersButtonLabel": "{minutesPerEnd} min per end \r\n{gameTotalTime} total",
   "@gameStartDialogTimePerEndByPlayersButtonLabel": {
     "description": "Button label for how long each end is when setting up a game.",
     "placeholders": {

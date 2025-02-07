@@ -288,12 +288,15 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             endNumber: gameObject.currentPlayingEndForDisplay,
           ),
         ),
-        Flexible(
-          child: GameInfoRowWidget(
-            gameTime: Duration(seconds: totalTimerSeconds),
-            gameTimeOverUnder: Duration(seconds: overUnderInSeconds),
-          ),
-        ),
+        if (gameObject.numberOfPlayersPerTeam > 0)
+          Flexible(
+            child: GameInfoRowWidget(
+              gameTime: Duration(seconds: totalTimerSeconds),
+              gameTimeOverUnder: Duration(seconds: overUnderInSeconds),
+            ),
+          )
+        else
+          const SizedBox(height: 0),
         Flexible(
           flex: 4,
           fit: FlexFit.tight,

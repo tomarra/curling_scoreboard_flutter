@@ -5,9 +5,11 @@ class TotalScoreRow extends StatelessWidget {
   const TotalScoreRow({
     required this.team1Score,
     required this.team1Color,
+    required this.team1TextColor,
     required this.team1HasHammer,
     required this.team2Score,
     required this.team2Color,
+    required this.team2TextColor,
     required this.team2HasHammer,
     required this.endNumber,
     super.key,
@@ -15,9 +17,11 @@ class TotalScoreRow extends StatelessWidget {
 
   final int team1Score;
   final Color team1Color;
+  final Color team1TextColor;
   final bool team1HasHammer;
   final int team2Score;
   final Color team2Color;
+  final Color team2TextColor;
   final bool team2HasHammer;
   final String endNumber;
 
@@ -31,14 +35,14 @@ class TotalScoreRow extends StatelessWidget {
             TeamTotalScoreWidget(
               score: team1Score.toString(),
               backgroundColor: team1Color,
-              textColor:
-                  (team1Color == Colors.red) ? Colors.white : Colors.black,
+              textColor: team1TextColor,
               shouldShowHammerIcon: team1HasHammer,
               hammerIconPosition: HammerIconPosition.left,
             ),
             TeamTotalScoreWidget(
               score: team2Score.toString(),
               backgroundColor: team2Color,
+              textColor: team2TextColor,
               shouldShowHammerIcon: team2HasHammer,
             ),
           ],

@@ -7,6 +7,8 @@ class Constants {
   static const Color yellowTeamColor = Colors.yellow;
   static const Color emptyScoreColor = Colors.white;
   static Color actionGreyColor = Colors.grey[300]!;
+  static Color textDefaultColor = Colors.black;
+  static Color textHighContrastColor = Colors.white;
 
   // Default Values
   static const int defaultTotalEnds = 8;

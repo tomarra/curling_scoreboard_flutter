@@ -50,9 +50,10 @@ class GameStartDialog extends StatelessWidget {
         // In order to have the text update correctly need to have this inside
         // the stateful builder context.
         final numberOfPlayersPerTeam = {
-          0: const GameStartSegmentControlText(
+          0: GameStartSegmentControlText(
             text: '0',
-            subtext: 'Turn off game clock',
+            subtext: AppLocalizations.of(context)!
+                .gameStartDialogZeroPlayersButtonLabel,
           ),
           2: Padding(
             padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),

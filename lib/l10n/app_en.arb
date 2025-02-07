@@ -54,6 +54,10 @@
       }
     }
   },
+  "gameStartDialogZeroPlayersButtonLabel" : "Turn off Game Clock",
+  "@gameStartDialogZeroPlayersButtonLabel": {
+    "description": "Button label for no players essentially turning the game clock display off. Game time will still be counted in background."
+  },
   "gameStartDialogFormLabelFirstEndHammer": "1st End Hammer:",
   "@gameStartDialogFormLabelFirstEndHammer": {
     "description": "Description text for the 1st end hammer setting in the game start dialog."

@@ -55,13 +55,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       team1: CurlingTeam(
         name: 'Red',
         color: Constants.redTeamColor,
-        accentColor: Constants.redTeamAccentColor,
         hasHammer: false,
       ),
       team2: CurlingTeam(
         name: 'Yellow',
         color: Constants.yellowTeamColor,
-        accentColor: Constants.yellowTeamAccentColor,
         hasHammer: true,
       ),
       numberOfEnds: Constants.defaultTotalEnds,
@@ -305,8 +303,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             endsContainerColor: Constants.primaryThemeColor,
             team1Scores: gameObject.team1ScoresByEnd,
             team2Scores: gameObject.team2ScoresByEnd,
-            team1EmptyColor: gameObject.team1.accentColor,
-            team2EmptyColor: gameObject.team2.accentColor,
             team1FilledColor: gameObject.team1.color,
             team2FilledColor: gameObject.team2.color,
             onPressed: showEditScoreDialog,

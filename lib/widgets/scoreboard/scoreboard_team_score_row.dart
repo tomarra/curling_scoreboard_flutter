@@ -5,8 +5,10 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
     required this.upperLimit,
     required this.needExtra,
     required this.scores,
-    required this.emptyColor,
-    required this.filledColor,
+    required this.emptyScoreBackgroundColor,
+    required this.filledScoreBackgroundColor,
+    required this.scoreTextColor,
+    required this.scoreTextHighContrastColor,
     required this.onPressed,
     super.key,
   });
@@ -14,8 +16,10 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
   final int upperLimit;
   final bool needExtra;
   final List<int> scores;
-  final Color emptyColor;
-  final Color filledColor;
+  final Color emptyScoreBackgroundColor;
+  final Color filledScoreBackgroundColor;
+  final Color scoreTextColor;
+  final Color scoreTextHighContrastColor;
   final void Function(int) onPressed;
 
   @override
@@ -28,11 +32,20 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ...List.generate(numberOfEntries, (index) {
+          var textColor = scoreTextColor;
+
+          if (scores.isNotEmpty) {
+            textColor = findSafeTextColor(filledScoreBackgroundColor);
+          }
+
           if (index < scores.length) {
             return ScoreContainer(
               endNumber: index + 1,
               score: scores[index],
-              color: filledColor,
+              backgroundColor: (scores[index] == 0)
+                  ? emptyScoreBackgroundColor
+                  : filledScoreBackgroundColor,
+              textColor: textColor,
               width: endContainerWidth,
               onPressed: onPressed,
             );
@@ -40,7 +53,8 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
             return ScoreContainer(
               endNumber: -1,
               score: -1,
-              color: emptyColor,
+              backgroundColor: emptyScoreBackgroundColor,
+              textColor: textColor,
               width: endContainerWidth,
               onPressed: onPressed,
             );
@@ -49,13 +63,19 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
       ],
     );
   }
+
+  Color findSafeTextColor(Color backgroundColor) {
+    final luminance = backgroundColor.computeLuminance();
+    return (luminance > 0.5) ? scoreTextColor : scoreTextHighContrastColor;
+  }
 }
 
 class ScoreContainer extends StatelessWidget {
   const ScoreContainer({
     required this.endNumber,
     required this.score,
-    required this.color,
+    required this.backgroundColor,
+    required this.textColor,
     required this.width,
     required this.onPressed,
     super.key,
@@ -63,7 +83,8 @@ class ScoreContainer extends StatelessWidget {
 
   final int endNumber;
   final int score;
-  final Color color;
+  final Color backgroundColor;
+  final Color textColor;
   final double width;
   final void Function(int) onPressed;
 
@@ -74,14 +95,14 @@ class ScoreContainer extends StatelessWidget {
         alignment: Alignment.center,
         width: width,
         decoration: BoxDecoration(
-          color: color,
+          color: backgroundColor,
         ),
         child: Text(
           (score == -1) ? '' : score.toString(),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: textColor,
           ),
         ),
       ),

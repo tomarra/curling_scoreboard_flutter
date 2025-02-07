@@ -4,11 +4,11 @@ class CurlingTeam {
   CurlingTeam({
     required this.name,
     required this.color,
-    required this.accentColor,
+    required this.textColor,
     required this.hasHammer,
   });
   String name;
   Color color;
-  Color accentColor;
+  Color textColor;
   bool hasHammer;
 }

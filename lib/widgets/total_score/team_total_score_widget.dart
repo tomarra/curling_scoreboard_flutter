@@ -6,6 +6,7 @@ class TeamTotalScoreWidget extends StatelessWidget {
   const TeamTotalScoreWidget({
     required this.score,
     required this.backgroundColor,
+    this.textColor = Colors.black,
     this.shouldShowHammerIcon = false,
     this.hammerIconPosition = HammerIconPosition.right,
     super.key,
@@ -13,6 +14,7 @@ class TeamTotalScoreWidget extends StatelessWidget {
 
   final String score;
   final Color backgroundColor;
+  final Color textColor;
   final bool shouldShowHammerIcon;
   final HammerIconPosition hammerIconPosition;
 
@@ -30,8 +32,8 @@ class TeamTotalScoreWidget extends StatelessWidget {
             child: Text(
               score,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: textColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -42,9 +44,9 @@ class TeamTotalScoreWidget extends StatelessWidget {
             top: 10,
             left: (hammerIconPosition == HammerIconPosition.left) ? 10 : null,
             right: (hammerIconPosition == HammerIconPosition.right) ? 10 : null,
-            child: const Icon(
+            child: Icon(
               Icons.hardware_sharp,
-              color: Colors.black,
+              color: textColor,
               size: 150,
             ),
           ),

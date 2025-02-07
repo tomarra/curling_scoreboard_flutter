@@ -40,7 +40,7 @@
   "@gameStartDialogFormLabelPlayersPerTeam": {
     "description": "Description text for the number of players setting in the game start dialog."
   },
-  "gameStartDialogTimePerEndByPlayersButtonLabel": "{minutesPerEnd} minutes per end, {gameTotalTime} total",
+  "gameStartDialogTimePerEndByPlayersButtonLabel": "{minutesPerEnd} min per end \r\n{gameTotalTime} total",
   "@gameStartDialogTimePerEndByPlayersButtonLabel": {
     "description": "Button label for how long each end is when setting up a game.",
     "placeholders": {
@@ -53,6 +53,10 @@
         "example": "2h"
       }
     }
+  },
+  "gameStartDialogZeroPlayersButtonLabel" : "Turn off Game Clock",
+  "@gameStartDialogZeroPlayersButtonLabel": {
+    "description": "Button label for no players essentially turning the game clock display off. Game time will still be counted in background."
   },
   "gameStartDialogFormLabelFirstEndHammer": "1st End Hammer:",
   "@gameStartDialogFormLabelFirstEndHammer": {

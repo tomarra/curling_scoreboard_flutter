@@ -55,13 +55,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       team1: CurlingTeam(
         name: 'Red',
         color: Constants.redTeamColor,
-        accentColor: Constants.redTeamAccentColor,
+        textColor: Constants.textHighContrastColor,
         hasHammer: false,
       ),
       team2: CurlingTeam(
         name: 'Yellow',
         color: Constants.yellowTeamColor,
-        accentColor: Constants.yellowTeamAccentColor,
+        textColor: Constants.textDefaultColor,
         hasHammer: true,
       ),
       numberOfEnds: Constants.defaultTotalEnds,
@@ -281,19 +281,24 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           child: TotalScoreRow(
             team1Score: gameObject.team1TotalScore,
             team1Color: gameObject.team1.color,
+            team1TextColor: gameObject.team1.textColor,
             team1HasHammer: gameObject.team1.hasHammer,
             team2Score: gameObject.team2TotalScore,
             team2Color: gameObject.team2.color,
+            team2TextColor: gameObject.team2.textColor,
             team2HasHammer: gameObject.team2.hasHammer,
             endNumber: gameObject.currentPlayingEndForDisplay,
           ),
         ),
-        Flexible(
-          child: GameInfoRowWidget(
-            gameTime: Duration(seconds: totalTimerSeconds),
-            gameTimeOverUnder: Duration(seconds: overUnderInSeconds),
-          ),
-        ),
+        if (gameObject.numberOfPlayersPerTeam > 0)
+          Flexible(
+            child: GameInfoRowWidget(
+              gameTime: Duration(seconds: totalTimerSeconds),
+              gameTimeOverUnder: Duration(seconds: overUnderInSeconds),
+            ),
+          )
+        else
+          const SizedBox(height: 0),
         Flexible(
           flex: 4,
           fit: FlexFit.tight,
@@ -302,8 +307,6 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             endsContainerColor: Constants.primaryThemeColor,
             team1Scores: gameObject.team1ScoresByEnd,
             team2Scores: gameObject.team2ScoresByEnd,
-            team1EmptyColor: gameObject.team1.accentColor,
-            team2EmptyColor: gameObject.team2.accentColor,
             team1FilledColor: gameObject.team1.color,
             team2FilledColor: gameObject.team2.color,
             onPressed: showEditScoreDialog,

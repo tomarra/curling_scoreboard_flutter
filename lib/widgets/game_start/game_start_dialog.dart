@@ -50,6 +50,11 @@ class GameStartDialog extends StatelessWidget {
         // In order to have the text update correctly need to have this inside
         // the stateful builder context.
         final numberOfPlayersPerTeam = {
+          0: GameStartSegmentControlText(
+            text: '0',
+            subtext: AppLocalizations.of(context)!
+                .gameStartDialogZeroPlayersButtonLabel,
+          ),
           2: Padding(
             padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
             child: GameStartSegmentControlText(
@@ -181,13 +186,13 @@ class GameStartDialog extends StatelessWidget {
                 final team1 = CurlingTeam(
                   name: AppLocalizations.of(context)!.teamNameRed,
                   color: Constants.redTeamColor,
-                  accentColor: Constants.redTeamAccentColor,
+                  textColor: Constants.textHighContrastColor,
                   hasHammer: (settingsHammerTeam == 0) || false,
                 );
                 final team2 = CurlingTeam(
                   name: AppLocalizations.of(context)!.teamNameYellow,
                   color: Constants.yellowTeamColor,
-                  accentColor: Constants.yellowTeamAccentColor,
+                  textColor: Constants.textDefaultColor,
                   hasHammer: (settingsHammerTeam == 1) || false,
                 );
 
@@ -243,6 +248,7 @@ class GameStartSegmentControlText extends StatelessWidget {
           basicText(text),
           Text(
             subtext,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

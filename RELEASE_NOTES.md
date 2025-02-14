@@ -1,9 +1,9 @@
-#  (2025-02-07)
+#  (2025-02-14)
 
 
-### Features
+### Bug Fixes
 
-* update flutter & visual updates ([#82](https://github.com/tomarra/curling_scoreboard_flutter/issues/82)) ([4fdcea3](https://github.com/tomarra/curling_scoreboard_flutter/commit/4fdcea3635447fc7ce68ce4fd0e647486307354c))
+* update build scripts ([#85](https://github.com/tomarra/curling_scoreboard_flutter/issues/85)) ([9fdc39c](https://github.com/tomarra/curling_scoreboard_flutter/commit/9fdc39cc29837fc6f760be3c084bdb95f6efceee))
 
 
 

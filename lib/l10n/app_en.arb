@@ -14,7 +14,7 @@
   },
   "buttonLabelYes": "Yes",
   "@buttonLabelYes": {
-    "description": "Generic button text for a yes/affrim action."
+    "description": "Generic button text for a yes/affirm action."
   },
   "buttonLabelNo": "No",
   "@buttonLabelNo": {

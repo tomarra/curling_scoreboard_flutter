@@ -112,7 +112,7 @@ abstract class AppLocalizations {
   /// **'Yellow '**
   String get teamNameYellow;
 
-  /// Generic button text for a yes/affrim action.
+  /// Generic button text for a yes/affirm action.
   ///
   /// In en, this message translates to:
   /// **'Yes'**

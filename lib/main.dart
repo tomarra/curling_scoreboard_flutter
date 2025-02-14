@@ -89,10 +89,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       totalTimerSeconds += 1;
-      overUnderInSeconds = Duration(
-        seconds:
-            totalTimerSeconds - secondsPerEnd[gameObject.currentPlayingEnd - 1],
-      ).inSeconds;
+      overUnderInSeconds =
+          Duration(
+            seconds:
+                totalTimerSeconds -
+                secondsPerEnd[gameObject.currentPlayingEnd - 1],
+          ).inSeconds;
       setState(() {});
     });
 
@@ -100,8 +102,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   }
 
   void calculateSecondsPerEnd() {
-    fullGameDuration =
-        Duration(minutes: gameObject.numberOfEnds * gameObject.minutesPerEnd);
+    fullGameDuration = Duration(
+      minutes: gameObject.numberOfEnds * gameObject.minutesPerEnd,
+    );
 
     final secondsPerEnd = fullGameDuration.inSeconds ~/ gameObject.numberOfEnds;
     this.secondsPerEnd = List.generate(gameObject.numberOfEnds, (index) {
@@ -156,9 +159,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return GameEndDialog(
-          gameObject: gameObject,
-        );
+        return GameEndDialog(gameObject: gameObject);
       },
     ).then((value) {
       setState(() {
@@ -177,9 +178,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return FinishGameDialog(
-          finishGameAction: finishGame,
-        );
+        return FinishGameDialog(finishGameAction: finishGame);
       },
     );
   }
@@ -197,8 +196,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     ).then((value) {
       // Need to add in the current timer value to the end so we get it at the
       // point of entry on the dialog, not when the dialog came up
-      final curlingEnd = value as CurlingEnd
-        ..gameTimeInSeconds = totalTimerSeconds;
+      final curlingEnd =
+          value as CurlingEnd..gameTimeInSeconds = totalTimerSeconds;
 
       enterScore(curlingEnd);
     });
@@ -218,16 +217,14 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           end: end,
         );
       },
-    ).then(
-      (value) {
-        final curlingEnd = value as CurlingEnd;
-        editScore(
-          curlingEnd.endNumber,
-          curlingEnd.score,
-          curlingEnd.scoringTeamName,
-        );
-      },
-    );
+    ).then((value) {
+      final curlingEnd = value as CurlingEnd;
+      editScore(
+        curlingEnd.endNumber,
+        curlingEnd.score,
+        curlingEnd.scoringTeamName,
+      );
+    });
   }
 
   @override

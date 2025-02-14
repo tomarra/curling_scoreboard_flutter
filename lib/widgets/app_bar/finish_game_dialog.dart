@@ -11,10 +11,7 @@ class FinishGameDialog extends StatelessWidget {
     return AlertDialog(
       content: Text(
         AppLocalizations.of(context)!.finishGameConfirmationDialogDescription,
-        style: const TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
       ),
       contentPadding: const EdgeInsets.all(50),
       actionsAlignment: MainAxisAlignment.center,
@@ -27,10 +24,7 @@ class FinishGameDialog extends StatelessWidget {
           },
           child: Text(
             AppLocalizations.of(context)!.buttonLabelYes,
-            style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
         ),
         ElevatedButton(
@@ -39,10 +33,7 @@ class FinishGameDialog extends StatelessWidget {
           },
           child: Text(
             AppLocalizations.of(context)!.buttonLabelNo,
-            style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
         ),
       ],

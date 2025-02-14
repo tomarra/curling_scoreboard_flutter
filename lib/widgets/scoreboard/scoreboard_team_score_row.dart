@@ -42,9 +42,10 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
             return ScoreContainer(
               endNumber: index + 1,
               score: scores[index],
-              backgroundColor: (scores[index] == 0)
-                  ? emptyScoreBackgroundColor
-                  : filledScoreBackgroundColor,
+              backgroundColor:
+                  (scores[index] == 0)
+                      ? emptyScoreBackgroundColor
+                      : filledScoreBackgroundColor,
               textColor: textColor,
               width: endContainerWidth,
               onPressed: onPressed,
@@ -94,9 +95,7 @@ class ScoreContainer extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: width,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-        ),
+        decoration: BoxDecoration(color: backgroundColor),
         child: Text(
           (score == -1) ? '' : score.toString(),
           style: TextStyle(

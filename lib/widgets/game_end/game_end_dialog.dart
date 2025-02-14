@@ -3,10 +3,7 @@ import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:flutter/material.dart';
 
 class GameEndDialog extends StatelessWidget {
-  const GameEndDialog({
-    required this.gameObject,
-    super.key,
-  });
+  const GameEndDialog({required this.gameObject, super.key});
 
   final CurlingGame gameObject;
 
@@ -69,10 +66,7 @@ class GameSummaryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Table(
       border: const TableBorder(
-        horizontalInside: BorderSide(
-          width: 2,
-          color: Colors.blue,
-        ),
+        horizontalInside: BorderSide(width: 2, color: Colors.blue),
       ),
       columnWidths: const <int, TableColumnWidth>{
         0: IntrinsicColumnWidth(),
@@ -95,8 +89,10 @@ class GameSummaryWidget extends StatelessWidget {
                   AppLocalizations.of(context)!.gameEndDialogEndTimeTableHeader,
             ),
             GameEndTableHeaderText(
-              text: AppLocalizations.of(context)!
-                  .gameEndDialogGameTimeTableHeader,
+              text:
+                  AppLocalizations.of(
+                    context,
+                  )!.gameEndDialogGameTimeTableHeader,
             ),
           ],
         ),
@@ -105,26 +101,30 @@ class GameSummaryWidget extends StatelessWidget {
             children: <Widget>[
               GameEndTableCellText(text: end.endNumber.toString()),
               GameEndTableCellText(
-                text: (end.scoringTeamName == team1Name)
-                    ? end.score.toString()
-                    : '0',
+                text:
+                    (end.scoringTeamName == team1Name)
+                        ? end.score.toString()
+                        : '0',
               ),
               GameEndTableCellText(
-                text: (end.scoringTeamName == team2Name)
-                    ? end.score.toString()
-                    : '0',
+                text:
+                    (end.scoringTeamName == team2Name)
+                        ? end.score.toString()
+                        : '0',
               ),
               GameEndTableCellText(
-                text: (end.endNumber == 1)
-                    ? _printDurationInMinutes(
-                        Duration(seconds: end.gameTimeInSeconds),
-                      )
-                    : _printDurationInMinutes(
-                        Duration(
-                          seconds: end.gameTimeInSeconds -
-                              ends[end.endNumber - 2].gameTimeInSeconds,
+                text:
+                    (end.endNumber == 1)
+                        ? _printDurationInMinutes(
+                          Duration(seconds: end.gameTimeInSeconds),
+                        )
+                        : _printDurationInMinutes(
+                          Duration(
+                            seconds:
+                                end.gameTimeInSeconds -
+                                ends[end.endNumber - 2].gameTimeInSeconds,
+                          ),
                         ),
-                      ),
               ),
               GameEndTableCellText(
                 text: _printDurationInHours(

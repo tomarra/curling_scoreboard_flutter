@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
 class GameStartDialog extends StatelessWidget {
-  const GameStartDialog({
-    super.key,
-  });
+  const GameStartDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +50,18 @@ class GameStartDialog extends StatelessWidget {
         final numberOfPlayersPerTeam = {
           0: GameStartSegmentControlText(
             text: '0',
-            subtext: AppLocalizations.of(context)!
-                .gameStartDialogZeroPlayersButtonLabel,
+            subtext:
+                AppLocalizations.of(
+                  context,
+                )!.gameStartDialogZeroPlayersButtonLabel,
           ),
           2: Padding(
             padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
             child: GameStartSegmentControlText(
               text: '2',
-              subtext: AppLocalizations.of(context)!
-                  .gameStartDialogTimePerEndByPlayersButtonLabel(
+              subtext: AppLocalizations.of(
+                context,
+              )!.gameStartDialogTimePerEndByPlayersButtonLabel(
                 Constants.minutesPerEndTwoPlayers.toString(),
                 _printDuration(
                   Duration(
@@ -73,8 +74,9 @@ class GameStartDialog extends StatelessWidget {
           ),
           4: GameStartSegmentControlText(
             text: '4',
-            subtext: AppLocalizations.of(context)!
-                .gameStartDialogTimePerEndByPlayersButtonLabel(
+            subtext: AppLocalizations.of(
+              context,
+            )!.gameStartDialogTimePerEndByPlayersButtonLabel(
               Constants.minutesPerEndFourPlayers.toString(),
               _printDuration(
                 Duration(
@@ -95,8 +97,9 @@ class GameStartDialog extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      AppLocalizations.of(context)!
-                          .gameStartDialogFormLabelNumberOfEnds,
+                      AppLocalizations.of(
+                        context,
+                      )!.gameStartDialogFormLabelNumberOfEnds,
                       style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
@@ -123,8 +126,9 @@ class GameStartDialog extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      AppLocalizations.of(context)!
-                          .gameStartDialogFormLabelPlayersPerTeam,
+                      AppLocalizations.of(
+                        context,
+                      )!.gameStartDialogFormLabelPlayersPerTeam,
                       style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
@@ -152,8 +156,9 @@ class GameStartDialog extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      AppLocalizations.of(context)!
-                          .gameStartDialogFormLabelFirstEndHammer,
+                      AppLocalizations.of(
+                        context,
+                      )!.gameStartDialogFormLabelFirstEndHammer,
                       style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
@@ -206,8 +211,9 @@ class GameStartDialog extends StatelessWidget {
                 Navigator.pop(context, newCurlingGame);
               },
               child: Text(
-                AppLocalizations.of(context)!
-                    .gameStartDialogButtonLabelStartGame,
+                AppLocalizations.of(
+                  context,
+                )!.gameStartDialogButtonLabelStartGame,
                 style: const TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
@@ -249,10 +255,7 @@ class GameStartSegmentControlText extends StatelessWidget {
           Text(
             subtext,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       );
@@ -262,10 +265,7 @@ class GameStartSegmentControlText extends StatelessWidget {
   Text basicText(String text) {
     return Text(
       text,
-      style: const TextStyle(
-        fontSize: 40,
-        fontWeight: FontWeight.bold,
-      ),
+      style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
     );
   }
 }

@@ -27,9 +27,10 @@ class ScoreboardStaticNumberRow extends StatelessWidget {
         ...List.generate(numberOfEntries, (index) => index + 1).map(
           (currentNumber) => InkWell(
             child: StaticNumberContainer(
-              number: (currentNumber != numberOfEntries)
-                  ? currentNumber.toString()
-                  : AppLocalizations.of(context)!.scoreboardExtraEndLabel,
+              number:
+                  (currentNumber != numberOfEntries)
+                      ? currentNumber.toString()
+                      : AppLocalizations.of(context)!.scoreboardExtraEndLabel,
               width: endContainerWidth,
               containerColor: containerColor,
             ),
@@ -60,9 +61,7 @@ class StaticNumberContainer extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: width,
-      decoration: BoxDecoration(
-        color: containerColor,
-      ),
+      decoration: BoxDecoration(color: containerColor),
       child: Text(
         number,
         style: const TextStyle(

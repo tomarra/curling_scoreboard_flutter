@@ -1,7 +1,7 @@
 import 'package:curling_scoreboard_flutter/constants.dart';
+import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
 class GameStartDialog extends StatelessWidget {

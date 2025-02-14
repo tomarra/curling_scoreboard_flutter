@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:curling_scoreboard_flutter/constants.dart';
+import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:curling_scoreboard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const CurlingScoreboardApp());

@@ -67,7 +67,7 @@ jobs:
 
       - name: Make Web Build Asset
         run: |
-          flutter build web --web-renderer canvaskit -t lib/main.dart
+          flutter build web -t lib/main.dart
           zip -r web_${{ env.tag }}.zip build/web
 
       - name: Set up Java

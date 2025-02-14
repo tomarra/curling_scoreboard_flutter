@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* update build scripts ([#85](https://github.com/tomarra/curling_scoreboard_flutter/issues/85)) ([9fdc39c](https://github.com/tomarra/curling_scoreboard_flutter/commit/9fdc39cc29837fc6f760be3c084bdb95f6efceee))
+* missed a build script change ([#86](https://github.com/tomarra/curling_scoreboard_flutter/issues/86)) ([43dd180](https://github.com/tomarra/curling_scoreboard_flutter/commit/43dd180ed68d320c241ce74c88c63980728b159a))
 
 
 

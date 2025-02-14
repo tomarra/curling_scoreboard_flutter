@@ -33,7 +33,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.18.0
         with:
-          flutter-version: "3.27.4"
+          flutter-version: "3.29.0"
           channel: "stable"
       - name: Get Flutter Packages
         run: flutter pub get
@@ -41,6 +41,8 @@ jobs:
         run: dart format --set-exit-if-changed lib test
       - name: Analyze
         run: flutter analyze
+      - name: Build
+        run: flutter build web -t lib/main.dart
   validate_spelling:
     name: Validate Spelling
     runs-on: ubuntu-latest

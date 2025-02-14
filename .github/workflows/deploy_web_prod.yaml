@@ -17,10 +17,10 @@ jobs:
           ref: ${{ github.event.inputs.version }}
       - uses: subosito/flutter-action@v2.18.0
         with:
-          flutter-version: "3.27.4"
+          flutter-version: "3.29.0"
           channel: "stable"
       - run: flutter packages get
-      - run: flutter build web --web-renderer canvaskit -t lib/main.dart
+      - run: flutter build web -t lib/main.dart
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"

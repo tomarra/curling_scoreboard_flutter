@@ -32,10 +32,7 @@ class TeamTotalScoreWidget extends StatelessWidget {
             child: Text(
               score,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: textColor,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -44,11 +41,7 @@ class TeamTotalScoreWidget extends StatelessWidget {
             top: 10,
             left: (hammerIconPosition == HammerIconPosition.left) ? 10 : null,
             right: (hammerIconPosition == HammerIconPosition.right) ? 10 : null,
-            child: Icon(
-              Icons.hardware_sharp,
-              color: textColor,
-              size: 150,
-            ),
+            child: Icon(Icons.hardware_sharp, color: textColor, size: 150),
           ),
       ],
     );

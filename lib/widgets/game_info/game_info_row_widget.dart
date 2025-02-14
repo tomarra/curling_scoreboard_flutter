@@ -1,5 +1,5 @@
+import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GameInfoRowWidget extends StatelessWidget {
   const GameInfoRowWidget({
@@ -19,8 +19,9 @@ class GameInfoRowWidget extends StatelessWidget {
         Expanded(
           child: FittedBox(
             child: Text(
-              AppLocalizations.of(context)!
-                  .gameInfoGameTimeLabel(_printDuration(gameTime)),
+              AppLocalizations.of(
+                context,
+              )!.gameInfoGameTimeLabel(_printDuration(gameTime)),
             ),
           ),
         ),
@@ -33,9 +34,7 @@ class GameInfoRowWidget extends StatelessWidget {
                     text: '+',
                     style: TextStyle(color: Colors.red),
                   ),
-                  const TextSpan(
-                    text: '/',
-                  ),
+                  const TextSpan(text: '/'),
                   const TextSpan(
                     text: '-   ',
                     style: TextStyle(color: Colors.green),
@@ -43,9 +42,10 @@ class GameInfoRowWidget extends StatelessWidget {
                   TextSpan(
                     text: _printDuration(gameTimeOverUnder),
                     style: TextStyle(
-                      color: gameTimeOverUnder.isNegative
-                          ? Colors.green
-                          : Colors.red,
+                      color:
+                          gameTimeOverUnder.isNegative
+                              ? Colors.green
+                              : Colors.red,
                     ),
                   ),
                 ],

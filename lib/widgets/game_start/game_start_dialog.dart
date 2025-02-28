@@ -50,10 +50,10 @@ class GameStartDialog extends StatelessWidget {
         final numberOfPlayersPerTeam = {
           0: GameStartSegmentControlText(
             text: '0',
-            subtext:
-                AppLocalizations.of(
-                  context,
-                )!.gameStartDialogZeroPlayersButtonLabel,
+            subtext: AppLocalizations.of(
+              context,
+            )!
+                .gameStartDialogZeroPlayersButtonLabel,
           ),
           2: Padding(
             padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
@@ -61,7 +61,8 @@ class GameStartDialog extends StatelessWidget {
               text: '2',
               subtext: AppLocalizations.of(
                 context,
-              )!.gameStartDialogTimePerEndByPlayersButtonLabel(
+              )!
+                  .gameStartDialogTimePerEndByPlayersButtonLabel(
                 Constants.minutesPerEndTwoPlayers.toString(),
                 _printDuration(
                   Duration(
@@ -76,7 +77,8 @@ class GameStartDialog extends StatelessWidget {
             text: '4',
             subtext: AppLocalizations.of(
               context,
-            )!.gameStartDialogTimePerEndByPlayersButtonLabel(
+            )!
+                .gameStartDialogTimePerEndByPlayersButtonLabel(
               Constants.minutesPerEndFourPlayers.toString(),
               _printDuration(
                 Duration(
@@ -99,7 +101,8 @@ class GameStartDialog extends StatelessWidget {
                     Text(
                       AppLocalizations.of(
                         context,
-                      )!.gameStartDialogFormLabelNumberOfEnds,
+                      )!
+                          .gameStartDialogFormLabelNumberOfEnds,
                       style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
@@ -128,7 +131,8 @@ class GameStartDialog extends StatelessWidget {
                     Text(
                       AppLocalizations.of(
                         context,
-                      )!.gameStartDialogFormLabelPlayersPerTeam,
+                      )!
+                          .gameStartDialogFormLabelPlayersPerTeam,
                       style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
@@ -158,7 +162,8 @@ class GameStartDialog extends StatelessWidget {
                     Text(
                       AppLocalizations.of(
                         context,
-                      )!.gameStartDialogFormLabelFirstEndHammer,
+                      )!
+                          .gameStartDialogFormLabelFirstEndHammer,
                       style: const TextStyle(fontSize: 40),
                     ),
                     MaterialSegmentedControl(
@@ -213,7 +218,8 @@ class GameStartDialog extends StatelessWidget {
               child: Text(
                 AppLocalizations.of(
                   context,
-                )!.gameStartDialogButtonLabelStartGame,
+                )!
+                    .gameStartDialogButtonLabelStartGame,
                 style: const TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,

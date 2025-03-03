@@ -1,6 +1,13 @@
 Changelog
 
 
+### [0.0.23](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.22...0.0.23) (2025-03-03)
+
+
+### Bug Fixes
+
+* update flutter gen package steps ([#87](https://github.com/tomarra/curling_scoreboard_flutter/issues/87)) ([fafaa6f](https://github.com/tomarra/curling_scoreboard_flutter/commit/fafaa6fbbd0c1df07317be6eb63c15394eeb1d5f))
+
 ### [0.0.22](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.21...0.0.22) (2025-02-14)
 
 

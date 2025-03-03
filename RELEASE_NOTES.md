@@ -1,9 +1,9 @@
-#  (2025-02-14)
+#  (2025-03-03)
 
 
 ### Bug Fixes
 
-* missed a build script change ([#86](https://github.com/tomarra/curling_scoreboard_flutter/issues/86)) ([43dd180](https://github.com/tomarra/curling_scoreboard_flutter/commit/43dd180ed68d320c241ce74c88c63980728b159a))
+* update flutter gen package steps ([#87](https://github.com/tomarra/curling_scoreboard_flutter/issues/87)) ([fafaa6f](https://github.com/tomarra/curling_scoreboard_flutter/commit/fafaa6fbbd0c1df07317be6eb63c15394eeb1d5f))
 
 
 

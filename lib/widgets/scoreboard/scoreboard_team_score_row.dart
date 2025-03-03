@@ -34,8 +34,12 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
         ...List.generate(numberOfEntries, (index) {
           var textColor = scoreTextColor;
 
-          if (scores.isNotEmpty) {
-            textColor = findSafeTextColor(filledScoreBackgroundColor);
+          if (scores.isNotEmpty && index < scores.length) {
+            textColor = findSafeTextColor(
+              (scores[index] == 0)
+                  ? emptyScoreBackgroundColor
+                  : filledScoreBackgroundColor,
+            );
           }
 
           if (index < scores.length) {

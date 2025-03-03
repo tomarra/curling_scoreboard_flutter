@@ -89,10 +89,10 @@ class GameSummaryWidget extends StatelessWidget {
                   AppLocalizations.of(context)!.gameEndDialogEndTimeTableHeader,
             ),
             GameEndTableHeaderText(
-              text: AppLocalizations.of(
-                context,
-              )!
-                  .gameEndDialogGameTimeTableHeader,
+              text:
+                  AppLocalizations.of(
+                    context,
+                  )!.gameEndDialogGameTimeTableHeader,
             ),
           ],
         ),
@@ -101,26 +101,30 @@ class GameSummaryWidget extends StatelessWidget {
             children: <Widget>[
               GameEndTableCellText(text: end.endNumber.toString()),
               GameEndTableCellText(
-                text: (end.scoringTeamName == team1Name)
-                    ? end.score.toString()
-                    : '0',
+                text:
+                    (end.scoringTeamName == team1Name)
+                        ? end.score.toString()
+                        : '0',
               ),
               GameEndTableCellText(
-                text: (end.scoringTeamName == team2Name)
-                    ? end.score.toString()
-                    : '0',
+                text:
+                    (end.scoringTeamName == team2Name)
+                        ? end.score.toString()
+                        : '0',
               ),
               GameEndTableCellText(
-                text: (end.endNumber == 1)
-                    ? _printDurationInMinutes(
-                        Duration(seconds: end.gameTimeInSeconds),
-                      )
-                    : _printDurationInMinutes(
-                        Duration(
-                          seconds: end.gameTimeInSeconds -
-                              ends[end.endNumber - 2].gameTimeInSeconds,
+                text:
+                    (end.endNumber == 1)
+                        ? _printDurationInMinutes(
+                          Duration(seconds: end.gameTimeInSeconds),
+                        )
+                        : _printDurationInMinutes(
+                          Duration(
+                            seconds:
+                                end.gameTimeInSeconds -
+                                ends[end.endNumber - 2].gameTimeInSeconds,
+                          ),
                         ),
-                      ),
               ),
               GameEndTableCellText(
                 text: _printDurationInHours(

@@ -21,8 +21,7 @@ class GameInfoRowWidget extends StatelessWidget {
             child: Text(
               AppLocalizations.of(
                 context,
-              )!
-                  .gameInfoGameTimeLabel(_printDuration(gameTime)),
+              )!.gameInfoGameTimeLabel(_printDuration(gameTime)),
             ),
           ),
         ),
@@ -43,9 +42,10 @@ class GameInfoRowWidget extends StatelessWidget {
                   TextSpan(
                     text: _printDuration(gameTimeOverUnder),
                     style: TextStyle(
-                      color: gameTimeOverUnder.isNegative
-                          ? Colors.green
-                          : Colors.red,
+                      color:
+                          gameTimeOverUnder.isNegative
+                              ? Colors.green
+                              : Colors.red,
                     ),
                   ),
                 ],

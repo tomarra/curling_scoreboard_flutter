@@ -89,10 +89,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       totalTimerSeconds += 1;
-      overUnderInSeconds = Duration(
-        seconds:
-            totalTimerSeconds - secondsPerEnd[gameObject.currentPlayingEnd - 1],
-      ).inSeconds;
+      overUnderInSeconds =
+          Duration(
+            seconds:
+                totalTimerSeconds -
+                secondsPerEnd[gameObject.currentPlayingEnd - 1],
+          ).inSeconds;
       setState(() {});
     });
 
@@ -194,8 +196,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     ).then((value) {
       // Need to add in the current timer value to the end so we get it at the
       // point of entry on the dialog, not when the dialog came up
-      final curlingEnd = value as CurlingEnd
-        ..gameTimeInSeconds = totalTimerSeconds;
+      final curlingEnd =
+          value as CurlingEnd..gameTimeInSeconds = totalTimerSeconds;
 
       enterScore(curlingEnd);
     });

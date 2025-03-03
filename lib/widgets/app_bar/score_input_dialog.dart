@@ -85,9 +85,10 @@ class ScoreInputDialog extends StatelessWidget {
                 children: teamNames,
                 selectionIndex: currentTeamSelectedIndex,
                 borderColor: Colors.grey,
-                selectedColor: currentTeamSelectedIndex == 0
-                    ? Constants.redTeamColor
-                    : Constants.yellowTeamColor,
+                selectedColor:
+                    currentTeamSelectedIndex == 0
+                        ? Constants.redTeamColor
+                        : Constants.yellowTeamColor,
                 unselectedColor: Colors.white,
                 selectedTextStyle: const TextStyle(color: Colors.white),
                 unselectedTextStyle: const TextStyle(color: Colors.black),

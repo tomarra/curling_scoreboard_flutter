@@ -8,5 +8,5 @@
   "files.watcherExclude": {
     "**/.fvm": true
   },
-  "cSpell.words": ["affrim", "LTRB"]
+  "cSpell.words": ["LTRB"]
 }

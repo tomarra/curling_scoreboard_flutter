@@ -34,17 +34,22 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
         ...List.generate(numberOfEntries, (index) {
           var textColor = scoreTextColor;
 
-          if (scores.isNotEmpty) {
-            textColor = findSafeTextColor(filledScoreBackgroundColor);
+          if (scores.isNotEmpty && index < scores.length) {
+            textColor = findSafeTextColor(
+              (scores[index] == 0)
+                  ? emptyScoreBackgroundColor
+                  : filledScoreBackgroundColor,
+            );
           }
 
           if (index < scores.length) {
             return ScoreContainer(
               endNumber: index + 1,
               score: scores[index],
-              backgroundColor: (scores[index] == 0)
-                  ? emptyScoreBackgroundColor
-                  : filledScoreBackgroundColor,
+              backgroundColor:
+                  (scores[index] == 0)
+                      ? emptyScoreBackgroundColor
+                      : filledScoreBackgroundColor,
               textColor: textColor,
               width: endContainerWidth,
               onPressed: onPressed,
@@ -94,9 +99,7 @@ class ScoreContainer extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: width,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-        ),
+        decoration: BoxDecoration(color: backgroundColor),
         child: Text(
           (score == -1) ? '' : score.toString(),
           style: TextStyle(

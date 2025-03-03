@@ -1,7 +1,7 @@
 import 'package:curling_scoreboard_flutter/constants.dart';
+import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
 class ScoreInputDialog extends StatelessWidget {
@@ -56,9 +56,7 @@ class ScoreInputDialog extends StatelessWidget {
       builder: (context, setState) {
         return AlertDialog(
           title: Text(
-            AppLocalizations.of(context)!.scoreInputDialogTitle(
-              end.toString(),
-            ),
+            AppLocalizations.of(context)!.scoreInputDialogTitle(end.toString()),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -87,9 +85,10 @@ class ScoreInputDialog extends StatelessWidget {
                 children: teamNames,
                 selectionIndex: currentTeamSelectedIndex,
                 borderColor: Colors.grey,
-                selectedColor: currentTeamSelectedIndex == 0
-                    ? Constants.redTeamColor
-                    : Constants.yellowTeamColor,
+                selectedColor:
+                    currentTeamSelectedIndex == 0
+                        ? Constants.redTeamColor
+                        : Constants.yellowTeamColor,
                 unselectedColor: Colors.white,
                 selectedTextStyle: const TextStyle(color: Colors.white),
                 unselectedTextStyle: const TextStyle(color: Colors.black),
@@ -139,10 +138,7 @@ class ScoreInputDialog extends StatelessWidget {
 }
 
 class EnterEditScoreDialogScoreText extends StatelessWidget {
-  const EnterEditScoreDialogScoreText({
-    required this.score,
-    super.key,
-  });
+  const EnterEditScoreDialogScoreText({required this.score, super.key});
 
   final String score;
 
@@ -150,19 +146,13 @@ class EnterEditScoreDialogScoreText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       score,
-      style: const TextStyle(
-        fontSize: 40,
-        fontWeight: FontWeight.bold,
-      ),
+      style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
     );
   }
 }
 
 class EnterEditScoreDialogTeamText extends StatelessWidget {
-  const EnterEditScoreDialogTeamText({
-    required this.team,
-    super.key,
-  });
+  const EnterEditScoreDialogTeamText({required this.team, super.key});
 
   final String team;
 

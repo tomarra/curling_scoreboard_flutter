@@ -31,10 +31,7 @@ class AppBarActionButton extends StatelessWidget {
         FittedBox(
           child: Text(
             label,
-            style: const TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
         ),
       ],
@@ -42,10 +39,6 @@ class AppBarActionButton extends StatelessWidget {
   }
 
   Widget iconOnly() {
-    return Row(
-      children: [
-        Icon(icon, size: 40),
-      ],
-    );
+    return Row(children: [Icon(icon, size: 40)]);
   }
 }

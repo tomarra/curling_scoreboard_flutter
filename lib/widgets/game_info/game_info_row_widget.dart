@@ -30,10 +30,7 @@ class GameInfoRowWidget extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 children: [
-                  const TextSpan(
-                    text: '+',
-                    style: TextStyle(color: Colors.red),
-                  ),
+                  const TextSpan(text: '+', style: TextStyle(color: Colors.red)),
                   const TextSpan(text: '/'),
                   const TextSpan(
                     text: '-   ',

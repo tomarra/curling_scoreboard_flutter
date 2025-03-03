@@ -90,9 +90,7 @@ class GameSummaryWidget extends StatelessWidget {
             ),
             GameEndTableHeaderText(
               text:
-                  AppLocalizations.of(
-                    context,
-                  )!.gameEndDialogGameTimeTableHeader,
+                  AppLocalizations.of(context)!.gameEndDialogGameTimeTableHeader,
             ),
           ],
         ),
@@ -136,8 +134,7 @@ class GameSummaryWidget extends StatelessWidget {
         TableRow(
           children: <Widget>[
             GameEndTableCellText(
-              text:
-                  AppLocalizations.of(context)!.gameEndDialogTotalsTableHeader,
+              text: AppLocalizations.of(context)!.gameEndDialogTotalsTableHeader,
             ),
             GameEndTableCellText(
               text: team1TotalScore.toString(),

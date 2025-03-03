@@ -23,8 +23,7 @@ class GameStartDialog extends StatelessWidget {
       10: const GameStartSegmentControlText(text: '10'),
     };
 
-    var settingsNumberOfPlayersPerTeam =
-        Constants.defaultNumberOfPlayersPerTeam;
+    var settingsNumberOfPlayersPerTeam = Constants.defaultNumberOfPlayersPerTeam;
     var currentNumberOfPlayersPerTeamSelectedIndex =
         Constants.defaultNumberOfPlayersPerTeam;
 
@@ -133,8 +132,7 @@ class GameStartDialog extends StatelessWidget {
                     ),
                     MaterialSegmentedControl(
                       children: numberOfPlayersPerTeam,
-                      selectionIndex:
-                          currentNumberOfPlayersPerTeamSelectedIndex,
+                      selectionIndex: currentNumberOfPlayersPerTeamSelectedIndex,
                       borderColor: Colors.grey,
                       selectedColor: Colors.blueAccent,
                       unselectedColor: Colors.white,

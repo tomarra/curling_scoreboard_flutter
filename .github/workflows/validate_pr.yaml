@@ -37,6 +37,8 @@ jobs:
           channel: "stable"
       - name: Get Flutter Packages
         run: flutter pub get
+      - name: Check Formatting
+        run: dart format --set-exit-if-changed lib test
       - name: Analyze
         run: flutter analyze
       - name: Build

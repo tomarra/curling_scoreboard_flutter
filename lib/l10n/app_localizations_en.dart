@@ -39,7 +39,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gameStartDialogFormLabelPlayersPerTeam => 'Players per Team:';
 
   @override
-  String gameStartDialogTimePerEndByPlayersButtonLabel(String minutesPerEnd, String gameTotalTime) {
+  String gameStartDialogTimePerEndByPlayersButtonLabel(
+    String minutesPerEnd,
+    String gameTotalTime,
+  ) {
     return '$minutesPerEnd min per end \r\n$gameTotalTime total';
   }
 
@@ -53,7 +56,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gameStartDialogButtonLabelStartGame => 'Start Game';
 
   @override
-  String get finishGameConfirmationDialogDescription => 'Are you sure you want to finish the game?';
+  String get finishGameConfirmationDialogDescription =>
+      'Are you sure you want to finish the game?';
 
   @override
   String get gameEndDialogTitle => 'Game Report';
@@ -87,7 +91,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scoreInputEnterButtonLabel => 'Enter';
 
   @override
-  String get addScoreGameCompleteMessage => 'Game is complete. Finish the game to reset.';
+  String get addScoreGameCompleteMessage =>
+      'Game is complete. Finish the game to reset.';
 
   @override
   String gameInfoGameTimeLabel(String gameTimeString) {

@@ -50,7 +50,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Check Spelling
-        uses: streetsidesoftware/cspell-action@v6
+        uses: streetsidesoftware/cspell-action@v7
         with:
           files: "**/*.{md,dart}"
           config: .github/cspell.json

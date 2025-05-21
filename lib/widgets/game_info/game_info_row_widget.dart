@@ -42,10 +42,9 @@ class GameInfoRowWidget extends StatelessWidget {
                   TextSpan(
                     text: _printDuration(gameTimeOverUnder),
                     style: TextStyle(
-                      color:
-                          gameTimeOverUnder.isNegative
-                              ? Colors.green
-                              : Colors.red,
+                      color: gameTimeOverUnder.isNegative
+                          ? Colors.green
+                          : Colors.red,
                     ),
                   ),
                 ],

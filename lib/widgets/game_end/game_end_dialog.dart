@@ -85,14 +85,14 @@ class GameSummaryWidget extends StatelessWidget {
             GameEndTableHeaderText(text: team1Name, color: team1Color),
             GameEndTableHeaderText(text: team2Name, color: team2Color),
             GameEndTableHeaderText(
-              text:
-                  AppLocalizations.of(context)!.gameEndDialogEndTimeTableHeader,
+              text: AppLocalizations.of(
+                context,
+              )!.gameEndDialogEndTimeTableHeader,
             ),
             GameEndTableHeaderText(
-              text:
-                  AppLocalizations.of(
-                    context,
-                  )!.gameEndDialogGameTimeTableHeader,
+              text: AppLocalizations.of(
+                context,
+              )!.gameEndDialogGameTimeTableHeader,
             ),
           ],
         ),
@@ -101,30 +101,27 @@ class GameSummaryWidget extends StatelessWidget {
             children: <Widget>[
               GameEndTableCellText(text: end.endNumber.toString()),
               GameEndTableCellText(
-                text:
-                    (end.scoringTeamName == team1Name)
-                        ? end.score.toString()
-                        : '0',
+                text: (end.scoringTeamName == team1Name)
+                    ? end.score.toString()
+                    : '0',
               ),
               GameEndTableCellText(
-                text:
-                    (end.scoringTeamName == team2Name)
-                        ? end.score.toString()
-                        : '0',
+                text: (end.scoringTeamName == team2Name)
+                    ? end.score.toString()
+                    : '0',
               ),
               GameEndTableCellText(
-                text:
-                    (end.endNumber == 1)
-                        ? _printDurationInMinutes(
-                          Duration(seconds: end.gameTimeInSeconds),
-                        )
-                        : _printDurationInMinutes(
-                          Duration(
-                            seconds:
-                                end.gameTimeInSeconds -
-                                ends[end.endNumber - 2].gameTimeInSeconds,
-                          ),
+                text: (end.endNumber == 1)
+                    ? _printDurationInMinutes(
+                        Duration(seconds: end.gameTimeInSeconds),
+                      )
+                    : _printDurationInMinutes(
+                        Duration(
+                          seconds:
+                              end.gameTimeInSeconds -
+                              ends[end.endNumber - 2].gameTimeInSeconds,
                         ),
+                      ),
               ),
               GameEndTableCellText(
                 text: _printDurationInHours(
@@ -136,8 +133,9 @@ class GameSummaryWidget extends StatelessWidget {
         TableRow(
           children: <Widget>[
             GameEndTableCellText(
-              text:
-                  AppLocalizations.of(context)!.gameEndDialogTotalsTableHeader,
+              text: AppLocalizations.of(
+                context,
+              )!.gameEndDialogTotalsTableHeader,
             ),
             GameEndTableCellText(
               text: team1TotalScore.toString(),

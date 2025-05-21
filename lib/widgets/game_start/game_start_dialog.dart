@@ -50,41 +50,40 @@ class GameStartDialog extends StatelessWidget {
         final numberOfPlayersPerTeam = {
           0: GameStartSegmentControlText(
             text: '0',
-            subtext:
-                AppLocalizations.of(
-                  context,
-                )!.gameStartDialogZeroPlayersButtonLabel,
+            subtext: AppLocalizations.of(
+              context,
+            )!.gameStartDialogZeroPlayersButtonLabel,
           ),
           2: Padding(
             padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
             child: GameStartSegmentControlText(
               text: '2',
-              subtext: AppLocalizations.of(
-                context,
-              )!.gameStartDialogTimePerEndByPlayersButtonLabel(
-                Constants.minutesPerEndTwoPlayers.toString(),
-                _printDuration(
-                  Duration(
-                    minutes:
-                        Constants.minutesPerEndTwoPlayers * settingsTotalEnds,
+              subtext: AppLocalizations.of(context)!
+                  .gameStartDialogTimePerEndByPlayersButtonLabel(
+                    Constants.minutesPerEndTwoPlayers.toString(),
+                    _printDuration(
+                      Duration(
+                        minutes:
+                            Constants.minutesPerEndTwoPlayers *
+                            settingsTotalEnds,
+                      ),
+                    ),
                   ),
-                ),
-              ),
             ),
           ),
           4: GameStartSegmentControlText(
             text: '4',
-            subtext: AppLocalizations.of(
-              context,
-            )!.gameStartDialogTimePerEndByPlayersButtonLabel(
-              Constants.minutesPerEndFourPlayers.toString(),
-              _printDuration(
-                Duration(
-                  minutes:
-                      Constants.minutesPerEndFourPlayers * settingsTotalEnds,
+            subtext: AppLocalizations.of(context)!
+                .gameStartDialogTimePerEndByPlayersButtonLabel(
+                  Constants.minutesPerEndFourPlayers.toString(),
+                  _printDuration(
+                    Duration(
+                      minutes:
+                          Constants.minutesPerEndFourPlayers *
+                          settingsTotalEnds,
+                    ),
+                  ),
                 ),
-              ),
-            ),
           ),
         };
 

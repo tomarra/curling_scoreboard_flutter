@@ -3,14 +3,14 @@ description: A new Flutter project.
 publish_to: "none"
 version: 0.0.24
 environment:
-  sdk: ">=3.7.0 <4.0.0"
-  flutter: 3.29.3
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: 3.32.0
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.19.0
+  intl: ^0.20.2
   material_segmented_control: ^5.0.1
 dev_dependencies:
   build_runner: ^2.4.15

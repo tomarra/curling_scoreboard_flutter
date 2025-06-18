@@ -24,7 +24,7 @@ jobs:
           sudo chmod +x /usr/local/bin/yq
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.19.0
+        uses: subosito/flutter-action@v2.20.0
         with:
           flutter-version: "3.32.4"
           channel: "stable"

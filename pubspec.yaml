@@ -1,10 +1,10 @@
 name: curling_scoreboard_flutter
-description: A new Flutter project.
+description: A simple app to keep setup, track, and report the scoreboard of a game of curling.
 publish_to: "none"
 version: 0.0.24
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.32.0
+  flutter: 3.32.4
 dependencies:
   flutter:
     sdk: flutter
@@ -13,13 +13,13 @@ dependencies:
   intl: ^0.20.2
   material_segmented_control: ^5.0.1
 dev_dependencies:
-  build_runner: ^2.4.15
+  build_runner: ^2.5.2
   build_version: ^2.0.3
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
   translations_cleaner: ^0.0.5
-  very_good_analysis: ^7.0.0
+  very_good_analysis: ^9.0.0
 flutter:
   generate: true
   uses-material-design: true

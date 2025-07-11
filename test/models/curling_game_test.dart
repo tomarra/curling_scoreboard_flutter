@@ -74,7 +74,7 @@ void main() {
     });
 
     test(
-      'isGameComplete returns true only when ends are filled and scores are not tied',
+      'isGameComplete is true when ends are filled and scores are not tied',
       () {
         game
           ..numberOfEnds = 2

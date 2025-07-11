@@ -15,7 +15,7 @@ void main() {
   testWidgets('FinishGameDialog renders confirmation and buttons', (
     WidgetTester tester,
   ) async {
-    bool finished = false;
+    var finished = false;
     await tester.pumpWidget(
       wrapWithMaterialApp(
         FinishGameDialog(

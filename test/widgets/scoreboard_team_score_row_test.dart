@@ -1,6 +1,6 @@
+import 'package:curling_scoreboard_flutter/widgets/scoreboard/scoreboard_team_score_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:curling_scoreboard_flutter/widgets/scoreboard/scoreboard_team_score_row.dart';
 
 void main() {
   testWidgets('ScoreboardTeamScoreRow renders scores and handles tap', (

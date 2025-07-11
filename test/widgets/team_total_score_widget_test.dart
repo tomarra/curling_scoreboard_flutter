@@ -7,7 +7,7 @@ void main() {
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: TeamTotalScoreWidget(
             score: '5',
@@ -29,14 +29,13 @@ void main() {
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: TeamTotalScoreWidget(
             score: '2',
             backgroundColor: Colors.blue,
             textColor: Colors.yellow,
             shouldShowHammerIcon: true,
-            hammerIconPosition: HammerIconPosition.right,
           ),
         ),
       ),
@@ -48,12 +47,11 @@ void main() {
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: TeamTotalScoreWidget(
             score: '3',
             backgroundColor: Colors.green,
-            textColor: Colors.black,
             shouldShowHammerIcon: true,
             hammerIconPosition: HammerIconPosition.left,
           ),

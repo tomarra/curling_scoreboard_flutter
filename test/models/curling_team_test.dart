@@ -18,16 +18,17 @@ void main() {
     });
 
     test('Properties can be updated', () {
-      final team = CurlingTeam(
-        name: 'Yellow',
-        color: Colors.yellow,
-        textColor: Colors.black,
-        hasHammer: false,
-      );
-      team.name = 'Blue';
-      team.color = Colors.blue;
-      team.textColor = Colors.white;
-      team.hasHammer = true;
+      final team =
+          CurlingTeam(
+              name: 'Yellow',
+              color: Colors.yellow,
+              textColor: Colors.black,
+              hasHammer: false,
+            )
+            ..name = 'Blue'
+            ..color = Colors.blue
+            ..textColor = Colors.white
+            ..hasHammer = true;
       expect(team.name, 'Blue');
       expect(team.color, Colors.blue);
       expect(team.textColor, Colors.white);

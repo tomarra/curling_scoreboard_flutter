@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:curling_scoreboard_flutter/widgets/scoreboard/scoreboard_baseball_layout.dart';
-
 void main() {
   /* testWidgets('ScoreboardBaseballLayout renders and handles tap', (
     WidgetTester tester,

@@ -1,13 +1,13 @@
+import 'package:curling_scoreboard_flutter/widgets/total_score/total_score_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:curling_scoreboard_flutter/widgets/total_score/total_score_row.dart';
 
 void main() {
   testWidgets(
     'TotalScoreRow renders both team scores, hammer icons, and end number',
     (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: TotalScoreRow(
               team1Score: 5,

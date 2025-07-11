@@ -1,8 +1,7 @@
+import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
+import 'package:curling_scoreboard_flutter/widgets/app_bar/score_input_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:curling_scoreboard_flutter/widgets/app_bar/score_input_dialog.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
 
 Widget wrapWithMaterialApp(Widget child) {
   return MaterialApp(

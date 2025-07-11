@@ -43,6 +43,8 @@ jobs:
         run: flutter analyze
       - name: Build
         run: flutter build web -t lib/main.dart
+      - name: Test
+        run: flutter test
   validate_spelling:
     name: Validate Spelling
     runs-on: ubuntu-latest

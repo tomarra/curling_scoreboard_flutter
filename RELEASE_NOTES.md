@@ -1,11 +1,16 @@
-#  (2025-04-16)
+#  (2025-07-22)
+
+
+### Bug Fixes
+
+* adding tests ([#105](https://github.com/tomarra/curling_scoreboard_flutter/issues/105)) ([06f1d5b](https://github.com/tomarra/curling_scoreboard_flutter/commit/06f1d5bd548034e736372b021e2eb60db20a0d3f))
 
 
 ### Features
 
-* update to flutter 3.29.1 ([#88](https://github.com/tomarra/curling_scoreboard_flutter/issues/88)) ([a5d6b25](https://github.com/tomarra/curling_scoreboard_flutter/commit/a5d6b255cc91c5f1ddd64069a962f397cdd30b5e))
-* update to Flutter 3.29.2 ([#89](https://github.com/tomarra/curling_scoreboard_flutter/issues/89)) ([650af19](https://github.com/tomarra/curling_scoreboard_flutter/commit/650af199fe6501ead3aac010cfba585845f79ee8))
-* upgrade to flutter 3.29.3 ([#91](https://github.com/tomarra/curling_scoreboard_flutter/issues/91)) ([7fb9882](https://github.com/tomarra/curling_scoreboard_flutter/commit/7fb98824b347dd8644de94812d1640f566172793))
+* update to Flutter 3.32.7 ([#108](https://github.com/tomarra/curling_scoreboard_flutter/issues/108)) ([c447525](https://github.com/tomarra/curling_scoreboard_flutter/commit/c4475255e66188f8c35f30f6c4881049b7f33bea))
+* upgrade to flutter 3.32.0 ([#93](https://github.com/tomarra/curling_scoreboard_flutter/issues/93)) ([0f39d7e](https://github.com/tomarra/curling_scoreboard_flutter/commit/0f39d7e6a81d35f5f9b2aafffd1f681205083762))
+* upgrade to flutter 3.32.4 ([#101](https://github.com/tomarra/curling_scoreboard_flutter/issues/101)) ([de66155](https://github.com/tomarra/curling_scoreboard_flutter/commit/de661552d5e23341062a38ae50c991d750923a74))
 
 
 

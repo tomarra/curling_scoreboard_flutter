@@ -2,5 +2,17 @@
   "hosting": {
     "public": "build/web",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "curling-scoreboard-dev",
+          "configurations": {
+            "web": "1:233388384349:web:089c4df4fd9230c9076db4"
+          }
+        }
+      }
+    }
   }
 }

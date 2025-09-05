@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "233388384349",
+    "project_id": "curling-scoreboard-dev",
+    "storage_bucket": "curling-scoreboard-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233388384349:android:e73eddb803b6f839076db4",
+        "android_client_info": {
+          "package_name": "com.tomarra.curling_scoreboard_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOfdeNZrDngUNiZowXO8G1--2dRZAJwhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

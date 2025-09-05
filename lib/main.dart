@@ -1,12 +1,27 @@
 import 'dart:async';
 
 import 'package:curling_scoreboard_flutter/constants.dart';
+import 'package:curling_scoreboard_flutter/firebase_options.dart';
 import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
+import 'package:curling_scoreboard_flutter/services/firebase_service.dart';
 import 'package:curling_scoreboard_flutter/widgets/widgets.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAppCheck.instance.activate(
+    // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
+    // argument for `webProvider`
+    webProvider: ReCaptchaV3Provider(
+      '6LeHPb0rAAAAAEjgjhxlo8t2AQeEA0mWHMopYA04',
+    ),
+  );
   runApp(const CurlingScoreboardApp());
 }
 
@@ -44,10 +59,13 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   int overUnderInSeconds = 0;
   Duration fullGameDuration = Duration.zero;
   List<int> secondsPerEnd = [];
+  FirebaseService firebaseService = FirebaseService();
 
   @override
   void initState() {
     super.initState();
+
+    setupFirebase();
 
     // Setup a dummy game object to start with, none of this is actually used
     // as we will be setting the game object in the game start dialog.
@@ -71,6 +89,11 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     // Need a small delay to allow everything to be setup before showing
     // the start dialog.
     Timer.run(showGameStartDialog);
+  }
+
+  Future<void> setupFirebase() async {
+    await firebaseService.doAnonymousLogin();
+    firebaseService.getClubsList();
   }
 
   void showGameStartDialog() {

@@ -6,6 +6,10 @@ environment:
   sdk: ">=3.8.0 <4.0.0"
   flutter: 3.35.2
 dependencies:
+  cloud_firestore: ^6.0.1
+  firebase_app_check: ^0.4.0+1
+  firebase_auth: ^6.0.2
+  firebase_core: ^4.1.0
   flutter:
     sdk: flutter
   flutter_localizations:

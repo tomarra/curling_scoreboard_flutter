@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2.21.0
         with:
-          flutter-version: "3.35.2"
+          flutter-version: "3.35.3"
           channel: "stable"
       - run: flutter packages get
       - run: flutter build web -t lib/main.dart

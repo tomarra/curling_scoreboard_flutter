@@ -12,6 +12,7 @@ class TotalScoreRow extends StatelessWidget {
     required this.team2TextColor,
     required this.team2HasHammer,
     required this.endNumber,
+    required this.endNumberBackgroundColor,
     super.key,
   });
 
@@ -24,6 +25,7 @@ class TotalScoreRow extends StatelessWidget {
   final Color team2TextColor;
   final bool team2HasHammer;
   final String endNumber;
+  final Color endNumberBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class TotalScoreRow extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.fitHeight,
               child: ColoredBox(
-                color: Colors.white,
+                color: endNumberBackgroundColor,
                 child: Text(
                   endNumber,
                   style: const TextStyle(

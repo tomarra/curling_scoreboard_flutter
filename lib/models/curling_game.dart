@@ -17,6 +17,15 @@ class CurlingGame {
   List<CurlingEnd> ends;
   int currentPlayingEnd = 1;
 
+  int get gameTimeWarningInMinutes {
+    return (minutesPerEnd * numberOfEnds) -
+        (minutesPerEnd + (minutesPerEnd ~/ 3));
+  }
+
+  int get gameTimeEndInMinutes {
+    return minutesPerEnd * numberOfEnds;
+  }
+
   String get currentPlayingEndForDisplay {
     if (currentPlayingEnd <= numberOfEnds) {
       return currentPlayingEnd.toString();

@@ -44,6 +44,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   int overUnderInSeconds = 0;
   Duration fullGameDuration = Duration.zero;
   List<int> secondsPerEnd = [];
+  Color endNumberBackgroundColor = Colors.white;
 
   @override
   void initState() {
@@ -93,6 +94,19 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         seconds:
             totalTimerSeconds - secondsPerEnd[gameObject.currentPlayingEnd - 1],
       ).inSeconds;
+
+      // Only do this if we have a set number of players per team which means
+      // the game clock is active
+      if (gameObject.numberOfPlayersPerTeam != 0) {
+        if (gameObject.gameTimeWarningInMinutes <= (totalTimerSeconds / 60)) {
+          if (gameObject.gameTimeEndInMinutes <= (totalTimerSeconds / 60)) {
+            endNumberBackgroundColor = Colors.deepPurpleAccent;
+          }
+        } else {
+          endNumberBackgroundColor = Colors.tealAccent;
+        }
+      }
+
       setState(() {});
     });
 
@@ -283,6 +297,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
             team2TextColor: gameObject.team2.textColor,
             team2HasHammer: gameObject.team2.hasHammer,
             endNumber: gameObject.currentPlayingEndForDisplay,
+            endNumberBackgroundColor: endNumberBackgroundColor,
           ),
         ),
         if (gameObject.numberOfPlayersPerTeam > 0)

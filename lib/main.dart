@@ -98,12 +98,23 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       // Only do this if we have a set number of players per team which means
       // the game clock is active
       if (gameObject.numberOfPlayersPerTeam != 0) {
-        if (gameObject.gameTimeWarningInMinutes <= (totalTimerSeconds / 60)) {
-          if (gameObject.gameTimeEndInMinutes <= (totalTimerSeconds / 60)) {
-            endNumberBackgroundColor = Colors.deepPurpleAccent;
+        final totalTimeInMinutes = totalTimerSeconds / 60;
+
+        if (totalTimeInMinutes >= gameObject.gameTimeWarningInMinutes &&
+            totalTimeInMinutes < gameObject.gameTimeEndInMinutes) {
+          if (totalTimerSeconds % 10 == 0) {
+            // Only update every 10 seconds to reduce flicker
+            // Flash between white and warning color every 10 seconds
+            if (endNumberBackgroundColor == Colors.tealAccent) {
+              endNumberBackgroundColor = Colors.white;
+            } else {
+              endNumberBackgroundColor = Colors.tealAccent;
+            }
           }
+        } else if (totalTimeInMinutes >= gameObject.gameTimeEndInMinutes) {
+          endNumberBackgroundColor = Colors.deepPurpleAccent;
         } else {
-          endNumberBackgroundColor = Colors.tealAccent;
+          endNumberBackgroundColor = Colors.white;
         }
       }
 

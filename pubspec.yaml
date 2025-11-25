@@ -4,8 +4,10 @@ publish_to: "none"
 version: 0.0.25
 environment:
   sdk: ">=3.8.0 <4.0.0"
-  flutter: 3.35.4
+  flutter: 3.38.3
 dependencies:
+  # Not actually used, but needed to suppress warnings. Gets tree shaken out at build time.
+  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
   flutter_localizations:

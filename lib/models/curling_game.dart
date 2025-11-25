@@ -99,6 +99,10 @@ class CurlingGame {
       return;
     }
 
+    if (lastEnd.score == 0) {
+      return;
+    }
+
     //Normal end hammer detection
     if (lastEnd.scoringTeamName == team1.name) {
       team1.hasHammer = false;

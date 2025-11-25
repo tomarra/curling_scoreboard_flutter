@@ -6,21 +6,25 @@ import 'package:material_segmented_control/material_segmented_control.dart';
 
 class ScoreInputDialog extends StatelessWidget {
   const ScoreInputDialog({
-    required this.defaultTeam,
     required this.defaultScore,
     required this.end,
+    this.defaultTeam,
     super.key,
   });
 
   final int end;
-  final String defaultTeam;
+  final String? defaultTeam;
   final int defaultScore;
 
   @override
   Widget build(BuildContext context) {
     var selectedTeam = defaultTeam;
-    var currentTeamSelectedIndex =
-        defaultTeam == AppLocalizations.of(context)!.teamNameRed ? 0 : 1;
+    int? currentTeamSelectedIndex;
+
+    if (defaultTeam != null) {
+      currentTeamSelectedIndex =
+          defaultTeam == AppLocalizations.of(context)!.teamNameRed ? 0 : 1;
+    }
 
     var selectedScore = defaultScore;
     var currentScoreSelectedIndex = defaultScore;
@@ -76,53 +80,64 @@ class ScoreInputDialog extends StatelessWidget {
                 onSegmentTapped: (index) {
                   setState(() {
                     currentScoreSelectedIndex = index;
-
                     selectedScore = index;
+
+                    if (selectedScore == 0) {
+                      selectedTeam = null;
+                      currentTeamSelectedIndex = null;
+                    }
                   });
                 },
               ),
-              MaterialSegmentedControl(
-                children: teamNames,
-                selectionIndex: currentTeamSelectedIndex,
-                borderColor: Colors.grey,
-                selectedColor: currentTeamSelectedIndex == 0
-                    ? Constants.redTeamColor
-                    : Constants.yellowTeamColor,
-                unselectedColor: Colors.white,
-                selectedTextStyle: const TextStyle(color: Colors.white),
-                unselectedTextStyle: const TextStyle(color: Colors.black),
-                borderWidth: 1,
-                borderRadius: 20,
-                horizontalPadding: const EdgeInsets.all(10),
-                verticalOffset: 25,
-                onSegmentTapped: (index) {
-                  setState(() {
-                    currentTeamSelectedIndex = index;
+              Opacity(
+                opacity: selectedScore > 0 ? 1.0 : 0.3,
+                child: AbsorbPointer(
+                  absorbing: selectedScore == 0,
+                  child: MaterialSegmentedControl(
+                    children: teamNames,
+                    selectionIndex: currentTeamSelectedIndex,
+                    borderColor: Colors.grey,
+                    selectedColor: currentTeamSelectedIndex == 0
+                        ? Constants.redTeamColor
+                        : Constants.yellowTeamColor,
+                    unselectedColor: Colors.white,
+                    selectedTextStyle: const TextStyle(color: Colors.white),
+                    unselectedTextStyle: const TextStyle(color: Colors.black),
+                    borderWidth: 1,
+                    borderRadius: 20,
+                    horizontalPadding: const EdgeInsets.all(10),
+                    verticalOffset: 25,
+                    onSegmentTapped: (index) {
+                      setState(() {
+                        currentTeamSelectedIndex = index;
 
-                    index == 0
-                        ? selectedTeam = AppLocalizations.of(
-                            context,
-                          )!.teamNameRed
-                        : selectedTeam = AppLocalizations.of(
-                            context,
-                          )!.teamNameYellow;
-                  });
-                },
+                        index == 0
+                            ? selectedTeam = AppLocalizations.of(
+                                context,
+                              )!.teamNameRed
+                            : selectedTeam = AppLocalizations.of(
+                                context,
+                              )!.teamNameYellow;
+                      });
+                    },
+                  ),
+                ),
               ),
             ],
           ),
           actions: [
             ElevatedButton(
-              onPressed: () {
-                //onSubmit(end, selectedTeam, selectedScore);
-                final newEnd = CurlingEnd(
-                  endNumber: end,
-                  scoringTeamName: selectedTeam,
-                  score: selectedScore,
-                );
+              onPressed: (selectedScore > 0 && selectedTeam == null)
+                  ? null
+                  : () {
+                      final newEnd = CurlingEnd(
+                        endNumber: end,
+                        scoringTeamName: selectedTeam,
+                        score: selectedScore,
+                      );
 
-                Navigator.pop(context, newEnd);
-              },
+                      Navigator.pop(context, newEnd);
+                    },
               child: Text(
                 AppLocalizations.of(context)!.scoreInputEnterButtonLabel,
                 style: const TextStyle(

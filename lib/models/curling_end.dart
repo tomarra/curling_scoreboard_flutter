@@ -1,12 +1,12 @@
 class CurlingEnd {
   CurlingEnd({
     required this.endNumber,
-    required this.scoringTeamName,
     required this.score,
+    this.scoringTeamName,
     this.gameTimeInSeconds = -1,
   });
   int endNumber;
-  String scoringTeamName;
+  String? scoringTeamName;
   int score;
   int gameTimeInSeconds;
 }

@@ -99,6 +99,11 @@ class CurlingGame {
       return;
     }
 
+    //Check for a blank end and do nothing to retain hammer on current team
+    if (lastEnd.score == 0) {
+      return;
+    }
+
     //Normal end hammer detection
     if (lastEnd.scoringTeamName == team1.name) {
       team1.hasHammer = false;
@@ -106,6 +111,14 @@ class CurlingGame {
     } else {
       team1.hasHammer = true;
       team2.hasHammer = false;
+    }
+  }
+
+  CurlingTeam whichTeamHasHammer() {
+    if (team1.hasHammer) {
+      return team1;
+    } else {
+      return team2;
     }
   }
 }

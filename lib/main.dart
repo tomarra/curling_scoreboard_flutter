@@ -136,7 +136,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     }
   }
 
-  void editScore(int end, int score, String team) {
+  void editScore(int end, int score, String? team) {
     final originalEndScore = gameObject.ends.elementAt(end - 1);
 
     setState(() {
@@ -186,7 +186,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       context: context,
       builder: (BuildContext context) {
         return ScoreInputDialog(
-          defaultTeam: 'Red',
+          defaultTeam: gameObject.whichTeamHasHammer().name,
           defaultScore: 0,
           end: gameObject.currentPlayingEnd,
         );

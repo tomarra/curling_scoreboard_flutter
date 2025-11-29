@@ -1,6 +1,13 @@
 Changelog
 
 
+### [0.0.27](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.26...0.0.27) (2025-11-29)
+
+
+### Features
+
+* update android build files ([#132](https://github.com/tomarra/curling_scoreboard_flutter/issues/132)) ([4c9893f](https://github.com/tomarra/curling_scoreboard_flutter/commit/4c9893f520308a707e91c7c7eabeb33329feab6b))
+
 ### [0.0.26](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.25...0.0.26) (2025-11-29)
 
 

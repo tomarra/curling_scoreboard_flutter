@@ -99,6 +99,7 @@ class CurlingGame {
       return;
     }
 
+    //Check for a blank end and do nothing to retain hammer on current team
     if (lastEnd.score == 0) {
       return;
     }

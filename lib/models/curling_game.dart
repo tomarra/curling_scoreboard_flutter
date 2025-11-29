@@ -113,4 +113,12 @@ class CurlingGame {
       team2.hasHammer = false;
     }
   }
+
+  CurlingTeam whichTeamHasHammer() {
+    if (team1.hasHammer) {
+      return team1;
+    } else {
+      return team2;
+    }
+  }
 }

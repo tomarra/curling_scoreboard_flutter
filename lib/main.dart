@@ -145,6 +145,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         ..score = score;
 
       gameObject.ends[end - 1] = originalEndScore;
+      gameObject.evaluateHammer();
     });
   }
 

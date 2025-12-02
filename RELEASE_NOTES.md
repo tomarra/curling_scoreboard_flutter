@@ -1,9 +1,9 @@
-#  (2025-11-29)
+#  (2025-12-02)
 
 
-### Features
+### Bug Fixes
 
-* update android build files ([#132](https://github.com/tomarra/curling_scoreboard_flutter/issues/132)) ([4c9893f](https://github.com/tomarra/curling_scoreboard_flutter/commit/4c9893f520308a707e91c7c7eabeb33329feab6b))
+* evaluate hammer after score edit ([#133](https://github.com/tomarra/curling_scoreboard_flutter/issues/133)) ([2aad5f8](https://github.com/tomarra/curling_scoreboard_flutter/commit/2aad5f8efe5d29a80eae42e5cde6c85c84e1d064))
 
 
 

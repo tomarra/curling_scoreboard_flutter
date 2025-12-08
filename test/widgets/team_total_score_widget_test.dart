@@ -53,7 +53,7 @@ void main() {
             score: '3',
             backgroundColor: Colors.green,
             shouldShowHammerIcon: true,
-            hammerIconPosition: HammerIconPosition.left,
+            hammerIconPosition: TeamHammerIconPosition.left,
           ),
         ),
       ),

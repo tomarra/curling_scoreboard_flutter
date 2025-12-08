@@ -201,12 +201,14 @@ class GameStartDialog extends StatelessWidget {
                   color: Constants.redTeamColor,
                   textColor: Constants.textHighContrastColor,
                   hasHammer: settingsHammerTeam == 0,
+                  hadLastStoneFirstEnd: settingsHammerTeam == 0,
                 );
                 final team2 = CurlingTeam(
                   name: AppLocalizations.of(context)!.teamNameYellow,
                   color: Constants.yellowTeamColor,
                   textColor: Constants.textDefaultColor,
                   hasHammer: settingsHammerTeam == 1,
+                  hadLastStoneFirstEnd: settingsHammerTeam == 1,
                 );
 
                 final newCurlingGame = CurlingGame(

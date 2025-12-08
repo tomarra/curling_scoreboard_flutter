@@ -2,11 +2,21 @@
   "version": "0.2",
   "enabled": true,
   "language": "en",
-  "dictionaries": ["en_US", "softwareTerms", "dev_dictionary"],
+  "dictionaries": [
+    "en_US",
+    "softwareTerms",
+    "dev_dictionary",
+    "curling_dictionary"
+  ],
   "dictionaryDefinitions": [
     {
       "name": "dev_dictionary",
       "path": "./.cspell/dev_dictionary.txt",
+      "addWords": true
+    },
+    {
+      "name": "curling_dictionary",
+      "path": "./.cspell/curling_dictionary.txt",
       "addWords": true
     }
   ],

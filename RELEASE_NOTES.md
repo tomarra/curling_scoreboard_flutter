@@ -1,9 +1,9 @@
-#  (2025-12-02)
+#  (2025-12-08)
 
 
-### Bug Fixes
+### Features
 
-* evaluate hammer after score edit ([#133](https://github.com/tomarra/curling_scoreboard_flutter/issues/133)) ([2aad5f8](https://github.com/tomarra/curling_scoreboard_flutter/commit/2aad5f8efe5d29a80eae42e5cde6c85c84e1d064))
+* add LSFE indication ([#135](https://github.com/tomarra/curling_scoreboard_flutter/issues/135)) ([a2ce1a9](https://github.com/tomarra/curling_scoreboard_flutter/commit/a2ce1a9436ef5f1d217ca47bfb0dc0853a0cbef2))
 
 
 

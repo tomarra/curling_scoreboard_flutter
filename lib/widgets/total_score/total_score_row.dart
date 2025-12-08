@@ -7,10 +7,12 @@ class TotalScoreRow extends StatelessWidget {
     required this.team1Color,
     required this.team1TextColor,
     required this.team1HasHammer,
+    required this.team1HasLSFE,
     required this.team2Score,
     required this.team2Color,
     required this.team2TextColor,
     required this.team2HasHammer,
+    required this.team2HasLSFE,
     required this.endNumber,
     super.key,
   });
@@ -19,10 +21,12 @@ class TotalScoreRow extends StatelessWidget {
   final Color team1Color;
   final Color team1TextColor;
   final bool team1HasHammer;
+  final bool team1HasLSFE;
   final int team2Score;
   final Color team2Color;
   final Color team2TextColor;
   final bool team2HasHammer;
+  final bool team2HasLSFE;
   final String endNumber;
 
   @override
@@ -37,13 +41,16 @@ class TotalScoreRow extends StatelessWidget {
               backgroundColor: team1Color,
               textColor: team1TextColor,
               shouldShowHammerIcon: team1HasHammer,
-              hammerIconPosition: HammerIconPosition.left,
+              shouldShowLSFEIcon: team1HasLSFE,
+              hammerIconPosition: TeamHammerIconPosition.left,
+              lsfeIconPosition: LSFEIconPosition.left,
             ),
             TeamTotalScoreWidget(
               score: team2Score.toString(),
               backgroundColor: team2Color,
               textColor: team2TextColor,
               shouldShowHammerIcon: team2HasHammer,
+              shouldShowLSFEIcon: team2HasLSFE,
             ),
           ],
         ),

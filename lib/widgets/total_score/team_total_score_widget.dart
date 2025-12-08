@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-enum HammerIconPosition { left, right }
+enum TeamHammerIconPosition { left, right }
+
+enum LSFEIconPosition { left, right }
 
 class TeamTotalScoreWidget extends StatelessWidget {
   const TeamTotalScoreWidget({
@@ -8,7 +10,9 @@ class TeamTotalScoreWidget extends StatelessWidget {
     required this.backgroundColor,
     this.textColor = Colors.black,
     this.shouldShowHammerIcon = false,
-    this.hammerIconPosition = HammerIconPosition.right,
+    this.shouldShowLSFEIcon = false,
+    this.hammerIconPosition = TeamHammerIconPosition.right,
+    this.lsfeIconPosition = LSFEIconPosition.right,
     super.key,
   });
 
@@ -16,7 +20,9 @@ class TeamTotalScoreWidget extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final bool shouldShowHammerIcon;
-  final HammerIconPosition hammerIconPosition;
+  final bool shouldShowLSFEIcon;
+  final TeamHammerIconPosition hammerIconPosition;
+  final LSFEIconPosition lsfeIconPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +45,20 @@ class TeamTotalScoreWidget extends StatelessWidget {
         if (shouldShowHammerIcon)
           Positioned(
             top: 10,
-            left: (hammerIconPosition == HammerIconPosition.left) ? 10 : null,
-            right: (hammerIconPosition == HammerIconPosition.right) ? 10 : null,
+            left: (hammerIconPosition == TeamHammerIconPosition.left)
+                ? 10
+                : null,
+            right: (hammerIconPosition == TeamHammerIconPosition.right)
+                ? 10
+                : null,
             child: Icon(Icons.hardware_sharp, color: textColor, size: 150),
+          ),
+        if (shouldShowLSFEIcon)
+          Positioned(
+            bottom: 10,
+            left: (lsfeIconPosition == LSFEIconPosition.left) ? 10 : null,
+            right: (lsfeIconPosition == LSFEIconPosition.right) ? 10 : null,
+            child: Icon(Icons.emergency, color: textColor, size: 150),
           ),
       ],
     );

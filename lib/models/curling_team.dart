@@ -6,9 +6,11 @@ class CurlingTeam {
     required this.color,
     required this.textColor,
     required this.hasHammer,
+    this.hadLastStoneFirstEnd = false,
   });
   String name;
   Color color;
   Color textColor;
   bool hasHammer;
+  bool hadLastStoneFirstEnd;
 }

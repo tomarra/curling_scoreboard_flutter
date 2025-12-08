@@ -51,8 +51,6 @@ class TotalScoreRow extends StatelessWidget {
               textColor: team2TextColor,
               shouldShowHammerIcon: team2HasHammer,
               shouldShowLSFEIcon: team2HasLSFE,
-              hammerIconPosition: TeamHammerIconPosition.right,
-              lsfeIconPosition: LSFEIconPosition.right,
             ),
           ],
         ),

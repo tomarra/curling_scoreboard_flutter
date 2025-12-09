@@ -34,4 +34,133 @@ void main() {
     expect(find.text('Red'), findsOneWidget);
     expect(find.text('Yellow '), findsOneWidget);
   });
+
+  testWidgets('ScoreInputDialog defaults to 0 and no team selected', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      wrapWithMaterialApp(
+        const ScoreInputDialog(
+          defaultScore: 0,
+          end: 1,
+        ),
+      ),
+    );
+
+    // Verify score 0 is selected
+    // We can check if the button is enabled/disabled.
+    // With score 0 and no team, button should be enabled (for blank end).
+    final enterButton = find.widgetWithText(ElevatedButton, 'Enter');
+    expect(tester.widget<ElevatedButton>(enterButton).enabled, isTrue);
+  });
+
+  testWidgets('ScoreInputDialog disables team selection when score is 0', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      wrapWithMaterialApp(
+        const ScoreInputDialog(
+          defaultScore: 0,
+          end: 1,
+        ),
+      ),
+    );
+
+    // Find the team selection widget (AbsorbPointer)
+    // We look for the AbsorbPointer inside the Opacity widget
+    // within the AlertDialog
+    final dialogFinder = find.byType(AlertDialog);
+    final opacityFinder = find.descendant(
+      of: dialogFinder,
+      matching: find.byType(Opacity),
+    );
+    final absorbPointer = find.descendant(
+      of: opacityFinder,
+      matching: find.byType(AbsorbPointer),
+    );
+
+    expect(absorbPointer, findsOneWidget);
+    expect(tester.widget<AbsorbPointer>(absorbPointer).absorbing, isTrue);
+  });
+
+  testWidgets('ScoreInputDialog enables team selection when score > 0', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      wrapWithMaterialApp(
+        const ScoreInputDialog(
+          defaultScore: 0,
+          end: 1,
+        ),
+      ),
+    );
+
+    // Select score 1
+    await tester.tap(find.text('1'));
+    await tester.pump();
+
+    // Verify team selection is enabled
+    final dialogFinder = find.byType(AlertDialog);
+    final opacityFinder = find.descendant(
+      of: dialogFinder,
+      matching: find.byType(Opacity),
+    );
+    final absorbPointer = find.descendant(
+      of: opacityFinder,
+      matching: find.byType(AbsorbPointer),
+    );
+    expect(tester.widget<AbsorbPointer>(absorbPointer).absorbing, isFalse);
+  });
+
+  testWidgets(
+    'ScoreInputDialog disables Enter button if score > 0 and no team selected',
+    (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        wrapWithMaterialApp(
+          const ScoreInputDialog(
+            defaultScore: 0,
+            end: 1,
+          ),
+        ),
+      );
+
+      // Select score 1
+      await tester.tap(find.text('1'));
+      await tester.pump();
+
+      // Verify Enter button is disabled
+      final enterButton = find.widgetWithText(ElevatedButton, 'Enter');
+      expect(tester.widget<ElevatedButton>(enterButton).enabled, isFalse);
+    },
+  );
+
+  testWidgets(
+    'ScoreInputDialog enables Enter button if score > 0 and team selected',
+    (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        wrapWithMaterialApp(
+          const ScoreInputDialog(
+            defaultScore: 0,
+            end: 1,
+          ),
+        ),
+      );
+
+      // Select score 1
+      await tester.tap(find.text('1'));
+      await tester.pump();
+
+      // Select team Red
+      await tester.tap(find.text('Red'));
+      await tester.pump();
+
+      // Verify Enter button is enabled
+      final enterButton = find.widgetWithText(ElevatedButton, 'Enter');
+      expect(tester.widget<ElevatedButton>(enterButton).enabled, isTrue);
+    },
+  );
 }

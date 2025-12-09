@@ -1,6 +1,40 @@
 Changelog
 
 
+### [0.0.29](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.28...0.0.29) (2025-12-08)
+
+
+### Features
+
+* add LSFE indication ([#135](https://github.com/tomarra/curling_scoreboard_flutter/issues/135)) ([a2ce1a9](https://github.com/tomarra/curling_scoreboard_flutter/commit/a2ce1a9436ef5f1d217ca47bfb0dc0853a0cbef2))
+
+### [0.0.28](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.27...0.0.28) (2025-12-02)
+
+
+### Bug Fixes
+
+* evaluate hammer after score edit ([#133](https://github.com/tomarra/curling_scoreboard_flutter/issues/133)) ([2aad5f8](https://github.com/tomarra/curling_scoreboard_flutter/commit/2aad5f8efe5d29a80eae42e5cde6c85c84e1d064))
+
+### [0.0.27](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.26...0.0.27) (2025-11-29)
+
+
+### Features
+
+* update android build files ([#132](https://github.com/tomarra/curling_scoreboard_flutter/issues/132)) ([4c9893f](https://github.com/tomarra/curling_scoreboard_flutter/commit/4c9893f520308a707e91c7c7eabeb33329feab6b))
+
+### [0.0.26](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.25...0.0.26) (2025-11-29)
+
+
+### Features
+
+* add version number in game start dialog ([#131](https://github.com/tomarra/curling_scoreboard_flutter/issues/131)) ([0834615](https://github.com/tomarra/curling_scoreboard_flutter/commit/0834615c150076c78844ccec41cd83e6f95b9a9e))
+* blank ends don't need team selection ([#130](https://github.com/tomarra/curling_scoreboard_flutter/issues/130)) ([481b247](https://github.com/tomarra/curling_scoreboard_flutter/commit/481b247ed106f8dd9262bd9553f94a5f7f2c7b12))
+* update to 3.35.4 ([#120](https://github.com/tomarra/curling_scoreboard_flutter/issues/120)) ([fb76d43](https://github.com/tomarra/curling_scoreboard_flutter/commit/fb76d43fea7b3eb26c5f2af609ccae5d7c0e67c3))
+* update to flutter 3.35.0 ([#111](https://github.com/tomarra/curling_scoreboard_flutter/issues/111)) ([033cb6b](https://github.com/tomarra/curling_scoreboard_flutter/commit/033cb6b6d97389a4b442465fe30fffc7202fdc67))
+* update to Flutter 3.35.2 ([#114](https://github.com/tomarra/curling_scoreboard_flutter/issues/114)) ([10bb66a](https://github.com/tomarra/curling_scoreboard_flutter/commit/10bb66a34bb4cd2b94a0c5e3a69e0b3723be5e0c))
+* update to Flutter 3.38.3 ([#129](https://github.com/tomarra/curling_scoreboard_flutter/issues/129)) ([378c59a](https://github.com/tomarra/curling_scoreboard_flutter/commit/378c59af804d2f83e534653081d8137df572ce99))
+* upgrade to flutter 3.35.3 ([#118](https://github.com/tomarra/curling_scoreboard_flutter/issues/118)) ([7527470](https://github.com/tomarra/curling_scoreboard_flutter/commit/75274700af5676f1cbbe02267216f004de4b71fd))
+
 ### [0.0.25](https://github.com/tomarra/curling_scoreboard_flutter/compare/0.0.24...0.0.25) (2025-07-22)
 
 

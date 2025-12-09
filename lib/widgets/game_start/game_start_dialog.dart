@@ -1,6 +1,7 @@
 import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
 import 'package:curling_scoreboard_flutter/models/models.dart';
+import 'package:curling_scoreboard_flutter/src/version.dart';
 import 'package:flutter/material.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
@@ -184,20 +185,30 @@ class GameStartDialog extends StatelessWidget {
               ],
             ),
           ),
+          actionsAlignment: MainAxisAlignment.spaceBetween,
           actions: [
+            const Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                'v$packageVersion',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
             ElevatedButton(
               onPressed: () {
                 final team1 = CurlingTeam(
                   name: AppLocalizations.of(context)!.teamNameRed,
                   color: Constants.redTeamColor,
                   textColor: Constants.textHighContrastColor,
-                  hasHammer: (settingsHammerTeam == 0) || false,
+                  hasHammer: settingsHammerTeam == 0,
+                  hadLastStoneFirstEnd: settingsHammerTeam == 0,
                 );
                 final team2 = CurlingTeam(
                   name: AppLocalizations.of(context)!.teamNameYellow,
                   color: Constants.yellowTeamColor,
                   textColor: Constants.textDefaultColor,
-                  hasHammer: (settingsHammerTeam == 1) || false,
+                  hasHammer: settingsHammerTeam == 1,
+                  hadLastStoneFirstEnd: settingsHammerTeam == 1,
                 );
 
                 final newCurlingGame = CurlingGame(

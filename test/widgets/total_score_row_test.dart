@@ -21,6 +21,7 @@ void main() {
               team2HasHammer: false,
               team2HasLSFE: false,
               endNumber: '2',
+              endNumberBackgroundColor: Colors.white,
             ),
           ),
         ),

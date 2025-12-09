@@ -7,8 +7,10 @@ class Constants {
   static const Color yellowTeamColor = Colors.yellow;
   static const Color emptyScoreColor = Colors.white;
   static Color actionGreyColor = Colors.grey[300]!;
-  static Color textDefaultColor = Colors.black;
-  static Color textHighContrastColor = Colors.white;
+  static const Color textDefaultColor = Colors.black;
+  static const Color textHighContrastColor = Colors.white;
+  static const Color gameTimeWarningColor = Colors.tealAccent;
+  static const Color gameTimeEndColor = Colors.deepPurpleAccent;
 
   // Default Values
   static const int defaultTotalEnds = 8;
@@ -18,4 +20,5 @@ class Constants {
   // Basic Constants
   static const int minutesPerEndFourPlayers = 15;
   static const int minutesPerEndTwoPlayers = 12;
+  static const int warningTimeFlickerInSeconds = 10;
 }

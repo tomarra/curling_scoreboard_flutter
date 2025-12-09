@@ -103,17 +103,17 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
         if (totalTimeInMinutes >= gameObject.gameTimeWarningInMinutes &&
             totalTimeInMinutes < gameObject.gameTimeEndInMinutes) {
-          if (totalTimerSeconds % 10 == 0) {
+          if (totalTimerSeconds % Constants.warningTimeFlickerInSeconds == 0) {
             // Only update every 10 seconds to reduce flicker
             // Flash between white and warning color every 10 seconds
-            if (endNumberBackgroundColor == Colors.tealAccent) {
+            if (endNumberBackgroundColor == Constants.gameTimeWarningColor) {
               endNumberBackgroundColor = Colors.white;
             } else {
-              endNumberBackgroundColor = Colors.tealAccent;
+              endNumberBackgroundColor = Constants.gameTimeWarningColor;
             }
           }
         } else if (totalTimeInMinutes >= gameObject.gameTimeEndInMinutes) {
-          endNumberBackgroundColor = Colors.deepPurpleAccent;
+          endNumberBackgroundColor = Constants.gameTimeEndColor;
         } else {
           endNumberBackgroundColor = Colors.white;
         }

@@ -320,13 +320,15 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                   team2FilledColor: gameObject.team2.color,
                   onPressed: showEditScoreDialog,
                 )
-              : ScoreboardClubLayout(
+              : ScoreboardCurlingClubLayout(
                   team1Scores: gameObject.team1ScoresByEnd,
                   team2Scores: gameObject.team2ScoresByEnd,
                   team1Color: gameObject.team1.color,
                   team2Color: gameObject.team2.color,
                   team1TextColor: gameObject.team1.textColor,
                   team2TextColor: gameObject.team2.textColor,
+                  scoreRowColor: Constants.primaryThemeColor,
+                  scoreRowTextColor: Constants.textHighContrastColor,
                   onPressed: showEditScoreDialog,
                 ),
         ),

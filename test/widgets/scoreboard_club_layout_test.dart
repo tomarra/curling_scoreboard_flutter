@@ -1,4 +1,4 @@
-import 'package:curling_scoreboard_flutter/widgets/scoreboard/scoreboard_club_layout.dart';
+import 'package:curling_scoreboard_flutter/widgets/scoreboard/scoreboard_curling_club_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,13 +9,15 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: ScoreboardClubLayout(
+          body: ScoreboardCurlingClubLayout(
             team1Scores: const [],
             team2Scores: const [],
             team1Color: Colors.red,
             team2Color: Colors.yellow,
             team1TextColor: Colors.white,
             team2TextColor: Colors.black,
+            scoreRowColor: Colors.blue,
+            scoreRowTextColor: Colors.white,
             onPressed: (_) {},
           ),
         ),
@@ -37,13 +39,15 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: ScoreboardClubLayout(
+            body: ScoreboardCurlingClubLayout(
               team1Scores: team1Scores,
               team2Scores: team2Scores,
               team1Color: Colors.red,
               team2Color: Colors.yellow,
               team1TextColor: Colors.white,
               team2TextColor: Colors.black,
+              scoreRowColor: Colors.blue,
+              scoreRowTextColor: Colors.white,
               onPressed: (_) {},
             ),
           ),
@@ -86,13 +90,15 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
-          body: ScoreboardClubLayout(
+          body: ScoreboardCurlingClubLayout(
             team1Scores: team1Scores,
             team2Scores: team2Scores,
             team1Color: Colors.red,
             team2Color: Colors.yellow,
             team1TextColor: Colors.white,
             team2TextColor: Colors.black,
+            scoreRowColor: Colors.blue,
+            scoreRowTextColor: Colors.white,
             onPressed: (_) {},
           ),
         ),
@@ -100,6 +106,6 @@ void main() {
     );
 
     // We can rely on logic verification or visual/golden tests, but here we just ensure no errors and widgets exist.
-    expect(find.byType(ScoreboardClubLayout), findsOneWidget);
+    expect(find.byType(ScoreboardCurlingClubLayout), findsOneWidget);
   });
 }

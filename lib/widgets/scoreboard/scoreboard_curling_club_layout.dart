@@ -1,14 +1,16 @@
 import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:flutter/material.dart';
 
-class ScoreboardClubLayout extends StatelessWidget {
-  const ScoreboardClubLayout({
+class ScoreboardCurlingClubLayout extends StatelessWidget {
+  const ScoreboardCurlingClubLayout({
     required this.team1Scores,
     required this.team2Scores,
     required this.team1Color,
     required this.team2Color,
     required this.team1TextColor,
     required this.team2TextColor,
+    required this.scoreRowColor,
+    required this.scoreRowTextColor,
     required this.onPressed,
     super.key,
   });
@@ -19,9 +21,11 @@ class ScoreboardClubLayout extends StatelessWidget {
   final Color team2Color;
   final Color team1TextColor;
   final Color team2TextColor;
+  final Color scoreRowColor;
+  final Color scoreRowTextColor;
   final void Function(int) onPressed;
 
-  static const int maxScore = 12;
+  static const int maxScore = Constants.curlingClubLayoutMaxScore;
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +77,9 @@ class ScoreboardClubLayout extends StatelessWidget {
                   Container(
                     height: 40,
                     alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                      color: Constants.primaryThemeColor,
-                      border: Border.symmetric(
+                    decoration: BoxDecoration(
+                      color: scoreRowColor,
+                      border: const Border.symmetric(
                         horizontal: BorderSide(
                           width: 2,
                         ),
@@ -83,8 +87,8 @@ class ScoreboardClubLayout extends StatelessWidget {
                     ),
                     child: Text(
                       scoreValue.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: scoreRowTextColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),

@@ -56,8 +56,18 @@ jobs:
         with:
           files: "**/*.{md,dart}"
           config: .github/cspell.json
+  validate_strings:
+    name: Validate Strings
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+      - name: Setup Translations Cleaner
+        run: flutter pub global activate translations_cleaner
+      - name: Check For Unused Strings
+        run: flutter pub run translations_cleaner list-unused-terms --abort-on-unused
   deploy_preview_to_firebase:
-    needs: [valdiate_pr_title, validate_code, validate_spelling]
+    needs: [valdiate_pr_title, validate_code, validate_spelling, validate_strings]
     name: Deploy Preview to Firebase
     runs-on: ubuntu-latest
     steps:

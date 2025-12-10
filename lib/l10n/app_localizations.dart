@@ -157,9 +157,10 @@ abstract class AppLocalizations {
   /// Button label for how long each end is when setting up a game.
   ///
   /// In en, this message translates to:
-  /// **'{minutesPerEnd} min per end \r\n{gameTotalTime} total'**
+  /// **'{minutesPerEnd} min per end \r\n{warningTime} warning time\r\n{gameTotalTime} total'**
   String gameStartDialogTimePerEndByPlayersButtonLabel(
     String minutesPerEnd,
+    String warningTime,
     String gameTotalTime,
   );
 

@@ -41,9 +41,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String gameStartDialogTimePerEndByPlayersButtonLabel(
     String minutesPerEnd,
+    String warningTime,
     String gameTotalTime,
   ) {
-    return '$minutesPerEnd min per end \r\n$gameTotalTime total';
+    return '$minutesPerEnd min per end \r\n$warningTime warning time\r\n$gameTotalTime total';
   }
 
   @override

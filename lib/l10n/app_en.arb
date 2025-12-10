@@ -40,13 +40,17 @@
   "@gameStartDialogFormLabelPlayersPerTeam": {
     "description": "Description text for the number of players setting in the game start dialog."
   },
-  "gameStartDialogTimePerEndByPlayersButtonLabel": "{minutesPerEnd} min per end \r\n{gameTotalTime} total",
+  "gameStartDialogTimePerEndByPlayersButtonLabel": "{minutesPerEnd} min per end \r\n{warningTime} warning time\r\n{gameTotalTime} total",
   "@gameStartDialogTimePerEndByPlayersButtonLabel": {
     "description": "Button label for how long each end is when setting up a game.",
     "placeholders": {
       "minutesPerEnd": {
         "type": "String",
         "example": "15"
+      },
+      "warningTime": {
+        "type": "String",
+        "example": "1:30"
       },
       "gameTotalTime": {
         "type": "String",

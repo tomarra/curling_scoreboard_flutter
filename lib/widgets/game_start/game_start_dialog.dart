@@ -65,6 +65,15 @@ class GameStartDialog extends StatelessWidget {
                     _printDuration(
                       Duration(
                         minutes:
+                            (Constants.minutesPerEndTwoPlayers *
+                                settingsTotalEnds) -
+                            (Constants.minutesPerEndTwoPlayers +
+                                (Constants.minutesPerEndTwoPlayers ~/ 3)),
+                      ),
+                    ),
+                    _printDuration(
+                      Duration(
+                        minutes:
                             Constants.minutesPerEndTwoPlayers *
                             settingsTotalEnds,
                       ),
@@ -77,6 +86,15 @@ class GameStartDialog extends StatelessWidget {
             subtext: AppLocalizations.of(context)!
                 .gameStartDialogTimePerEndByPlayersButtonLabel(
                   Constants.minutesPerEndFourPlayers.toString(),
+                  _printDuration(
+                    Duration(
+                      minutes:
+                          (Constants.minutesPerEndFourPlayers *
+                              settingsTotalEnds) -
+                          (Constants.minutesPerEndFourPlayers +
+                              (Constants.minutesPerEndFourPlayers ~/ 3)),
+                    ),
+                  ),
                   _printDuration(
                     Duration(
                       minutes:
@@ -260,6 +278,7 @@ class GameStartSegmentControlText extends StatelessWidget {
       return basicText(text);
     } else {
       return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           basicText(text),
           Text(

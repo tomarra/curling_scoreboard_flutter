@@ -349,9 +349,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     'Scoreboard Style',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  RadioListTile<ScoreboardStyle>(
-                    title: const Text('Baseball'),
-                    value: ScoreboardStyle.baseball,
+                  RadioGroup<ScoreboardStyle>(
                     groupValue: gameObject.scoreboardStyle,
                     onChanged: (ScoreboardStyle? value) {
                       setStateDialog(() {
@@ -359,17 +357,18 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                       });
                       setState(() {});
                     },
-                  ),
-                  RadioListTile<ScoreboardStyle>(
-                    title: const Text('Club'),
-                    value: ScoreboardStyle.club,
-                    groupValue: gameObject.scoreboardStyle,
-                    onChanged: (ScoreboardStyle? value) {
-                      setStateDialog(() {
-                        gameObject.scoreboardStyle = value!;
-                      });
-                      setState(() {});
-                    },
+                    child: Column(
+                      children: const [
+                        RadioListTile<ScoreboardStyle>(
+                          title: Text('Baseball'),
+                          value: ScoreboardStyle.baseball,
+                        ),
+                        RadioListTile<ScoreboardStyle>(
+                          title: Text('Club'),
+                          value: ScoreboardStyle.club,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

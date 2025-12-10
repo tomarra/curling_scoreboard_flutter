@@ -258,6 +258,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'E'**
   String get scoreboardExtraEndLabel;
+
+  /// Description text for the scoreboard style setting in the game start dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Scoreboard Style:'**
+  String get gameStartDialogFormLabelScoreboardStyle;
+
+  /// Label for the Baseball scoreboard style.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseball'**
+  String get scoreboardStyleBaseball;
+
+  /// Label for the Club scoreboard style.
+  ///
+  /// In en, this message translates to:
+  /// **'Club'**
+  String get scoreboardStyleClub;
 }
 
 class _AppLocalizationsDelegate

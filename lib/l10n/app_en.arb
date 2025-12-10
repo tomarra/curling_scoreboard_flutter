@@ -135,5 +135,17 @@
   "scoreboardExtraEndLabel": "E",
   "@scoreboardExtraEndLabel": {
     "description": "Label for the scoreboard for the extra end"
+  },
+  "gameStartDialogFormLabelScoreboardStyle": "Scoreboard Style:",
+  "@gameStartDialogFormLabelScoreboardStyle": {
+    "description": "Description text for the scoreboard style setting in the game start dialog."
+  },
+  "scoreboardStyleBaseball": "Baseball",
+  "@scoreboardStyleBaseball": {
+    "description": "Label for the Baseball scoreboard style."
+  },
+  "scoreboardStyleClub": "Club",
+  "@scoreboardStyleClub": {
+    "description": "Label for the Club scoreboard style."
   }
 }

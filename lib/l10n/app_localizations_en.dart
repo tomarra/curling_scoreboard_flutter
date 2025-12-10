@@ -101,4 +101,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scoreboardExtraEndLabel => 'E';
+
+  @override
+  String get gameStartDialogFormLabelScoreboardStyle => 'Scoreboard Style:';
+
+  @override
+  String get scoreboardStyleBaseball => 'Baseball';
+
+  @override
+  String get scoreboardStyleClub => 'Club';
 }

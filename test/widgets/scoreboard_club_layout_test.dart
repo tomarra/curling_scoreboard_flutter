@@ -22,7 +22,7 @@ void main() {
       ),
     );
 
-    for (int i = 1; i <= 15; i++) {
+    for (var i = 1; i <= 15; i++) {
       expect(find.text(i.toString()), findsOneWidget);
     }
   });
@@ -56,11 +56,14 @@ void main() {
         findsNWidgets(2),
       ); // One in the number row, one as marker
 
-      // To verify position, we check if the marker '1' is in the same column as number '3'
+      // To verify position, we check if the marker '1' is in the same column as
+      // number '3'
       // This is hard to check directly with finders without key structure,
-      // but we can check if '1' is present generally. By logic, previous test confirmed 1-15 present.
+      // but we can check if '1' is present generally. By logic, previous test
+      //confirmed 1-15 present.
       // The "1" marker is distinct because it is styled differently?
-      // Actually, in the widget, marker '1' and row number '1' both render Text('1').
+      // Actually, in the widget, marker '1' and row number '1' both render
+      // Text('1').
       // Let's rely on finding 2 instances of '1' (row number 1 + marker 1).
       // Wait, row number 1 exists. Marker 1 exists (placed at score 3).
       // So if T1 scores 3, the marker "1" should be at cumulative score 3.

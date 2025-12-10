@@ -41,15 +41,13 @@ class ScoreboardClubLayout extends StatelessWidget {
 
             return Container(
               width: widthPerItem,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
-                  top: const BorderSide(
-                    color: Colors.black,
-                    width: 2.0,
+                  top: BorderSide(
+                    width: 2,
                   ),
-                  right: const BorderSide(
-                    color: Colors.black,
-                    width: 2.0,
+                  right: BorderSide(
+                    width: 2,
                   ),
                 ),
               ),
@@ -79,8 +77,7 @@ class ScoreboardClubLayout extends StatelessWidget {
                       color: Constants.primaryThemeColor,
                       border: Border.symmetric(
                         horizontal: BorderSide(
-                          color: Colors.black,
-                          width: 2.0,
+                          width: 2,
                         ),
                       ),
                     ),
@@ -120,8 +117,8 @@ class ScoreboardClubLayout extends StatelessWidget {
 
   Map<int, int> _calculateCumulativeMap(List<int> scores) {
     final map = <int, int>{};
-    int currentTotal = 0;
-    for (int i = 0; i < scores.length; i++) {
+    var currentTotal = 0;
+    for (var i = 0; i < scores.length; i++) {
       final score = scores[i];
       if (score > 0) {
         currentTotal += score;
@@ -154,11 +151,10 @@ class _EndMarker extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: color,
-          shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(4),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withValues(alpha: 0.2),
               blurRadius: 2,
               offset: const Offset(1, 1),
             ),

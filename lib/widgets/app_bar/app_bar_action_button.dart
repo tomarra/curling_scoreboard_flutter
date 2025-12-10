@@ -5,17 +5,19 @@ class AppBarActionButton extends StatelessWidget {
     required this.icon,
     required this.onPressed,
     this.label = '',
+    this.padding = const EdgeInsets.only(right: 10),
     super.key,
   });
 
   final IconData icon;
   final String label;
   final void Function() onPressed;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      padding: padding,
       child: ElevatedButton(
         onPressed: onPressed,
         child: label.isEmpty ? iconOnly() : iconAndText(),

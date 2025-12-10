@@ -238,7 +238,15 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 50,
-        title: Text(AppLocalizations.of(context)!.appBarTitle),
+        leadingWidth: 100,
+        leading: AppBarActionButton(
+          icon: Icons.settings,
+          //label: 'Settings',
+          padding: const EdgeInsets.only(left: 10),
+          onPressed: () async {
+            await showSettingsDialog(context);
+          },
+        ),
         actions: <Widget>[
           AppBarActionButton(
             icon: Icons.add,
@@ -301,17 +309,73 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         Flexible(
           flex: 4,
           fit: FlexFit.tight,
-          child: ScoreboardBaseballLayout(
-            numberOfEnds: gameObject.numberOfEnds,
-            endsContainerColor: Constants.primaryThemeColor,
-            team1Scores: gameObject.team1ScoresByEnd,
-            team2Scores: gameObject.team2ScoresByEnd,
-            team1FilledColor: gameObject.team1.color,
-            team2FilledColor: gameObject.team2.color,
-            onPressed: showEditScoreDialog,
-          ),
+          child: gameObject.scoreboardStyle == ScoreboardStyle.baseball
+              ? ScoreboardBaseballLayout(
+                  numberOfEnds: gameObject.numberOfEnds,
+                  endsContainerColor: Constants.primaryThemeColor,
+                  team1Scores: gameObject.team1ScoresByEnd,
+                  team2Scores: gameObject.team2ScoresByEnd,
+                  team1FilledColor: gameObject.team1.color,
+                  team2FilledColor: gameObject.team2.color,
+                  onPressed: showEditScoreDialog,
+                )
+              : ScoreboardClubLayout(
+                  team1Scores: gameObject.team1ScoresByEnd,
+                  team2Scores: gameObject.team2ScoresByEnd,
+                  team1Color: gameObject.team1.color,
+                  team2Color: gameObject.team2.color,
+                  team1TextColor: gameObject.team1.textColor,
+                  team2TextColor: gameObject.team2.textColor,
+                  onPressed: showEditScoreDialog,
+                ),
         ),
       ],
     );
+  }
+
+  Future<void> showSettingsDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Settings'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: const Text('Scoreboard Style'),
+                subtitle: Text(
+                  gameObject.scoreboardStyle == ScoreboardStyle.baseball
+                      ? 'Baseball'
+                      : 'Club',
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  changeScoreboardStyle();
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void changeScoreboardStyle() {
+    setState(() {
+      if (gameObject.scoreboardStyle == ScoreboardStyle.baseball) {
+        gameObject.scoreboardStyle = ScoreboardStyle.club;
+      } else {
+        gameObject.scoreboardStyle = ScoreboardStyle.baseball;
+      }
+    });
   }
 }

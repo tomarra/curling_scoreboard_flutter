@@ -357,8 +357,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                       });
                       setState(() {});
                     },
-                    child: Column(
-                      children: const [
+                    child: const Column(
+                      children: [
                         RadioListTile<ScoreboardStyle>(
                           title: Text('Baseball'),
                           value: ScoreboardStyle.baseball,

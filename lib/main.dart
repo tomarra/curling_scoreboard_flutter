@@ -343,14 +343,14 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         return StatefulBuilder(
           builder: (context, setStateDialog) {
             return AlertDialog(
-              title: const Text('Settings'),
+              title: Text(AppLocalizations.of(context)!.settingsDialogTitle),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Scoreboard Style',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  Text(
+                    AppLocalizations.of(context)!.settingsLabelScoreboardStyle,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   RadioGroup<ScoreboardStyle>(
                     groupValue: gameObject.scoreboardStyle,
@@ -360,14 +360,22 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                       });
                       setState(() {});
                     },
-                    child: const Column(
+                    child: Column(
                       children: [
                         RadioListTile<ScoreboardStyle>(
-                          title: Text('Baseball'),
+                          title: Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.scoreboardStyleBaseball,
+                          ),
                           value: ScoreboardStyle.baseball,
                         ),
                         RadioListTile<ScoreboardStyle>(
-                          title: Text('Club'),
+                          title: Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.scoreboardStyleCurlingClub,
+                          ),
                           value: ScoreboardStyle.club,
                         ),
                       ],
@@ -380,7 +388,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Close'),
+                  child: Text(
+                    AppLocalizations.of(context)!.settingsButtonLabelClose,
+                  ),
                 ),
               ],
             );

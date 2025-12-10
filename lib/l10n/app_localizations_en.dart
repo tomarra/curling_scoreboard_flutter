@@ -109,5 +109,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scoreboardStyleBaseball => 'Baseball';
 
   @override
-  String get scoreboardStyleClub => 'Club';
+  String get scoreboardStyleCurlingClub => 'Curling Club';
+
+  @override
+  String get settingsDialogTitle => 'Settings';
+
+  @override
+  String get settingsLabelScoreboardStyle => 'Scoreboard Style';
+
+  @override
+  String get settingsButtonLabelClose => 'Close';
 }

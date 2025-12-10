@@ -271,11 +271,29 @@ abstract class AppLocalizations {
   /// **'Baseball'**
   String get scoreboardStyleBaseball;
 
-  /// Label for the Club scoreboard style.
+  /// Label for the Curling Club scoreboard style.
   ///
   /// In en, this message translates to:
-  /// **'Club'**
-  String get scoreboardStyleClub;
+  /// **'Curling Club'**
+  String get scoreboardStyleCurlingClub;
+
+  /// Title of the settings dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsDialogTitle;
+
+  /// Label for the scoreboard style setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Scoreboard Style'**
+  String get settingsLabelScoreboardStyle;
+
+  /// Button label to close the settings dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get settingsButtonLabelClose;
 }
 
 class _AppLocalizationsDelegate

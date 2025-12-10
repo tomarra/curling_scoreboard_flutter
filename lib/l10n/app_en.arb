@@ -144,8 +144,20 @@
   "@scoreboardStyleBaseball": {
     "description": "Label for the Baseball scoreboard style."
   },
-  "scoreboardStyleClub": "Club",
-  "@scoreboardStyleClub": {
-    "description": "Label for the Club scoreboard style."
+  "scoreboardStyleCurlingClub": "Curling Club",
+  "@scoreboardStyleCurlingClub": {
+    "description": "Label for the Curling Club scoreboard style."
+  },
+  "settingsDialogTitle": "Settings",
+  "@settingsDialogTitle": {
+    "description": "Title of the settings dialog."
+  },
+  "settingsLabelScoreboardStyle": "Scoreboard Style",
+  "@settingsLabelScoreboardStyle": {
+    "description": "Label for the scoreboard style setting."
+  },
+  "settingsButtonLabelClose": "Close",
+  "@settingsButtonLabelClose": {
+    "description": "Button label to close the settings dialog."
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('ScoreboardClubLayout displays numbers 1-15', (
+  testWidgets('ScoreboardClubLayout displays numbers 1-12', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
@@ -22,7 +22,7 @@ void main() {
       ),
     );
 
-    for (var i = 1; i <= 15; i++) {
+    for (var i = 1; i <= 12; i++) {
       expect(find.text(i.toString()), findsOneWidget);
     }
   });

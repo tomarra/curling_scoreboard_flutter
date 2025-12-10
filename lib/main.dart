@@ -337,45 +337,54 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Settings'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: const Text('Scoreboard Style'),
-                subtitle: Text(
-                  gameObject.scoreboardStyle == ScoreboardStyle.baseball
-                      ? 'Baseball'
-                      : 'Club',
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  changeScoreboardStyle();
-                },
+        return StatefulBuilder(
+          builder: (context, setStateDialog) {
+            return AlertDialog(
+              title: const Text('Settings'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Scoreboard Style',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  RadioListTile<ScoreboardStyle>(
+                    title: const Text('Baseball'),
+                    value: ScoreboardStyle.baseball,
+                    groupValue: gameObject.scoreboardStyle,
+                    onChanged: (ScoreboardStyle? value) {
+                      setStateDialog(() {
+                        gameObject.scoreboardStyle = value!;
+                      });
+                      setState(() {});
+                    },
+                  ),
+                  RadioListTile<ScoreboardStyle>(
+                    title: const Text('Club'),
+                    value: ScoreboardStyle.club,
+                    groupValue: gameObject.scoreboardStyle,
+                    onChanged: (ScoreboardStyle? value) {
+                      setStateDialog(() {
+                        gameObject.scoreboardStyle = value!;
+                      });
+                      setState(() {});
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Close'),
-            ),
-          ],
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Close'),
+                ),
+              ],
+            );
+          },
         );
       },
     );
-  }
-
-  void changeScoreboardStyle() {
-    setState(() {
-      if (gameObject.scoreboardStyle == ScoreboardStyle.baseball) {
-        gameObject.scoreboardStyle = ScoreboardStyle.club;
-      } else {
-        gameObject.scoreboardStyle = ScoreboardStyle.baseball;
-      }
-    });
   }
 }

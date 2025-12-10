@@ -349,7 +349,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.settingsLabelScoreboardStyle,
+                    AppLocalizations.of(
+                      context,
+                    )!.settingsDialogLabelScoreboardStyle,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   RadioGroup<ScoreboardStyle>(
@@ -366,7 +368,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                           title: Text(
                             AppLocalizations.of(
                               context,
-                            )!.scoreboardStyleBaseball,
+                            )!.settingsDialogScoreboardStyleBaseball,
                           ),
                           value: ScoreboardStyle.baseball,
                         ),
@@ -374,7 +376,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                           title: Text(
                             AppLocalizations.of(
                               context,
-                            )!.scoreboardStyleCurlingClub,
+                            )!.settingsDialogScoreboardStyleCurlingClub,
                           ),
                           value: ScoreboardStyle.club,
                         ),
@@ -389,7 +391,9 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    AppLocalizations.of(context)!.settingsButtonLabelClose,
+                    AppLocalizations.of(
+                      context,
+                    )!.settingsDialogButtonLabelClose,
                   ),
                 ),
               ],

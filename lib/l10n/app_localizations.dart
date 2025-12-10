@@ -94,12 +94,6 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
-  /// The title shown in the top app bar
-  ///
-  /// In en, this message translates to:
-  /// **'Curling Scoreboard'**
-  String get appBarTitle;
-
   /// The text used for a team using Red rocks.
   ///
   /// In en, this message translates to:
@@ -223,12 +217,6 @@ abstract class AppLocalizations {
   /// **'Dismiss'**
   String get gameEndDialogButtonLabelDismiss;
 
-  /// Version label in the settings dialog.
-  ///
-  /// In en, this message translates to:
-  /// **'Version {versionNumber} '**
-  String settingsLabelVersion(String versionNumber);
-
   /// Title text for the edit score dialog.
   ///
   /// In en, this message translates to:
@@ -259,24 +247,6 @@ abstract class AppLocalizations {
   /// **'E'**
   String get scoreboardExtraEndLabel;
 
-  /// Description text for the scoreboard style setting in the game start dialog.
-  ///
-  /// In en, this message translates to:
-  /// **'Scoreboard Style:'**
-  String get gameStartDialogFormLabelScoreboardStyle;
-
-  /// Label for the Baseball scoreboard style.
-  ///
-  /// In en, this message translates to:
-  /// **'Baseball'**
-  String get scoreboardStyleBaseball;
-
-  /// Label for the Curling Club scoreboard style.
-  ///
-  /// In en, this message translates to:
-  /// **'Curling Club'**
-  String get scoreboardStyleCurlingClub;
-
   /// Title of the settings dialog.
   ///
   /// In en, this message translates to:
@@ -287,13 +257,25 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Scoreboard Style'**
-  String get settingsLabelScoreboardStyle;
+  String get settingsDialogLabelScoreboardStyle;
+
+  /// Label for the Baseball scoreboard style.
+  ///
+  /// In en, this message translates to:
+  /// **'Baseball'**
+  String get settingsDialogScoreboardStyleBaseball;
+
+  /// Label for the Curling Club scoreboard style.
+  ///
+  /// In en, this message translates to:
+  /// **'Curling Club'**
+  String get settingsDialogScoreboardStyleCurlingClub;
 
   /// Button label to close the settings dialog.
   ///
   /// In en, this message translates to:
   /// **'Close'**
-  String get settingsButtonLabelClose;
+  String get settingsDialogButtonLabelClose;
 }
 
 class _AppLocalizationsDelegate

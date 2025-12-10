@@ -1,4 +1,6 @@
+import 'package:curling_scoreboard_flutter/constants.dart';
 import 'package:curling_scoreboard_flutter/l10n/app_localizations.dart';
+import 'package:curling_scoreboard_flutter/models/models.dart';
 import 'package:curling_scoreboard_flutter/widgets/app_bar/score_input_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,12 +14,30 @@ Widget wrapWithMaterialApp(Widget child) {
 }
 
 void main() {
+  final dummyGame = CurlingGame(
+    team1: CurlingTeam(
+      name: 'Red',
+      color: Constants.redTeamColor,
+      textColor: Constants.textHighContrastColor,
+      hasHammer: false,
+    ),
+    team2: CurlingTeam(
+      name: 'Yellow',
+      color: Constants.yellowTeamColor,
+      textColor: Constants.textDefaultColor,
+      hasHammer: true,
+    ),
+    numberOfEnds: 8,
+    numberOfPlayersPerTeam: 4,
+  );
+
   testWidgets('ScoreInputDialog renders with score and team options', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
       wrapWithMaterialApp(
-        const ScoreInputDialog(
+        ScoreInputDialog(
+          game: dummyGame,
           defaultTeam: 'Red',
           defaultScore: 0,
           end: 1,
@@ -40,7 +60,8 @@ void main() {
   ) async {
     await tester.pumpWidget(
       wrapWithMaterialApp(
-        const ScoreInputDialog(
+        ScoreInputDialog(
+          game: dummyGame,
           defaultScore: 0,
           end: 1,
         ),
@@ -59,7 +80,8 @@ void main() {
   ) async {
     await tester.pumpWidget(
       wrapWithMaterialApp(
-        const ScoreInputDialog(
+        ScoreInputDialog(
+          game: dummyGame,
           defaultScore: 0,
           end: 1,
         ),
@@ -88,7 +110,8 @@ void main() {
   ) async {
     await tester.pumpWidget(
       wrapWithMaterialApp(
-        const ScoreInputDialog(
+        ScoreInputDialog(
+          game: dummyGame,
           defaultScore: 0,
           end: 1,
         ),
@@ -119,7 +142,8 @@ void main() {
     ) async {
       await tester.pumpWidget(
         wrapWithMaterialApp(
-          const ScoreInputDialog(
+          ScoreInputDialog(
+            game: dummyGame,
             defaultScore: 0,
             end: 1,
           ),
@@ -143,7 +167,8 @@ void main() {
     ) async {
       await tester.pumpWidget(
         wrapWithMaterialApp(
-          const ScoreInputDialog(
+          ScoreInputDialog(
+            game: dummyGame,
             defaultScore: 0,
             end: 1,
           ),

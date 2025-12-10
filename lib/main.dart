@@ -137,13 +137,14 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     }
   }
 
-  void editScore(int end, int score, String? team) {
+  void editScore(int end, int score, String? team, bool isPowerPlay) {
     final originalEndScore = gameObject.ends.elementAt(end - 1);
 
     setState(() {
       originalEndScore
         ..scoringTeamName = team
-        ..score = score;
+        ..score = score
+        ..isPowerPlay = isPowerPlay;
 
       gameObject.ends[end - 1] = originalEndScore;
       gameObject.evaluateHammer();
@@ -188,18 +189,22 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       context: context,
       builder: (BuildContext context) {
         return ScoreInputDialog(
+          game: gameObject,
           defaultTeam: gameObject.whichTeamHasHammer().name,
           defaultScore: 0,
           end: gameObject.currentPlayingEnd,
+          hammerTeamName: gameObject.whichTeamHasHammer().name,
         );
       },
     ).then((value) async {
       // Need to add in the current timer value to the end so we get it at the
       // point of entry on the dialog, not when the dialog came up
-      final curlingEnd = value as CurlingEnd
-        ..gameTimeInSeconds = totalTimerSeconds;
+      if (value != null) {
+        final curlingEnd = value as CurlingEnd
+          ..gameTimeInSeconds = totalTimerSeconds;
 
-      await enterScore(curlingEnd);
+        await enterScore(curlingEnd);
+      }
     });
   }
 
@@ -208,22 +213,30 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       return;
     }
 
+    final endObj = gameObject.ends[end - 1];
+
     await showDialog(
       context: context,
       builder: (BuildContext context) {
         return ScoreInputDialog(
-          defaultTeam: gameObject.ends[end - 1].scoringTeamName,
-          defaultScore: gameObject.ends[end - 1].score,
+          game: gameObject,
+          defaultTeam: endObj.scoringTeamName,
+          defaultScore: endObj.score,
           end: end,
+          hammerTeamName: endObj.hammerTeamName,
+          initialIsPowerPlay: endObj.isPowerPlay,
         );
       },
     ).then((value) {
-      final curlingEnd = value as CurlingEnd;
-      editScore(
-        curlingEnd.endNumber,
-        curlingEnd.score,
-        curlingEnd.scoringTeamName,
-      );
+      if (value != null) {
+        final curlingEnd = value as CurlingEnd;
+        editScore(
+          curlingEnd.endNumber,
+          curlingEnd.score,
+          curlingEnd.scoringTeamName,
+          curlingEnd.isPowerPlay,
+        );
+      }
     });
   }
 
@@ -304,8 +317,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           child: ScoreboardBaseballLayout(
             numberOfEnds: gameObject.numberOfEnds,
             endsContainerColor: Constants.primaryThemeColor,
-            team1Scores: gameObject.team1ScoresByEnd,
-            team2Scores: gameObject.team2ScoresByEnd,
+            team1Scores: gameObject.team1DisplayScores,
+            team2Scores: gameObject.team2DisplayScores,
             team1FilledColor: gameObject.team1.color,
             team2FilledColor: gameObject.team2.color,
             onPressed: showEditScoreDialog,

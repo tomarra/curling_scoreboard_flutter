@@ -6,15 +6,21 @@ import 'package:material_segmented_control/material_segmented_control.dart';
 
 class ScoreInputDialog extends StatelessWidget {
   const ScoreInputDialog({
+    required this.game,
     required this.defaultScore,
     required this.end,
     this.defaultTeam,
+    this.initialIsPowerPlay = false,
+    this.hammerTeamName,
     super.key,
   });
 
+  final CurlingGame game;
   final int end;
   final String? defaultTeam;
   final int defaultScore;
+  final bool initialIsPowerPlay;
+  final String? hammerTeamName;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +34,7 @@ class ScoreInputDialog extends StatelessWidget {
 
     var selectedScore = defaultScore;
     var currentScoreSelectedIndex = defaultScore;
+    var isPowerPlay = initialIsPowerPlay;
 
     final teamNames = {
       0: Padding(
@@ -58,6 +65,24 @@ class ScoreInputDialog extends StatelessWidget {
 
     return StatefulBuilder(
       builder: (context, setState) {
+        final canUsePowerPlay =
+            game.numberOfPlayersPerTeam == 2 && hammerTeamName != null;
+        var disablePowerPlay = false;
+
+        if (canUsePowerPlay) {
+          debugPrint(
+            'DEBUG: Checking Power Play for hammerTeamName: $hammerTeamName',
+          );
+          debugPrint(
+            'DEBUG: hasTeamUsedPowerPlay: ${game.hasTeamUsedPowerPlay(hammerTeamName!)}',
+          );
+
+          if (game.hasTeamUsedPowerPlay(hammerTeamName!) &&
+              !initialIsPowerPlay) {
+            disablePowerPlay = true;
+          }
+        }
+
         return AlertDialog(
           title: Text(
             AppLocalizations.of(context)!.scoreInputDialogTitle(end.toString()),
@@ -123,6 +148,32 @@ class ScoreInputDialog extends StatelessWidget {
                   ),
                 ),
               ),
+              if (canUsePowerPlay)
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Checkbox(
+                        value: isPowerPlay,
+                        onChanged: disablePowerPlay
+                            ? null
+                            : (value) {
+                                setState(() {
+                                  isPowerPlay = value!;
+                                });
+                              },
+                      ),
+                      Text(
+                        'Power Play',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: disablePowerPlay ? Colors.grey : Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
           actions: [
@@ -134,6 +185,8 @@ class ScoreInputDialog extends StatelessWidget {
                         endNumber: end,
                         scoringTeamName: selectedTeam,
                         score: selectedScore,
+                        isPowerPlay: isPowerPlay,
+                        hammerTeamName: hammerTeamName,
                       );
 
                       Navigator.pop(context, newEnd);

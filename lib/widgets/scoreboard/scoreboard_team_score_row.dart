@@ -15,17 +15,23 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
 
   final int upperLimit;
   final bool needExtra;
-  final List<int> scores;
+  final List<String> scores;
   final Color emptyScoreBackgroundColor;
   final Color filledScoreBackgroundColor;
   final Color scoreTextColor;
   final Color scoreTextHighContrastColor;
   final void Function(int) onPressed;
 
+  int _getScoreValue(String score) {
+    return int.tryParse(score.replaceAll('*', '')) ?? 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final numberOfEntries = upperLimit + (needExtra ? 1 : 0);
+    // If we have more scores than entries (e.g. extra ends), we need to scroll or adjust.
+    // But assuming strict layout for now as per original code which generated fixed columns.
     final endContainerWidth = screenWidth / numberOfEntries;
 
     return Row(
@@ -33,10 +39,12 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
       children: [
         ...List.generate(numberOfEntries, (index) {
           var textColor = scoreTextColor;
+          var scoreValue = 0;
 
           if (scores.isNotEmpty && index < scores.length) {
+            scoreValue = _getScoreValue(scores[index]);
             textColor = findSafeTextColor(
-              (scores[index] == 0)
+              (scoreValue == 0)
                   ? emptyScoreBackgroundColor
                   : filledScoreBackgroundColor,
             );
@@ -46,7 +54,7 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
             return ScoreContainer(
               endNumber: index + 1,
               score: scores[index],
-              backgroundColor: (scores[index] == 0)
+              backgroundColor: (scoreValue == 0)
                   ? emptyScoreBackgroundColor
                   : filledScoreBackgroundColor,
               textColor: textColor,
@@ -56,7 +64,7 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
           } else {
             return ScoreContainer(
               endNumber: -1,
-              score: -1,
+              score: '',
               backgroundColor: emptyScoreBackgroundColor,
               textColor: textColor,
               width: endContainerWidth,
@@ -86,7 +94,7 @@ class ScoreContainer extends StatelessWidget {
   });
 
   final int endNumber;
-  final int score;
+  final String score;
   final Color backgroundColor;
   final Color textColor;
   final double width;
@@ -100,7 +108,7 @@ class ScoreContainer extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(color: backgroundColor),
         child: Text(
-          (score == -1) ? '' : score.toString(),
+          score,
           style: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.bold,

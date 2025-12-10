@@ -83,6 +83,56 @@ class CurlingGame {
     return returnValue;
   }
 
+  bool hasTeamUsedPowerPlay(String teamName) {
+    return ends.any(
+      (end) => end.isPowerPlay && end.hammerTeamName == teamName,
+    );
+  }
+
+  List<String> get team1DisplayScores {
+    final returnValue = <String>[];
+
+    for (final end in ends) {
+      if (end.scoringTeamName == team1.name) {
+        if (end.isPowerPlay && end.hammerTeamName == team1.name) {
+          returnValue.add('${end.score}*');
+        } else {
+          returnValue.add(end.score.toString());
+        }
+      } else {
+        if (end.isPowerPlay && end.hammerTeamName == team1.name) {
+          returnValue.add('0*');
+        } else {
+          returnValue.add('0');
+        }
+      }
+    }
+
+    return returnValue;
+  }
+
+  List<String> get team2DisplayScores {
+    final returnValue = <String>[];
+
+    for (final end in ends) {
+      if (end.scoringTeamName == team2.name) {
+        if (end.isPowerPlay && end.hammerTeamName == team2.name) {
+          returnValue.add('${end.score}*');
+        } else {
+          returnValue.add(end.score.toString());
+        }
+      } else {
+        if (end.isPowerPlay && end.hammerTeamName == team2.name) {
+          returnValue.add('0*');
+        } else {
+          returnValue.add('0');
+        }
+      }
+    }
+
+    return returnValue;
+  }
+
   void evaluateHammer() {
     final lastEnd = ends.last;
 

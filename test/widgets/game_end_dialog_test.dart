@@ -48,4 +48,46 @@ void main() {
     expect(find.text('2'), findsWidgets); // score and end number
     expect(find.text('1'), findsWidgets); // score and end number
   });
+
+  testWidgets('GameEndDialog displays Power Play indicators correctly', (
+    WidgetTester tester,
+  ) async {
+    final game = CurlingGame(
+      team1: CurlingTeam(
+        name: 'Red',
+        color: Constants.redTeamColor,
+        textColor: Constants.textHighContrastColor,
+        hasHammer: false,
+      ),
+      team2: CurlingTeam(
+        name: 'Yellow',
+        color: Constants.yellowTeamColor,
+        textColor: Constants.textDefaultColor,
+        hasHammer: true, // Yellow has hammer
+      ),
+      numberOfEnds: 2,
+      numberOfPlayersPerTeam: 2,
+      ends: [
+        // End 1: Normal end, Red scores 1
+        CurlingEnd(endNumber: 1, scoringTeamName: 'Red', score: 1),
+        // End 2: Power Play end, Yellow uses PP and scores 2
+        CurlingEnd(
+          endNumber: 2,
+          scoringTeamName: 'Yellow',
+          score: 2,
+          isPowerPlay: true,
+          hammerTeamName: 'Yellow',
+        ),
+      ],
+    );
+
+    await tester.pumpWidget(
+      wrapWithMaterialApp(GameEndDialog(gameObject: game)),
+    );
+
+    expect(find.text('Game Report'), findsOneWidget);
+
+    // Check End 2 scores (0 and 2*)
+    expect(find.text('2*'), findsOneWidget);
+  });
 }

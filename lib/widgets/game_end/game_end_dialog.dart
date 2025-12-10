@@ -101,14 +101,10 @@ class GameSummaryWidget extends StatelessWidget {
             children: <Widget>[
               GameEndTableCellText(text: end.endNumber.toString()),
               GameEndTableCellText(
-                text: (end.scoringTeamName == team1Name)
-                    ? end.score.toString()
-                    : '0',
+                text: _getScoreString(end, team1Name),
               ),
               GameEndTableCellText(
-                text: (end.scoringTeamName == team2Name)
-                    ? end.score.toString()
-                    : '0',
+                text: _getScoreString(end, team2Name),
               ),
               GameEndTableCellText(
                 text: (end.endNumber == 1)
@@ -166,6 +162,18 @@ class GameSummaryWidget extends StatelessWidget {
   }
 
   String twoDigits(int n) => n.toString().padLeft(2, '0');
+
+  String _getScoreString(CurlingEnd end, String teamName) {
+    var scoreString = '0';
+    if (end.scoringTeamName == teamName) {
+      scoreString = end.score.toString();
+    }
+
+    if (end.isPowerPlay && end.hammerTeamName == teamName) {
+      scoreString += '*';
+    }
+    return scoreString;
+  }
 }
 
 class GameEndTableHeaderText extends StatelessWidget {

@@ -16,8 +16,8 @@ class ScoreboardBaseballLayout extends StatelessWidget {
 
   final int numberOfEnds;
   final Color endsContainerColor;
-  final List<int> team1Scores;
-  final List<int> team2Scores;
+  final List<String> team1Scores;
+  final List<String> team2Scores;
   final Color team1FilledColor;
   final Color team2FilledColor;
   final void Function(int) onPressed;

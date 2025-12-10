@@ -58,8 +58,7 @@ class ScoreboardClubLayout extends StatelessWidget {
                   // Team 1 Row (Top)
                   Expanded(
                     child: Container(
-                      alignment: Alignment.bottomCenter,
-                      padding: const EdgeInsets.only(bottom: 4),
+                      alignment: Alignment.center,
                       child: team1End != null
                           ? InkWell(
                               onTap: () => onPressed(team1End),
@@ -97,8 +96,7 @@ class ScoreboardClubLayout extends StatelessWidget {
                   // Team 2 Row (Bottom)
                   Expanded(
                     child: Container(
-                      alignment: Alignment.topCenter,
-                      padding: const EdgeInsets.only(top: 4),
+                      alignment: Alignment.center,
                       child: team2End != null
                           ? InkWell(
                               onTap: () => onPressed(team2End),

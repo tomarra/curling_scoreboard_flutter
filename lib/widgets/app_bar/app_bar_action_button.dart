@@ -41,6 +41,6 @@ class AppBarActionButton extends StatelessWidget {
   }
 
   Widget iconOnly() {
-    return Row(children: [Icon(icon, size: 40)]);
+    return Icon(icon, size: 30);
   }
 }

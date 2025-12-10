@@ -16,7 +16,6 @@ class CurlingScoreboardApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Curling Scoreboard',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
@@ -239,13 +238,15 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
       appBar: AppBar(
         toolbarHeight: 50,
         leadingWidth: 100,
-        leading: AppBarActionButton(
-          icon: Icons.settings,
-          //label: 'Settings',
-          padding: const EdgeInsets.only(left: 10),
-          onPressed: () async {
-            await showSettingsDialog(context);
-          },
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10, top: 3, bottom: 3),
+          child: AppBarActionButton(
+            icon: Icons.settings,
+            padding: EdgeInsets.zero,
+            onPressed: () async {
+              await showSettingsDialog(context);
+            },
+          ),
         ),
         actions: <Widget>[
           AppBarActionButton(

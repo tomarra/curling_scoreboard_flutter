@@ -39,8 +39,20 @@ class ScoreboardClubLayout extends StatelessWidget {
             final team1End = team1Cumulative[scoreValue];
             final team2End = team2Cumulative[scoreValue];
 
-            return SizedBox(
+            return Container(
               width: widthPerItem,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: const BorderSide(
+                    color: Colors.black,
+                    width: 2.0,
+                  ),
+                  right: const BorderSide(
+                    color: Colors.black,
+                    width: 2.0,
+                  ),
+                ),
+              ),
               child: Column(
                 children: [
                   // Team 1 Row (Top)
@@ -64,9 +76,14 @@ class ScoreboardClubLayout extends StatelessWidget {
                   Container(
                     height: 40,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Constants.primaryThemeColor,
-                      border: Border.all(color: Colors.white24),
+                      border: Border.symmetric(
+                        horizontal: BorderSide(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                      ),
                     ),
                     child: Text(
                       scoreValue.toString(),

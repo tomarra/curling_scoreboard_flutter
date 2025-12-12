@@ -41,7 +41,8 @@ void main() {
 
     // End 2: Red has hammer.
     // Check if Red can use Power Play.
-    // Logic in UI: hasTeamUsedPowerPlay(hammerTeamName) -> hasTeamUsedPowerPlay('Red')
+    // Logic in UI is
+    // hasTeamUsedPowerPlay(hammerTeamName) -> hasTeamUsedPowerPlay('Red')
     expect(game.hasTeamUsedPowerPlay('Red'), isFalse);
 
     // End 2: Red scores 2. Uses Power Play.

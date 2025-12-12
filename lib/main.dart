@@ -136,7 +136,12 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     }
   }
 
-  void editScore(int end, int score, String? team, bool isPowerPlay) {
+  void editScore(
+    int end,
+    int score,
+    String? team, {
+    required bool isPowerPlay,
+  }) {
     final originalEndScore = gameObject.ends.elementAt(end - 1);
 
     setState(() {
@@ -233,7 +238,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
           curlingEnd.endNumber,
           curlingEnd.score,
           curlingEnd.scoringTeamName,
-          curlingEnd.isPowerPlay,
+          isPowerPlay: curlingEnd.isPowerPlay,
         );
       }
     });
@@ -329,6 +334,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                   endsContainerColor: Constants.primaryThemeColor,
                   team1Scores: gameObject.team1ScoresByEnd,
                   team2Scores: gameObject.team2ScoresByEnd,
+                  team1PowerPlays: gameObject.team1PowerPlaysByEnd,
+                  team2PowerPlays: gameObject.team2PowerPlaysByEnd,
                   team1FilledColor: gameObject.team1.color,
                   team2FilledColor: gameObject.team2.color,
                   onPressed: showEditScoreDialog,
@@ -336,6 +343,8 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
               : ScoreboardCurlingClubLayout(
                   team1Scores: gameObject.team1ScoresByEnd,
                   team2Scores: gameObject.team2ScoresByEnd,
+                  team1PowerPlays: gameObject.team1PowerPlaysByEnd,
+                  team2PowerPlays: gameObject.team2PowerPlaysByEnd,
                   team1Color: gameObject.team1.color,
                   team2Color: gameObject.team2.color,
                   team1TextColor: gameObject.team1.textColor,

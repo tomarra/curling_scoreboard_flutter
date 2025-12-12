@@ -56,7 +56,8 @@ void main() {
     final checkbox1 = tester.widget<Checkbox>(find.byType(Checkbox));
     expect(checkbox1.onChanged, isNotNull);
 
-    // Simulate "entering" the score in the game (UI doesn't update game directly, main does).
+    // Simulate "entering" the score in the game
+    // (UI doesn't update game directly, main does).
     // So we update the game model manually to simulate the save.
     game.ends.add(
       CurlingEnd(
@@ -103,6 +104,7 @@ void main() {
     // So it should be enabled.
 
     // IF the user says "refreshed based on selected scoring team",
-    // maybe they are seeing a case where hammerTeamName passed in is NOT what they expect?
+    // maybe they are seeing a case where hammerTeamName passed in is NOT what
+    // they expect?
   });
 }

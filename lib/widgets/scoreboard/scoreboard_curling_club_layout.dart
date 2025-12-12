@@ -5,6 +5,8 @@ class ScoreboardCurlingClubLayout extends StatelessWidget {
   const ScoreboardCurlingClubLayout({
     required this.team1Scores,
     required this.team2Scores,
+    required this.team1PowerPlays,
+    required this.team2PowerPlays,
     required this.team1Color,
     required this.team2Color,
     required this.team1TextColor,
@@ -17,6 +19,8 @@ class ScoreboardCurlingClubLayout extends StatelessWidget {
 
   final List<int> team1Scores;
   final List<int> team2Scores;
+  final List<bool> team1PowerPlays;
+  final List<bool> team2PowerPlays;
   final Color team1Color;
   final Color team2Color;
   final Color team1TextColor;
@@ -41,7 +45,18 @@ class ScoreboardCurlingClubLayout extends StatelessWidget {
           children: List.generate(maxScore, (index) {
             final scoreValue = index + 1;
             final team1End = team1Cumulative[scoreValue];
+            final team1IsPowerPlay =
+                team1End != null &&
+                team1PowerPlays.isNotEmpty &&
+                team1PowerPlays.length >= team1End &&
+                team1PowerPlays[team1End - 1];
+
             final team2End = team2Cumulative[scoreValue];
+            final team2IsPowerPlay =
+                team2End != null &&
+                team2PowerPlays.isNotEmpty &&
+                team2PowerPlays.length >= team2End &&
+                team2PowerPlays[team2End - 1];
 
             return Container(
               width: widthPerItem,
@@ -66,6 +81,7 @@ class ScoreboardCurlingClubLayout extends StatelessWidget {
                               onTap: () => onPressed(team1End),
                               child: _EndMarker(
                                 endNumber: team1End,
+                                isPowerPlay: team1IsPowerPlay,
                                 color: team1Color,
                                 textColor: team1TextColor,
                               ),
@@ -103,6 +119,7 @@ class ScoreboardCurlingClubLayout extends StatelessWidget {
                               onTap: () => onPressed(team2End),
                               child: _EndMarker(
                                 endNumber: team2End,
+                                isPowerPlay: team2IsPowerPlay,
                                 color: team2Color,
                                 textColor: team2TextColor,
                               ),
@@ -138,11 +155,13 @@ class ScoreboardCurlingClubLayout extends StatelessWidget {
 class _EndMarker extends StatelessWidget {
   const _EndMarker({
     required this.endNumber,
+    required this.isPowerPlay,
     required this.color,
     required this.textColor,
   });
 
   final int endNumber;
+  final bool isPowerPlay;
   final Color color;
   final Color textColor;
 
@@ -166,13 +185,30 @@ class _EndMarker extends StatelessWidget {
         ),
         child: LayoutBuilder(
           builder: (context, constraints) {
-            return Text(
-              endNumber.toString(),
-              style: TextStyle(
-                color: textColor,
-                fontWeight: FontWeight.bold,
-                fontSize: constraints.maxWidth * 0.5,
-              ),
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                if (isPowerPlay)
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      '*',
+                      style: TextStyle(
+                        color: textColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: constraints.maxWidth * 0.4,
+                      ),
+                    ),
+                  ),
+                Text(
+                  endNumber.toString(),
+                  style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: constraints.maxWidth * 0.5,
+                  ),
+                ),
+              ],
             );
           },
         ),

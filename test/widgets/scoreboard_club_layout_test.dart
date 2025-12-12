@@ -12,6 +12,8 @@ void main() {
           body: ScoreboardCurlingClubLayout(
             team1Scores: const [],
             team2Scores: const [],
+            team1PowerPlays: const [],
+            team2PowerPlays: const [],
             team1Color: Colors.red,
             team2Color: Colors.yellow,
             team1TextColor: Colors.white,
@@ -42,6 +44,8 @@ void main() {
             body: ScoreboardCurlingClubLayout(
               team1Scores: team1Scores,
               team2Scores: team2Scores,
+              team1PowerPlays: const [],
+              team2PowerPlays: const [],
               team1Color: Colors.red,
               team2Color: Colors.yellow,
               team1TextColor: Colors.white,
@@ -93,6 +97,8 @@ void main() {
           body: ScoreboardCurlingClubLayout(
             team1Scores: team1Scores,
             team2Scores: team2Scores,
+            team1PowerPlays: const [],
+            team2PowerPlays: const [],
             team1Color: Colors.red,
             team2Color: Colors.yellow,
             team1TextColor: Colors.white,

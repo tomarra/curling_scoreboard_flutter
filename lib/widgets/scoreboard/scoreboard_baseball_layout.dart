@@ -8,6 +8,8 @@ class ScoreboardBaseballLayout extends StatelessWidget {
     required this.endsContainerColor,
     required this.team1Scores,
     required this.team2Scores,
+    required this.team1PowerPlays,
+    required this.team2PowerPlays,
     required this.team1FilledColor,
     required this.team2FilledColor,
     required this.onPressed,
@@ -16,8 +18,10 @@ class ScoreboardBaseballLayout extends StatelessWidget {
 
   final int numberOfEnds;
   final Color endsContainerColor;
-  final List<String> team1Scores;
-  final List<String> team2Scores;
+  final List<int> team1Scores;
+  final List<int> team2Scores;
+  final List<bool> team1PowerPlays;
+  final List<bool> team2PowerPlays;
   final Color team1FilledColor;
   final Color team2FilledColor;
   final void Function(int) onPressed;
@@ -40,6 +44,7 @@ class ScoreboardBaseballLayout extends StatelessWidget {
             upperLimit: numberOfEnds,
             needExtra: true,
             scores: team1Scores,
+            powerPlays: team1PowerPlays,
             emptyScoreBackgroundColor: Constants.emptyScoreColor,
             filledScoreBackgroundColor: team1FilledColor,
             scoreTextColor: Constants.textDefaultColor,
@@ -53,6 +58,7 @@ class ScoreboardBaseballLayout extends StatelessWidget {
             upperLimit: numberOfEnds,
             needExtra: true,
             scores: team2Scores,
+            powerPlays: team2PowerPlays,
             emptyScoreBackgroundColor: Constants.emptyScoreColor,
             filledScoreBackgroundColor: team2FilledColor,
             scoreTextColor: Constants.textDefaultColor,

@@ -48,20 +48,33 @@ class ScoreInputDialog extends StatelessWidget {
       ),
     };
 
-    final scoreItems = {
-      0: const Padding(
-        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-        child: EnterEditScoreDialogScoreText(score: '0'),
-      ),
-      1: const EnterEditScoreDialogScoreText(score: '1'),
-      2: const EnterEditScoreDialogScoreText(score: '2'),
-      3: const EnterEditScoreDialogScoreText(score: '3'),
-      4: const EnterEditScoreDialogScoreText(score: '4'),
-      5: const EnterEditScoreDialogScoreText(score: '5'),
-      6: const EnterEditScoreDialogScoreText(score: '6'),
-      7: const EnterEditScoreDialogScoreText(score: '7'),
-      8: const EnterEditScoreDialogScoreText(score: '8'),
-    };
+    final scoreItems = game.numberOfPlayersPerTeam == 2
+        ? {
+            0: const Padding(
+              padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+              child: EnterEditScoreDialogScoreText(score: '0'),
+            ),
+            1: const EnterEditScoreDialogScoreText(score: '1'),
+            2: const EnterEditScoreDialogScoreText(score: '2'),
+            3: const EnterEditScoreDialogScoreText(score: '3'),
+            4: const EnterEditScoreDialogScoreText(score: '4'),
+            5: const EnterEditScoreDialogScoreText(score: '5'),
+            6: const EnterEditScoreDialogScoreText(score: '6'),
+          }
+        : {
+            0: const Padding(
+              padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+              child: EnterEditScoreDialogScoreText(score: '0'),
+            ),
+            1: const EnterEditScoreDialogScoreText(score: '1'),
+            2: const EnterEditScoreDialogScoreText(score: '2'),
+            3: const EnterEditScoreDialogScoreText(score: '3'),
+            4: const EnterEditScoreDialogScoreText(score: '4'),
+            5: const EnterEditScoreDialogScoreText(score: '5'),
+            6: const EnterEditScoreDialogScoreText(score: '6'),
+            7: const EnterEditScoreDialogScoreText(score: '7'),
+            8: const EnterEditScoreDialogScoreText(score: '8'),
+          };
 
     return StatefulBuilder(
       builder: (context, setState) {
@@ -151,27 +164,53 @@ class ScoreInputDialog extends StatelessWidget {
               if (canUsePowerPlay)
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        value: isPowerPlay,
-                        onChanged: disablePowerPlay
-                            ? null
-                            : (value) {
-                                setState(() {
-                                  isPowerPlay = value!;
-                                });
-                              },
+                  child: InkWell(
+                    onTap: disablePowerPlay
+                        ? null
+                        : () {
+                            setState(() {
+                              isPowerPlay = !isPowerPlay;
+                            });
+                          },
+                    borderRadius: BorderRadius.circular(8),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
                       ),
-                      Text(
-                        'Power Play',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: disablePowerPlay ? Colors.grey : Colors.black,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Transform.scale(
+                            scale: 2.0,
+                            child: Checkbox(
+                              value: isPowerPlay,
+                              onChanged: disablePowerPlay
+                                  ? null
+                                  : (value) {
+                                      setState(() {
+                                        isPowerPlay = value!;
+                                      });
+                                    },
+                              activeColor: Theme.of(context).primaryColor,
+                              checkColor: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Text(
+                            'Power Play',
+                            style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: disablePowerPlay
+                                  ? Colors.grey
+                                  : Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
             ],

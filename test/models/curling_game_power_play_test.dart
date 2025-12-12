@@ -29,7 +29,6 @@ void main() {
         scoringTeamName: 'Red',
         score: 1,
         hammerTeamName: 'Yellow',
-        isPowerPlay: false,
       ),
     );
     game.evaluateHammer();
@@ -46,7 +45,8 @@ void main() {
     // Starting hammer: Yellow.
     // End 1: Red scores.
     // Hammer logic:
-    // If scoring team == team1 (Red), team1.hasHammer = false, team2.hasHammer = true.
+    // If scoring team == team1 (Red), team1.hasHammer = false,
+    // team2.hasHammer = true.
     // So Yellow keeps hammer? No.
     // If Red scored, Red didn't have hammer (stole?).
     // Or Red had hammer and scored?
@@ -55,7 +55,8 @@ void main() {
     // Standard rules: If you score, the OTHER team gets hammer.
     // If you blank, you keep hammer.
     // Here: Red scores 1.
-    // If Yellow had hammer: Yellow failed to score. Yellow might keep hammer only if blank?
+    // If Yellow had hammer: Yellow failed to score.
+    //Yellow might keep hammer only if blank?
     // No, usually if you give up a steal, you lose hammer?
     // Actually, in standard curling:
     // Team A has hammer. Team A scores -> Team B gets hammer.

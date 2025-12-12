@@ -85,6 +85,34 @@ class CurlingGame {
     return returnValue;
   }
 
+  List<bool> get team1PowerPlaysByEnd {
+    final returnValue = <bool>[];
+
+    for (final end in ends) {
+      if (end.isPowerPlay && end.hammerTeamName == team1.name) {
+        returnValue.add(true);
+      } else {
+        returnValue.add(false);
+      }
+    }
+
+    return returnValue;
+  }
+
+  List<bool> get team2PowerPlaysByEnd {
+    final returnValue = <bool>[];
+
+    for (final end in ends) {
+      if (end.isPowerPlay && end.hammerTeamName == team2.name) {
+        returnValue.add(true);
+      } else {
+        returnValue.add(false);
+      }
+    }
+
+    return returnValue;
+  }
+
   bool hasTeamUsedPowerPlay(String teamName) {
     return ends.any(
       (end) => end.isPowerPlay && end.hammerTeamName == teamName,

@@ -5,6 +5,7 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
     required this.upperLimit,
     required this.needExtra,
     required this.scores,
+    required this.powerPlays,
     required this.emptyScoreBackgroundColor,
     required this.filledScoreBackgroundColor,
     required this.scoreTextColor,
@@ -15,23 +16,21 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
 
   final int upperLimit;
   final bool needExtra;
-  final List<String> scores;
+  final List<int> scores;
+  final List<bool> powerPlays;
   final Color emptyScoreBackgroundColor;
   final Color filledScoreBackgroundColor;
   final Color scoreTextColor;
   final Color scoreTextHighContrastColor;
   final void Function(int) onPressed;
 
-  int _getScoreValue(String score) {
-    return int.tryParse(score.replaceAll('*', '')) ?? 0;
-  }
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final numberOfEntries = upperLimit + (needExtra ? 1 : 0);
-    // If we have more scores than entries (e.g. extra ends), we need to scroll or adjust.
-    // But assuming strict layout for now as per original code which generated fixed columns.
+    // If we have more scores than entries (e.g. extra ends), we need to scroll
+    // or adjust. But assuming strict layout for now as per original code which
+    // generated fixed columns.
     final endContainerWidth = screenWidth / numberOfEntries;
 
     return Row(
@@ -42,7 +41,7 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
           var scoreValue = 0;
 
           if (scores.isNotEmpty && index < scores.length) {
-            scoreValue = _getScoreValue(scores[index]);
+            scoreValue = scores[index];
             textColor = findSafeTextColor(
               (scoreValue == 0)
                   ? emptyScoreBackgroundColor
@@ -53,7 +52,8 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
           if (index < scores.length) {
             return ScoreContainer(
               endNumber: index + 1,
-              score: scores[index],
+              score: scores[index].toString(),
+              isPowerPlay: powerPlays[index],
               backgroundColor: (scoreValue == 0)
                   ? emptyScoreBackgroundColor
                   : filledScoreBackgroundColor,
@@ -65,6 +65,7 @@ class ScoreboardTeamScoreRow extends StatelessWidget {
             return ScoreContainer(
               endNumber: -1,
               score: '',
+              isPowerPlay: false,
               backgroundColor: emptyScoreBackgroundColor,
               textColor: textColor,
               width: endContainerWidth,
@@ -86,6 +87,7 @@ class ScoreContainer extends StatelessWidget {
   const ScoreContainer({
     required this.endNumber,
     required this.score,
+    required this.isPowerPlay,
     required this.backgroundColor,
     required this.textColor,
     required this.width,
@@ -95,6 +97,7 @@ class ScoreContainer extends StatelessWidget {
 
   final int endNumber;
   final String score;
+  final bool isPowerPlay;
   final Color backgroundColor;
   final Color textColor;
   final double width;
@@ -107,13 +110,30 @@ class ScoreContainer extends StatelessWidget {
         alignment: Alignment.center,
         width: width,
         decoration: BoxDecoration(color: backgroundColor),
-        child: Text(
-          score,
-          style: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            if (isPowerPlay)
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  '*',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
+                  ),
+                ),
+              ),
+            Text(
+              score,
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
+            ),
+          ],
         ),
       ),
       onTap: () {

@@ -9,9 +9,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appBarTitle => 'Curling Scoreboard';
-
-  @override
   String get teamNameRed => 'Red';
 
   @override
@@ -78,11 +75,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gameEndDialogButtonLabelDismiss => 'Dismiss';
 
   @override
-  String settingsLabelVersion(String versionNumber) {
-    return 'Version $versionNumber ';
-  }
-
-  @override
   String scoreInputDialogTitle(String endNumberName) {
     return 'Score - End $endNumberName';
   }
@@ -101,4 +93,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scoreboardExtraEndLabel => 'E';
+
+  @override
+  String get settingsDialogTitle => 'Settings';
+
+  @override
+  String get settingsDialogLabelScoreboardStyle => 'Scoreboard Style';
+
+  @override
+  String get settingsDialogScoreboardStyleBaseball => 'Baseball';
+
+  @override
+  String get settingsDialogScoreboardStyleCurlingClub => 'Curling Club';
+
+  @override
+  String get settingsDialogButtonLabelClose => 'Close';
 }

@@ -8,6 +8,7 @@ class CurlingGame {
     required this.numberOfEnds,
     required this.numberOfPlayersPerTeam,
     this.ends = const [],
+    this.scoreboardStyle = ScoreboardStyle.baseball,
   });
 
   CurlingTeam team1;
@@ -15,6 +16,7 @@ class CurlingGame {
   int numberOfEnds;
   int numberOfPlayersPerTeam;
   List<CurlingEnd> ends;
+  ScoreboardStyle scoreboardStyle;
   int currentPlayingEnd = 1;
 
   String get currentPlayingEndForDisplay {
@@ -171,4 +173,9 @@ class CurlingGame {
       return team2;
     }
   }
+}
+
+enum ScoreboardStyle {
+  baseball,
+  club,
 }

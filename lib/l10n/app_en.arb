@@ -1,9 +1,5 @@
 {
   "@@locale": "en",
-  "appBarTitle": "Curling Scoreboard",
-  "@appBarTitle": {
-    "description": "The title shown in the top app bar"
-  },
   "teamNameRed": "Red",
   "@teamNameRed": {
     "description": "The text used for a team using Red rocks."
@@ -94,16 +90,6 @@
   "@gameEndDialogButtonLabelDismiss": {
     "description": "Button label to dismiss the end game dialog"
   },
-  "settingsLabelVersion": "Version {versionNumber} ",
-  "@settingsLabelVersion": {
-    "description": "Version label in the settings dialog.",
-    "placeholders": {
-      "versionNumber": {
-        "type": "String",
-        "example": "1.0.0"
-      }
-    }
-  },
   "scoreInputDialogTitle": "Score - End {endNumberName}",
   "@scoreInputDialogTitle": {
     "description": "Title text for the edit score dialog.",
@@ -135,5 +121,25 @@
   "scoreboardExtraEndLabel": "E",
   "@scoreboardExtraEndLabel": {
     "description": "Label for the scoreboard for the extra end"
+  },
+  "settingsDialogTitle": "Settings",
+  "@settingsDialogTitle": {
+    "description": "Title of the settings dialog."
+  },
+  "settingsDialogLabelScoreboardStyle": "Scoreboard Style",
+  "@settingsDialogLabelScoreboardStyle": {
+    "description": "Label for the scoreboard style setting."
+  },
+  "settingsDialogScoreboardStyleBaseball": "Baseball",
+  "@settingsDialogScoreboardStyleBaseball": {
+    "description": "Label for the Baseball scoreboard style."
+  },
+  "settingsDialogScoreboardStyleCurlingClub": "Curling Club",
+  "@settingsDialogScoreboardStyleCurlingClub": {
+    "description": "Label for the Curling Club scoreboard style."
+  },
+  "settingsDialogButtonLabelClose": "Close",
+  "@settingsDialogButtonLabelClose": {
+    "description": "Button label to close the settings dialog."
   }
 }

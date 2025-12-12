@@ -16,7 +16,6 @@ class CurlingScoreboardApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Curling Scoreboard',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
@@ -238,7 +237,17 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 50,
-        title: Text(AppLocalizations.of(context)!.appBarTitle),
+        leadingWidth: 100,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10, top: 3, bottom: 3),
+          child: AppBarActionButton(
+            icon: Icons.settings,
+            padding: EdgeInsets.zero,
+            onPressed: () async {
+              await showSettingsDialog(context);
+            },
+          ),
+        ),
         actions: <Widget>[
           AppBarActionButton(
             icon: Icons.add,
@@ -301,17 +310,97 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
         Flexible(
           flex: 4,
           fit: FlexFit.tight,
-          child: ScoreboardBaseballLayout(
-            numberOfEnds: gameObject.numberOfEnds,
-            endsContainerColor: Constants.primaryThemeColor,
-            team1Scores: gameObject.team1ScoresByEnd,
-            team2Scores: gameObject.team2ScoresByEnd,
-            team1FilledColor: gameObject.team1.color,
-            team2FilledColor: gameObject.team2.color,
-            onPressed: showEditScoreDialog,
-          ),
+          child: gameObject.scoreboardStyle == ScoreboardStyle.baseball
+              ? ScoreboardBaseballLayout(
+                  numberOfEnds: gameObject.numberOfEnds,
+                  endsContainerColor: Constants.primaryThemeColor,
+                  team1Scores: gameObject.team1ScoresByEnd,
+                  team2Scores: gameObject.team2ScoresByEnd,
+                  team1FilledColor: gameObject.team1.color,
+                  team2FilledColor: gameObject.team2.color,
+                  onPressed: showEditScoreDialog,
+                )
+              : ScoreboardCurlingClubLayout(
+                  team1Scores: gameObject.team1ScoresByEnd,
+                  team2Scores: gameObject.team2ScoresByEnd,
+                  team1Color: gameObject.team1.color,
+                  team2Color: gameObject.team2.color,
+                  team1TextColor: gameObject.team1.textColor,
+                  team2TextColor: gameObject.team2.textColor,
+                  scoreRowColor: Constants.primaryThemeColor,
+                  scoreRowTextColor: Constants.textHighContrastColor,
+                  onPressed: showEditScoreDialog,
+                ),
         ),
       ],
+    );
+  }
+
+  Future<void> showSettingsDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setStateDialog) {
+            return AlertDialog(
+              title: Text(AppLocalizations.of(context)!.settingsDialogTitle),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppLocalizations.of(
+                      context,
+                    )!.settingsDialogLabelScoreboardStyle,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  RadioGroup<ScoreboardStyle>(
+                    groupValue: gameObject.scoreboardStyle,
+                    onChanged: (ScoreboardStyle? value) {
+                      setStateDialog(() {
+                        gameObject.scoreboardStyle = value!;
+                      });
+                      setState(() {});
+                    },
+                    child: Column(
+                      children: [
+                        RadioListTile<ScoreboardStyle>(
+                          title: Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.settingsDialogScoreboardStyleBaseball,
+                          ),
+                          value: ScoreboardStyle.baseball,
+                        ),
+                        RadioListTile<ScoreboardStyle>(
+                          title: Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.settingsDialogScoreboardStyleCurlingClub,
+                          ),
+                          value: ScoreboardStyle.club,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    AppLocalizations.of(
+                      context,
+                    )!.settingsDialogButtonLabelClose,
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

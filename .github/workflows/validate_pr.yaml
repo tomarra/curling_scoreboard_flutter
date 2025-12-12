@@ -56,3 +56,46 @@ jobs:
         with:
           files: "**/*.{md,dart}"
           config: .github/cspell.json
+  validate_strings:
+    name: Validate String Usage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.21.0
+        with:
+          flutter-version: "3.38.4"
+          channel: "stable"
+      - name: Setup Translations Cleaner
+        run: flutter pub global activate translations_cleaner
+      - name: Check For Unused Strings
+        run: flutter pub run translations_cleaner list-unused-terms --abort-on-unused
+  deploy_preview_to_firebase:
+    needs: [valdiate_pr_title, validate_code, validate_spelling, validate_strings]
+    name: Deploy Preview to Firebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.21.0
+        with:
+          flutter-version: "3.38.4"
+          channel: "stable"
+      - name: Get Flutter Packages
+        run: flutter pub get
+      - name: Build Web
+        run: flutter build web -t lib/main.dart
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+      - name: Deploy to Firebase Preview Channel
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CURLING_SCOREBOARD_DEV }}"
+          projectId: curling-scoreboard-dev
+          expires: 10d
+          channelId: "${{ steps.extract_branch.outputs.branch }}"

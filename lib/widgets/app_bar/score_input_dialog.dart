@@ -83,13 +83,6 @@ class ScoreInputDialog extends StatelessWidget {
         var disablePowerPlay = false;
 
         if (canUsePowerPlay) {
-          debugPrint(
-            'DEBUG: Checking Power Play for hammerTeamName: $hammerTeamName',
-          );
-          debugPrint(
-            'DEBUG: hasTeamUsedPowerPlay: ${game.hasTeamUsedPowerPlay(hammerTeamName!)}',
-          );
-
           if (game.hasTeamUsedPowerPlay(hammerTeamName!) &&
               !initialIsPowerPlay) {
             disablePowerPlay = true;
@@ -163,7 +156,7 @@ class ScoreInputDialog extends StatelessWidget {
               ),
               if (canUsePowerPlay)
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 20),
                   child: InkWell(
                     onTap: disablePowerPlay
                         ? null
@@ -183,7 +176,7 @@ class ScoreInputDialog extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Transform.scale(
-                            scale: 2.0,
+                            scale: 2,
                             child: Checkbox(
                               value: isPowerPlay,
                               onChanged: disablePowerPlay

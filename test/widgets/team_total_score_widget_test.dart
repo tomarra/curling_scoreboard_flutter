@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('TeamTotalScoreWidget renders score and background', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.pumpWidget(
       const MaterialApp(
@@ -26,7 +26,7 @@ void main() {
   });
 
   testWidgets('TeamTotalScoreWidget shows hammer icon on right', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.pumpWidget(
       const MaterialApp(
@@ -44,7 +44,7 @@ void main() {
   });
 
   testWidgets('TeamTotalScoreWidget shows hammer icon on left', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.pumpWidget(
       const MaterialApp(

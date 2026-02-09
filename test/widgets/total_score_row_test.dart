@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets(
     'TotalScoreRow renders both team scores, hammer icons, and end number',
-    (WidgetTester tester) async {
+    (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(

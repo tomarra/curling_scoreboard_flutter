@@ -13,7 +13,7 @@ Widget wrapWithMaterialApp(Widget child) {
 
 void main() {
   testWidgets('ScoreInputDialog renders with score and team options', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.pumpWidget(
       wrapWithMaterialApp(
@@ -36,7 +36,7 @@ void main() {
   });
 
   testWidgets('ScoreInputDialog defaults to 0 and no team selected', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.pumpWidget(
       wrapWithMaterialApp(
@@ -55,7 +55,7 @@ void main() {
   });
 
   testWidgets('ScoreInputDialog disables team selection when score is 0', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.pumpWidget(
       wrapWithMaterialApp(
@@ -84,7 +84,7 @@ void main() {
   });
 
   testWidgets('ScoreInputDialog enables team selection when score > 0', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.pumpWidget(
       wrapWithMaterialApp(
@@ -115,7 +115,7 @@ void main() {
   testWidgets(
     'ScoreInputDialog disables Enter button if score > 0 and no team selected',
     (
-      WidgetTester tester,
+      tester,
     ) async {
       await tester.pumpWidget(
         wrapWithMaterialApp(
@@ -139,7 +139,7 @@ void main() {
   testWidgets(
     'ScoreInputDialog enables Enter button if score > 0 and team selected',
     (
-      WidgetTester tester,
+      tester,
     ) async {
       await tester.pumpWidget(
         wrapWithMaterialApp(

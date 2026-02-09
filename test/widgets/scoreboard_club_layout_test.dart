@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('ScoreboardClubLayout displays numbers 1-12', (
-    WidgetTester tester,
+    tester,
   ) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -31,7 +31,7 @@ void main() {
 
   testWidgets(
     'ScoreboardClubLayout places team 1 end marker correctly for single end',
-    (WidgetTester tester) async {
+    (tester) async {
       // Team 1 scores 3 in End 1
       const team1Scores = [3];
       const team2Scores = [0];
@@ -75,7 +75,7 @@ void main() {
   );
 
   testWidgets('ScoreboardClubLayout places cumulative scores correctly', (
-    WidgetTester tester,
+    tester,
   ) async {
     // T1: 2 in End 1 (Total 2) => Marker '1' at 2
     // T1: 1 in End 2 (Total 3) => Marker '2' at 3

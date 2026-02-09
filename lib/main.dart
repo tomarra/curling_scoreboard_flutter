@@ -77,7 +77,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
+      builder: (context) {
         return const GameStartDialog();
       },
     ).then((value) {
@@ -157,7 +157,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
+      builder: (context) {
         return GameEndDialog(gameObject: gameObject);
       },
     ).then((value) async {
@@ -176,7 +176,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   Future<void> showFinishGameConfirmationDialog(BuildContext context) async {
     await showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return FinishGameDialog(finishGameAction: finishGame);
       },
     );
@@ -185,7 +185,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   Future<void> showEnterScoreDialog(BuildContext context) async {
     await showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return ScoreInputDialog(
           defaultTeam: gameObject.whichTeamHasHammer().name,
           defaultScore: 0,
@@ -209,7 +209,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
 
     await showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return ScoreInputDialog(
           defaultTeam: gameObject.ends[end - 1].scoringTeamName,
           defaultScore: gameObject.ends[end - 1].score,
@@ -339,7 +339,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
   Future<void> showSettingsDialog(BuildContext context) async {
     await showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return StatefulBuilder(
           builder: (context, setStateDialog) {
             return AlertDialog(
@@ -356,7 +356,7 @@ class _CurlingScoreboardScreenState extends State<CurlingScoreboardScreen> {
                   ),
                   RadioGroup<ScoreboardStyle>(
                     groupValue: gameObject.scoreboardStyle,
-                    onChanged: (ScoreboardStyle? value) {
+                    onChanged: (value) {
                       setStateDialog(() {
                         gameObject.scoreboardStyle = value!;
                       });

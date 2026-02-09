@@ -33,7 +33,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.21.0
         with:
-          flutter-version: "3.38.5"
+          flutter-version: "3.38.9"
           channel: "stable"
       - name: Get Flutter Packages
         run: flutter pub get
@@ -65,14 +65,15 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.21.0
         with:
-          flutter-version: "3.38.5"
+          flutter-version: "3.38.9"
           channel: "stable"
       - name: Setup Translations Cleaner
         run: flutter pub global activate translations_cleaner
       - name: Check For Unused Strings
         run: flutter pub run translations_cleaner list-unused-terms --abort-on-unused
   deploy_preview_to_firebase:
-    needs: [valdiate_pr_title, validate_code, validate_spelling, validate_strings]
+    needs:
+      [valdiate_pr_title, validate_code, validate_spelling, validate_strings]
     name: Deploy Preview to Firebase
     runs-on: ubuntu-latest
     steps:
@@ -81,7 +82,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.21.0
         with:
-          flutter-version: "3.38.5"
+          flutter-version: "3.38.9"
           channel: "stable"
       - name: Get Flutter Packages
         run: flutter pub get

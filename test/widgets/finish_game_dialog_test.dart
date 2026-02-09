@@ -13,7 +13,7 @@ Widget wrapWithMaterialApp(Widget child) {
 
 void main() {
   testWidgets('FinishGameDialog renders confirmation and buttons', (
-    WidgetTester tester,
+    tester,
   ) async {
     var finished = false;
     await tester.pumpWidget(

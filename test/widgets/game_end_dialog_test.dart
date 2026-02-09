@@ -17,7 +17,7 @@ Widget wrapWithMaterialApp(Widget child) {
 
 void main() {
   testWidgets('GameEndDialog renders with title and summary', (
-    WidgetTester tester,
+    tester,
   ) async {
     final game = CurlingGame(
       team1: CurlingTeam(

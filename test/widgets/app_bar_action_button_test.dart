@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('AppBarActionButton renders with label', (
-    WidgetTester tester,
+    tester,
   ) async {
     var tapped = false;
     await tester.pumpWidget(
@@ -25,7 +25,7 @@ void main() {
   });
 
   testWidgets('AppBarActionButton renders without label', (
-    WidgetTester tester,
+    tester,
   ) async {
     var tapped = false;
     await tester.pumpWidget(

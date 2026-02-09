@@ -13,7 +13,7 @@ Widget wrapWithMaterialApp(Widget child) {
 
 void main() {
   testWidgets('ScoreboardStaticNumberRow renders numbers and extra end', (
-    WidgetTester tester,
+    tester,
   ) async {
     var tappedNumber = 0;
     await tester.pumpWidget(

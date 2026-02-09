@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('ScoreboardTeamScoreRow renders scores and handles tap', (
-    WidgetTester tester,
+    tester,
   ) async {
     var tappedEnd = 0;
     await tester.pumpWidget(
